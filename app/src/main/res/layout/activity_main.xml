@@ -16,9 +16,37 @@
         app:labelVisibilityMode="unlabeled"
         app:menu="@menu/main" />
 
-    <FrameLayout
+    <RelativeLayout
         android:id="@+id/main_frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="140dp"
+            android:layout_marginBottom="65dp"
+            android:clickable="true"
+            android:contentDescription="TODO"
+            app:backgroundTint="@color/purple_200"
+            app:srcCompat="@drawable/ic_outline_task_24"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActionButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="210dp"
+            android:layout_marginBottom="65dp"
+            android:clickable="true"
+            android:contentDescription="TODO"
+            android:focusable="true"
+            app:backgroundTint="@color/purple_700"
+            app:srcCompat="@drawable/ic_baseline_mail_outline_24"
+            tools:ignore="SpeakableTextPresentCheck" />
+    </RelativeLayout>
 
 </RelativeLayout>
