@@ -107,10 +107,7 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="800dp"
-                android:text="어쩌구저쩌구" />
+            <!--이쪽에 프래그먼트 추가-->
         </LinearLayout>
     </ScrollView>
 </FrameLayout>
