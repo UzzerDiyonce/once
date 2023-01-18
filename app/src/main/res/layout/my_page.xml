@@ -14,7 +14,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <LinearLayout
@@ -24,7 +24,7 @@
                 android:orientation="horizontal">
                 <!--나중에 이미지 DB 연결해서 수정-->
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/circle_iv"
+                    android:id="@+id/mypage_profImage"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_marginLeft="25dp"
@@ -43,6 +43,7 @@
 
                     <!--나중에 닉네임 DB 연결해서 수정-->
                     <TextView
+                        android:id="@+id/mypage_profNickname"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
@@ -57,6 +58,7 @@
                         android:orientation="horizontal">
 
                         <TextView
+                            android:id="@+id/mypage_profFollower"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="15dp"
@@ -64,6 +66,7 @@
                             android:textSize="17sp" />
 
                         <TextView
+                            android:id="@+id/mypage_profFollowing"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="팔로잉 00명"
@@ -89,6 +92,7 @@
                 android:orientation="horizontal">
 
                 <Button
+                    android:id="@+id/mypage_diaryButton"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_gravity="left"
@@ -98,6 +102,7 @@
                     android:textStyle="bold" />
 
                 <Button
+                    android:id="@+id/mypage_capsuleButton"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_gravity="right"
@@ -108,6 +113,12 @@
             </LinearLayout>
 
             <!--이쪽에 프래그먼트 추가-->
+            <FrameLayout
+                android:id="@+id/mypage_container"
+                android:layout_width="match_parent"
+                android:layout_height="700dp"
+                android:layout_below="@+id/button"
+                android:background="@color/teal_700"></FrameLayout>
         </LinearLayout>
     </ScrollView>
 </FrameLayout>
