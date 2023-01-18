@@ -2,7 +2,6 @@ package com.example.once
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -13,7 +12,6 @@ class MainActivity : AppCompatActivity() {
     lateinit var bottomNav : BottomNavigationView           //하단 네비게이션 바 변수
     lateinit var diary: FloatingActionButton
     lateinit var timecapsule: FloatingActionButton
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +37,7 @@ class MainActivity : AppCompatActivity() {
                     diary.setVisibility(View.VISIBLE)
                     timecapsule.setVisibility(View.VISIBLE)
                     diary.setOnClickListener {
-                        //loadFragment(Diary())
+                        loadFragment(Diary())
                         diary.setVisibility(View.INVISIBLE)
                         timecapsule.setVisibility(View.INVISIBLE)
                     }
@@ -59,17 +57,11 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-    }
 
+    }
     private fun loadFragment(fragment: Fragment){
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.main_frame, fragment)
-        transaction.commit()
-    }
-
-    private fun setMypageFrag(fragment: Fragment) {
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.mypage_container, fragment)
         transaction.commit()
     }
 }
