@@ -12,20 +12,26 @@
     <!--제목 작성 기능-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
         <!--설명-->
         <TextView
             android:layout_width="60sp"
             android:layout_height="wrap_content"
             android:text="제목"
-            android:textSize="15sp"/>
+            android:textSize="18sp"/>
         <!--작성란-->
-        <EditText
-            android:id="@+id/edtTitle"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="50dp"
-            android:hint="제목을 입력하세요." />
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" >
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="50dp"
+                android:hint="내용을 입력하세요." />
+        </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
     <!--이미지 삽입 기능-->
@@ -33,13 +39,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="10dp" >
+        android:layout_marginTop="20dp" >
         <!--설명-->
         <TextView
-            android:layout_width="60sp"
+            android:layout_width="75sp"
             android:layout_height="wrap_content"
             android:text="그림 삽입"
-            android:textSize="15sp"/>
+            android:textSize="18sp"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -70,19 +76,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="10dp" >
+        android:layout_marginTop="20dp" >
         <!--설명-->
         <TextView
             android:layout_width="60sp"
             android:layout_height="wrap_content"
-            android:text="내용" />
+            android:text="내용"
+            android:textSize="18sp"/>
         <!--작성란-->
-        <EditText
-            android:id="@+id/edtContent"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="50dp"
-            android:hint="내용을 입력하세요." />
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" >
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="50dp"
+                android:hint="내용을 입력하세요."
+                android:lines="10" />
+        </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
     <!--작성 완료 버튼-->
