@@ -1,10 +1,15 @@
 package com.example.once
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -26,6 +31,8 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     private val RC_SIGN_IN = 99
     private lateinit var btn_googleSignIn: SignInButton
     private lateinit var login_layout: View
+    //접근 권한 허용
+    private var REQUEST_READ_EXTERNAL_STORAGE = 1000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +55,28 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
         //firebase auth 객체
         firebaseAuth = FirebaseAuth.getInstance()
+
+        //갤러리 접근 권한 설정
+        //권한이 부여되었는지 체크
+        if(ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+
+            //권한이 부여되지 않았다면
+            if(ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                //이전에 거부한 적이 있으면 설명(경고)
+                var dlg = AlertDialog.Builder(this)
+                dlg.setTitle("갤러리 접근 권한")
+                dlg.setMessage("일기에 사진을 첨부하려면 외부 저장소 권한이 필수로 필요합니다.")
+                dlg.setPositiveButton("확인"){ dialog, which -> ActivityCompat.requestPermissions(this,
+                    arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), REQUEST_READ_EXTERNAL_STORAGE) }
+                dlg.setNegativeButton("취소", null)
+                dlg.show()
+            } else {
+                // 처음 권한 요청
+                ActivityCompat.requestPermissions(this,
+                    arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), REQUEST_READ_EXTERNAL_STORAGE)
+            }
     }
 
     // onStart. 유저가 앱에 이미 구글 로그인을 했는지 확인

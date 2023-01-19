@@ -46,15 +46,13 @@ class MainActivity : AppCompatActivity() {
                     diary.setVisibility(View.VISIBLE)
                     timecapsule.setVisibility(View.VISIBLE)
                     diary.setOnClickListener {
-                        //loadFragment(Diary())
-                        diary.setVisibility(View.INVISIBLE)
-                        timecapsule.setVisibility(View.INVISIBLE)
+                        loadFragment(Diary())
                     }
                     timecapsule.setOnClickListener {
                         loadFragment(TimeCapsule())
-                        diary.setVisibility(View.INVISIBLE)
-                        timecapsule.setVisibility(View.INVISIBLE)
                     }
+                    diary.setVisibility(View.INVISIBLE)
+                    timecapsule.setVisibility(View.INVISIBLE)
                     true
                 }
                 R.id.item_mypage -> {                       //마이페이지 아이콘을 누르면 마이페이지

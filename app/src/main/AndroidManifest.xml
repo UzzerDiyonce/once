@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-    <!-- 갤러리 권한 (읽기/쓰기) -->
+
+    <!--갤러리 권한 (읽기/쓰기)-->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <!--카메라 권한-->
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <!--인터넷 권한-->
     <uses-permission android:name="android.permission.INTERNET" />
