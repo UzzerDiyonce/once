@@ -2,6 +2,7 @@ package com.example.once
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -37,7 +38,7 @@ class MainActivity : AppCompatActivity() {
                     diary.setVisibility(View.VISIBLE)
                     timecapsule.setVisibility(View.VISIBLE)
                     diary.setOnClickListener {
-                        loadFragment(Diary())
+                        //loadFragment(Diary())
                         diary.setVisibility(View.INVISIBLE)
                         timecapsule.setVisibility(View.INVISIBLE)
                     }
