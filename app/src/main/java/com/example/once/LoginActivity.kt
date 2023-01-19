@@ -3,6 +3,7 @@ package com.example.once
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -31,7 +32,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     private val RC_SIGN_IN = 99
     private lateinit var btn_googleSignIn: SignInButton
     private lateinit var login_layout: View
-    //접근 권한 허용
+
     private var REQUEST_READ_EXTERNAL_STORAGE = 1000
 
     override fun onCreate(savedInstanceState: Bundle?) {
