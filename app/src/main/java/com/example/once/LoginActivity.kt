@@ -56,18 +56,18 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         //firebase auth 객체
         firebaseAuth = FirebaseAuth.getInstance()
 
-        //갤러리 접근 권한 설정
-        //권한이 부여되었는지 체크
+        //카메라 및 갤러리 접근 권한 설정
+        //갤러리 권한이 부여되었는지 체크
         if(ContextCompat.checkSelfPermission(this,
                 Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
 
             //권한이 부여되지 않았다면
             if(ActivityCompat.shouldShowRequestPermissionRationale(this,
                     Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                //이전에 거부한 적이 있으면 설명(경고)
+                //이전에 거부한 적이 있다면 설명창 띄워 다시 설정하도록 함
                 var dlg = AlertDialog.Builder(this)
                 dlg.setTitle("갤러리 접근 권한")
-                dlg.setMessage("일기에 사진을 첨부하려면 외부 저장소 권한이 필수로 필요합니다.")
+                dlg.setMessage("일기에 사진을 첨부하려면 외부 저장소 권한이 필요합니다.")
                 dlg.setPositiveButton("확인"){ dialog, which -> ActivityCompat.requestPermissions(this,
                     arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), REQUEST_READ_EXTERNAL_STORAGE) }
                 dlg.setNegativeButton("취소", null)
@@ -76,6 +76,27 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                 // 처음 권한 요청
                 ActivityCompat.requestPermissions(this,
                     arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), REQUEST_READ_EXTERNAL_STORAGE)
+            }
+
+        //카메라 권한이 부여되었는지 체크
+        if(ContextCompat.checkSelfPermission(this,
+                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
+
+            //권한이 부여되지 않았다면
+            if(ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.CAMERA)) {
+                //이전에 거부한 적이 있다면 설명창 띄워 다시 설정하도록 함
+                var dlg = AlertDialog.Builder(this)
+                dlg.setTitle("카메라 접근 권한")
+                dlg.setMessage("일기에 사진을 첨부하려면 카메라 접근 권한이 필요합니다.")
+                dlg.setPositiveButton("확인"){ dialog, which -> ActivityCompat.requestPermissions(this,
+                    arrayOf(Manifest.permission.CAMERA), REQUEST_READ_EXTERNAL_STORAGE) }
+                dlg.setNegativeButton("취소", null)
+                dlg.show()
+            } else {
+                // 처음 권한 요청
+                ActivityCompat.requestPermissions(this,
+                    arrayOf(Manifest.permission.CAMERA), REQUEST_READ_EXTERNAL_STORAGE)
             }
     }
 
