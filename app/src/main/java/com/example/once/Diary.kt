@@ -1,6 +1,8 @@
 package com.example.once
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
@@ -12,27 +14,24 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import java.io.File
 
-class Diary : AppCompatActivity() {
+class Diary : Fragment() {
 
     lateinit var uploadBtn: Button
     lateinit var imgView: ImageView
 
+    private var REQUEST_READ_EXTERNAL_STORAGE = 1000
+
     @Override
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
-        setContentView(R.layout.diary)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-        uploadBtn = findViewById(R.id.drawing)
-        imgView = findViewById(R.id.pic)
-
-        uploadBtn.setOnClickListener(View.OnClickListener {
-            fun onClick(){
-                
-            }
-        });
     }
+
+
 }
