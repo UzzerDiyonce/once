@@ -13,6 +13,8 @@ class MyPage : Fragment() {
     lateinit var mypageDibtn : Button
     lateinit var mypageCapbtn : Button
 
+    lateinit var logoutBtn : Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //하단 네비게이션 바 구현
