@@ -5,17 +5,16 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.os.Bundle
+import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ScrollView
 import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
 
 class Feed : Fragment() {
-
     //lateinit var myHelper: myDBHelper //mainactivity에서 생성한 db이름
 
     lateinit var feedScrollView: ScrollView //피드 페이지의 스크롤뷰
@@ -23,6 +22,12 @@ class Feed : Fragment() {
     lateinit var feedImageButton: ImageButton //피드 페이지의 이미지버튼
     lateinit var feedLikeButton: ImageButton //피드 페이지의 좋아요 이미지버튼
     lateinit var feedTotalLikeText: TextView //피드 페이지의 좋아요 합계 텍스트뷰
+
+    @Override
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     @Override
     override fun onCreateView(
@@ -37,6 +42,24 @@ class Feed : Fragment() {
         feedLikeButton = view.findViewById(R.id.feed_likeBtn)
         feedTotalLikeText = view.findViewById(R.id.feed_totalLikeTxt)
         //return inflater.inflate(R.layout.feed, container, false)
+
+        var toolbar: Toolbar = view.findViewById(R.id.toolbar)
+        toolbar.inflateMenu(R.menu.toolbar_menu)
+        toolbar.setOnMenuItemClickListener{
+            when (it.itemId) {
+                R.id.searchMenu -> {
+                    //검색 버튼 눌렀을 때
+                    Log.d("Toolbar_item: ", "검색 클릭")
+                    true
+                }
+                R.id.alaramMenu -> {
+                    //알림 버튼 눌렀을 때
+                    Log.d("Toolbar_item: ", "알림 클릭")
+                    true
+                }
+                else -> false
+            }
+        }
 
         //db연결
         //sqlDB = myHelper.readableDatabase
@@ -62,6 +85,10 @@ class Feed : Fragment() {
         }
 
         return view
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.toolbar_menu, menu)
     }
 
 }
