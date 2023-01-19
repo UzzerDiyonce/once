@@ -23,8 +23,8 @@ class MainActivity : AppCompatActivity() {
         //하단 네비게이션 바 구현
         setContentView(R.layout.activity_main)
 
-        setSupportActionBar(findViewById(R.id.toolbar)) //toolbar 사용
-        supportActionBar?.setDisplayShowTitleEnabled(false) //toolbar 제목표시 안함.
+//        setSupportActionBar(findViewById(R.id.toolbar)) //toolbar 사용 시,
+//        supportActionBar?.setDisplayShowTitleEnabled(false) //toolbar 제목표시 안함.
 
         loadFragment(Feed())                                //처음 실행 시 피드 메뉴 띄우게 함
 
@@ -72,26 +72,26 @@ class MainActivity : AppCompatActivity() {
         transaction.commit()
     }
 
-    //item메뉴버튼 toolbar에 넣기
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.toolbar_menu, menu)
-        return true
-    }
-
-    //item클릭시
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item?.itemId) {
-            R.id.searchMenu -> {
-                //검색 버튼 눌렀을 때
-                Log.d("Toolbar_item: ", "검색 클릭")
-                return true
-            }
-            R.id.alaramMenu -> {
-                //알림 버튼 눌렀을 때
-                Log.d("Toolbar_item: ", "알림 클릭")
-                return true
-            }
-            else -> return super.onOptionsItemSelected(item)
-        }
-    }
+//    //item메뉴버튼 toolbar에 넣기
+//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+//        menuInflater.inflate(R.menu.toolbar_menu, menu)
+//        return true
+//    }
+//
+//    //item클릭시
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        when (item?.itemId) {
+//            R.id.searchMenu -> {
+//                //검색 버튼 눌렀을 때
+//                Log.d("Toolbar_item: ", "검색 클릭")
+//                return true
+//            }
+//            R.id.alaramMenu -> {
+//                //알림 버튼 눌렀을 때
+//                Log.d("Toolbar_item: ", "알림 클릭")
+//                return true
+//            }
+//            else -> return super.onOptionsItemSelected(item)
+//        }
+//    }
 }
