@@ -16,23 +16,17 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import java.io.File
 
-class Diary : AppCompatActivity() {
+class Diary : Fragment() {
 
     lateinit var uploadBtn: Button
     lateinit var imgView: ImageView
 
     @Override
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
-        setContentView(R.layout.diary)
-
-        uploadBtn = findViewById(R.id.drawing)
-        imgView = findViewById(R.id.pic)
-
-        uploadBtn.setOnClickListener(View.OnClickListener {
-            fun onClick(){
-                
-            }
-        });
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.diary, container, false)
     }
 }
