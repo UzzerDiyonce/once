@@ -1,6 +1,7 @@
 package com.example.once
 
 import android.content.Context
+import android.content.Intent
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
@@ -55,6 +56,7 @@ class Feed : Fragment() {
                 R.id.alaramMenu -> {
                     //알림 버튼 눌렀을 때
                     Log.d("Toolbar_item: ", "알림 클릭")
+                    startActivity(Intent(context, AlaramAcitivity::class.java))
                     true
                 }
                 else -> false
