@@ -1,16 +1,16 @@
 package com.example.once
 
-import android.Manifest
-import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
-import androidx.appcompat.app.AlertDialog
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,12 +18,14 @@ class MainActivity : AppCompatActivity() {
     lateinit var diary: FloatingActionButton
     lateinit var timecapsule: FloatingActionButton
 
-    private var REQUEST_READ_EXTERNAL_STORAGE = 1000
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //하단 네비게이션 바 구현
         setContentView(R.layout.activity_main)
+
+        setSupportActionBar(findViewById(R.id.toolbar)) //toolbar 사용
+        supportActionBar?.setDisplayShowTitleEnabled(false) //toolbar 제목표시 안함.
+
         loadFragment(Feed())                                //처음 실행 시 피드 메뉴 띄우게 함
 
         bottomNav = findViewById(R.id.bottomNavi)           //하단 네비게이션 바 불러오기
@@ -32,27 +34,6 @@ class MainActivity : AppCompatActivity() {
 
         diary.setVisibility(View.INVISIBLE)
         timecapsule.setVisibility(View.INVISIBLE)
-
-        //앱에 이미지 접근 권한을 부여하였는지 확인
-        if(ContextCompat.checkSelfPermission(this,
-                Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
-
-            //권한이 허용되지 않았다면
-            if(ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                //이전에 거부한 적이 있다면 권한이 필요한 이유를 설명한다.
-                var dlg = AlertDialog.Builder(this)
-                dlg.setTitle("갤러리 접근 권한 필요")
-                dlg.setMessage("갤러리에서 사진을 첨부하고자 할 때 외부 저장소 권한이 필수로 필요합니다.")
-                dlg.setPositiveButton("확인"){ dialog, which -> ActivityCompat.requestPermissions(this@MainActivity,
-                    arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), REQUEST_READ_EXTERNAL_STORAGE) }
-                dlg.setNegativeButton("취소", null)
-                dlg.show()
-            } else {
-                // 처음 권한 요청
-                ActivityCompat.requestPermissions(this@MainActivity,
-                    arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), REQUEST_READ_EXTERNAL_STORAGE)
-            }
 
         //네비게이션 바 메뉴 누를 시 액션
         bottomNav.setOnItemSelectedListener {
@@ -65,7 +46,7 @@ class MainActivity : AppCompatActivity() {
                     diary.setVisibility(View.VISIBLE)
                     timecapsule.setVisibility(View.VISIBLE)
                     diary.setOnClickListener {
-                        loadFragment(Diary())
+                        //loadFragment(Diary())
                         diary.setVisibility(View.INVISIBLE)
                         timecapsule.setVisibility(View.INVISIBLE)
                     }
@@ -91,5 +72,28 @@ class MainActivity : AppCompatActivity() {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.main_frame, fragment)
         transaction.commit()
+    }
+
+    //item메뉴버튼 toolbar에 넣기
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.toolbar_menu, menu)
+        return true
+    }
+
+    //item클릭시
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item?.itemId) {
+            R.id.searchMenu -> {
+                //검색 버튼 눌렀을 때
+                Log.d("Toolbar_item: ", "검색 클릭")
+                return true
+            }
+            R.id.alaramMenu -> {
+                //알림 버튼 눌렀을 때
+                Log.d("Toolbar_item: ", "알림 클릭")
+                return true
+            }
+            else -> return super.onOptionsItemSelected(item)
+        }
     }
 }

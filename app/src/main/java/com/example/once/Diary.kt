@@ -1,59 +1,38 @@
 package com.example.once
 
-<<<<<<< Updated upstream
-import android.Manifest
-import android.content.pm.PackageManager
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-=======
-import android.os.Bundle
+import android.os.Environment
 import android.os.PersistableBundle
->>>>>>> Stashed changes
+import android.provider.MediaStore
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
-<<<<<<< Updated upstream
-import androidx.appcompat.app.AlertDialog
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-=======
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
->>>>>>> Stashed changes
+import androidx.core.app.ActivityCompat
+import java.io.File
 
-class Diary : Fragment() {
+class Diary : AppCompatActivity() {
 
-    lateinit var uploadBtn: Button                      //이미지 업로드 버튼
-    lateinit var imgView: ImageView                     //이미지 미리보기 뷰
-    private var uri: String? = null                     //이미지 경로
+    lateinit var uploadBtn: Button
+    lateinit var imgView: ImageView
 
     @Override
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-<<<<<<< Updated upstream
+    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
+        super.onCreate(savedInstanceState, persistentState)
+        setContentView(R.layout.diary)
 
+        uploadBtn = findViewById(R.id.drawing)
+        imgView = findViewById(R.id.pic)
 
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.diary, container, false)
-=======
-
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return super.onCreateView(inflater, container, savedInstanceState)
-
->>>>>>> Stashed changes
+        uploadBtn.setOnClickListener(View.OnClickListener {
+            fun onClick(){
+                
+            }
+        });
     }
 }
