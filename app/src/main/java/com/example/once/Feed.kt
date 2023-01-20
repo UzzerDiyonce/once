@@ -44,6 +44,7 @@ class Feed : Fragment() {
         feedTotalLikeText = view.findViewById(R.id.feed_totalLikeTxt)
         //return inflater.inflate(R.layout.feed, container, false)
 
+        //툴바 관련 설정 --->
         var toolbar: Toolbar = view.findViewById(R.id.toolbar)
         toolbar.inflateMenu(R.menu.toolbar_menu)
         toolbar.setOnMenuItemClickListener{

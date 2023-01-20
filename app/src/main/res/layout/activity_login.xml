@@ -32,9 +32,10 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <Button
+            android:id="@+id/logoutButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="로그인"
+            android:text="로그아웃"
             android:layout_weight="1"/>
         <Button
             android:layout_width="wrap_content"

@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -31,7 +32,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     private val RC_SIGN_IN = 99
     private lateinit var btn_googleSignIn: SignInButton
     private lateinit var login_layout: View
-
+    private lateinit var logout: Button
     private var REQUEST_READ_EXTERNAL_STORAGE = 1000
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,7 +41,9 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
         login_layout = findViewById(R.id.login_layout)
         btn_googleSignIn = findViewById(R.id.btn_googleSignIn)
+        logout = findViewById(R.id.logoutButton)
 
+        logout.setOnClickListener { signOut() } //로그아웃
         //btn_googleSignIn.setOnClickListener (this) // 구글 로그인 버튼
         btn_googleSignIn.setOnClickListener {signIn()}
         //Google 로그인 옵션 구성. requestIdToken 및 Email 요청
