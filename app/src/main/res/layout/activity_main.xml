@@ -54,6 +54,7 @@
             android:focusable="true"
             app:backgroundTint="@color/purple_200"
             app:srcCompat="@drawable/ic_outline_task_24"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.MaterialComponents.LargeComponent"
             tools:ignore="SpeakableTextPresentCheck,DuplicateSpeakableTextCheck,ImageContrastCheck" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -69,6 +70,7 @@
             app:backgroundTint="@color/purple_700"
             app:tint = "@color/white"
             app:srcCompat="@drawable/ic_baseline_mail_outline_24"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.MaterialComponents.LargeComponent"
             tools:ignore="SpeakableTextPresentCheck,DuplicateSpeakableTextCheck,ImageContrastCheck"/>
     </RelativeLayout>
 
