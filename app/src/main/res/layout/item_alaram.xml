@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_marginTop="2dp"
@@ -15,32 +15,46 @@
 
         <ImageView
             android:id="@+id/imageView2"
-            android:layout_width="3dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="23dp"
+            android:layout_marginStart="33dp"
+            android:layout_marginTop="20dp"
             android:layout_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/defaultprofileicon" />
 
         <TextView
             android:id="@+id/textView"
-            android:fontFamily="@font/slackey_regular"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_width="220dp"
+            android:layout_height="40dp"
             android:layout_gravity="center"
-            android:text="TextView" />
+            android:layout_marginStart="13dp"
+            android:layout_marginTop="15dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/font_lee"
+            android:gravity="center_vertical"
+            android:text="alaram messages"
+            android:textColor="#2A1D17"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/imageView2"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="30dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginRight="27dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="25dp"
             android:layout_weight="1"
-            android:text="TextView" />
+            android:fontFamily="@font/font_lee"
+            android:text="1분 전"
+            android:textColor="#8A7267"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/textView"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView
         android:id="@+id/imageView3"
