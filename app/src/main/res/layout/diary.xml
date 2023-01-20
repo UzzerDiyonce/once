@@ -4,60 +4,64 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:paddingLeft="20dp"
     android:paddingTop="20dp"
     android:paddingRight="20dp"
-    android:paddingLeft="20dp"
-    tools:context=".Diary">
+    android:textAppearance="@style/TextStyle"
+    android:background="@drawable/loadback"
+    tools:context=".DiaryActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/diarylayout" >
+
+    </ImageView>
 
     <!--제목 작성 기능-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:textAppearance="@style/TextStyle" >
         <!--설명-->
         <TextView
             android:layout_width="60sp"
             android:layout_height="wrap_content"
-            android:text="제목"
-            android:textSize="18sp"/>
+            android:text="제목" />
         <!--작성란-->
-        <com.google.android.material.textfield.TextInputLayout
+        <EditText
+            android:id="@+id/edtTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" >
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edtTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="50dp"
-                android:hint="내용을 입력하세요." />
-        </com.google.android.material.textfield.TextInputLayout>
+            android:hint="제목 쓰기" />
     </LinearLayout>
 
     <!--이미지 삽입 기능-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:orientation="vertical"
-        android:layout_marginTop="20dp" >
+        android:textAppearance="@style/TextStyle">
         <!--설명-->
         <TextView
             android:layout_width="75sp"
             android:layout_height="wrap_content"
-            android:text="그림 삽입"
-            android:textSize="18sp"/>
+            android:text="그림 삽입" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center" >
+            android:layout_gravity="center">
             <!--이미지 삽입-->
             <Button
                 android:id="@+id/drawing"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="삽입하기"
                 android:layout_gravity="center"
-                android:onClick="onClick"/>
+                android:onClick="onClick"
+                android:text="삽입하기" />
             <!--삽입한 이미지 보여주기-->
             <ImageView
                 android:id="@+id/pic"
@@ -75,39 +79,20 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:orientation="vertical"
-        android:layout_marginTop="20dp" >
+        android:textAppearance="@style/TextStyle">
         <!--설명-->
         <TextView
             android:layout_width="60sp"
             android:layout_height="wrap_content"
-            android:text="내용"
-            android:textSize="18sp"/>
+            android:text="내용" />
         <!--작성란-->
-        <com.google.android.material.textfield.TextInputLayout
+        <EditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" >
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edtContent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="50dp"
-                android:hint="내용을 입력하세요."
-                android:lines="10" />
-        </com.google.android.material.textfield.TextInputLayout>
-    </LinearLayout>
+            android:layout_height="wrap_content" >
 
-    <!--작성 완료 버튼-->
-    <LinearLayout
-        android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-        <Button
-            android:id="@+id/btnRegister"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="작성하기" />
+        </EditText>
     </LinearLayout>
 
 </LinearLayout>
