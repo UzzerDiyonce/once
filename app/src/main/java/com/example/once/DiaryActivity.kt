@@ -15,7 +15,7 @@ class DiaryActivity : AppCompatActivity() {
     @Override
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.diary)
+        setContentView(R.layout.activity_diary)
     }
 
 

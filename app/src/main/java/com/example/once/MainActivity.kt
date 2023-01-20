@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -47,18 +46,15 @@ class MainActivity : AppCompatActivity() {
                     diary.setVisibility(View.VISIBLE)
                     timecapsule.setVisibility(View.VISIBLE)
                     diary.setOnClickListener {
-                        diary.setVisibility(View.INVISIBLE)
-                        timecapsule.setVisibility(View.INVISIBLE)
-
                         val intent = Intent(this, DiaryActivity::class.java);
                         startActivity(intent)
                     }
                     timecapsule.setOnClickListener {
-                        diary.setVisibility(View.INVISIBLE)
-                        timecapsule.setVisibility(View.INVISIBLE)
-
-                        loadFragment(TimeCapsule())
+                        val intent = Intent(this, TimeCapsuleActivity::class.java);
+                        startActivity(intent)
                     }
+                    diary.setVisibility(View.INVISIBLE)
+                    timecapsule.setVisibility(View.INVISIBLE)
                     true
                 }
                 R.id.item_mypage -> {                       //마이페이지 아이콘을 누르면 마이페이지
