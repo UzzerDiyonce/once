@@ -3,4 +3,7 @@
     <font android:fontStyle="normal"
         android:fontWeight="400"
         android:font="@font/slackey_regular" />
+    <font android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/font_lee" />
 </font-family>
