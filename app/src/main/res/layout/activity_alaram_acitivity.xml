@@ -10,7 +10,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp">
+        android:layout_height="60dp">
 
         <ImageButton
             android:id="@+id/leftArrowBtn"
@@ -48,8 +48,7 @@
         android:id="@+id/AlaramlistView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="27dp"
-        android:layout_marginRight="27dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_alaram"/>
 
 </LinearLayout>
