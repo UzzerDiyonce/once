@@ -1,5 +1,6 @@
 package com.example.once
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -29,8 +30,8 @@ class MainActivity : AppCompatActivity() {
         loadFragment(Feed())                                //처음 실행 시 피드 메뉴 띄우게 함
 
         bottomNav = findViewById(R.id.bottomNavi)           //하단 네비게이션 바 불러오기
-        diary = findViewById(R.id.diary)
-        timecapsule = findViewById(R.id.timeCapsule)
+        diary = findViewById<FloatingActionButton>(R.id.diary)
+        timecapsule = findViewById<FloatingActionButton>(R.id.timeCapsule)
 
         diary.setVisibility(View.INVISIBLE)
         timecapsule.setVisibility(View.INVISIBLE)
@@ -46,13 +47,18 @@ class MainActivity : AppCompatActivity() {
                     diary.setVisibility(View.VISIBLE)
                     timecapsule.setVisibility(View.VISIBLE)
                     diary.setOnClickListener {
-                        loadFragment(Diary())
+                        diary.setVisibility(View.INVISIBLE)
+                        timecapsule.setVisibility(View.INVISIBLE)
+
+                        val intent = Intent(this, DiaryActivity::class.java);
+                        startActivity(intent)
                     }
                     timecapsule.setOnClickListener {
+                        diary.setVisibility(View.INVISIBLE)
+                        timecapsule.setVisibility(View.INVISIBLE)
+
                         loadFragment(TimeCapsule())
                     }
-                    diary.setVisibility(View.INVISIBLE)
-                    timecapsule.setVisibility(View.INVISIBLE)
                     true
                 }
                 R.id.item_mypage -> {                       //마이페이지 아이콘을 누르면 마이페이지
@@ -64,7 +70,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
     }
     private fun loadFragment(fragment: Fragment){
         val transaction = supportFragmentManager.beginTransaction()
