@@ -53,8 +53,6 @@ class MainActivity : AppCompatActivity() {
                         val intent = Intent(this, TimeCapsuleActivity::class.java);
                         startActivity(intent)
                     }
-                    diary.setVisibility(View.INVISIBLE)
-                    timecapsule.setVisibility(View.INVISIBLE)
                     true
                 }
                 R.id.item_mypage -> {                       //마이페이지 아이콘을 누르면 마이페이지
