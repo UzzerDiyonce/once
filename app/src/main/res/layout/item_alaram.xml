@@ -14,7 +14,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/alarm_profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="33dp"
@@ -25,7 +25,7 @@
             app:srcCompat="@drawable/defaultprofileicon" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/alarm_comment"
             android:layout_width="220dp"
             android:layout_height="40dp"
             android:layout_gravity="center"
@@ -34,14 +34,14 @@
             android:layout_weight="1"
             android:fontFamily="@font/font_lee"
             android:gravity="center_vertical"
-            android:text="alaram messages"
+            android:text="alarm messages"
             android:textColor="#2A1D17"
             android:textSize="16sp"
-            app:layout_constraintStart_toEndOf="@+id/imageView2"
+            app:layout_constraintStart_toEndOf="@+id/alarm_profile"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/alarm_lastTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
@@ -51,7 +51,7 @@
             android:text="n분 전"
             android:textColor="#8A7267"
             android:textSize="16sp"
-            app:layout_constraintStart_toEndOf="@+id/textView"
+            app:layout_constraintStart_toEndOf="@+id/alarm_message"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
