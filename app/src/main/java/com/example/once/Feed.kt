@@ -1,28 +1,29 @@
 package com.example.once
 
-import android.content.Context
+import android.annotation.SuppressLint
 import android.content.Intent
-import android.database.Cursor
-import android.database.sqlite.SQLiteDatabase
-import android.database.sqlite.SQLiteOpenHelper
+import android.media.Image
 import android.os.Bundle
 import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
-import android.widget.Button
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.ScrollView
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.android.synthetic.main.feed.view.*
+import kotlinx.android.synthetic.main.item_alaram.view.*
+import kotlinx.android.synthetic.main.item_feed.*
+import kotlinx.android.synthetic.main.item_feed.view.*
 
 class Feed : Fragment() {
-    //lateinit var myHelper: myDBHelper //mainactivity에서 생성한 db이름
-
-    lateinit var feedScrollView: ScrollView //피드 페이지의 스크롤뷰
-    lateinit var feedNameText: TextView //피드 페이지의 닉네임 텍스트뷰
-    lateinit var feedImageButton: ImageButton //피드 페이지의 이미지버튼
-    lateinit var feedLikeButton: ImageButton //피드 페이지의 좋아요 이미지버튼
-    lateinit var feedTotalLikeText: TextView //피드 페이지의 좋아요 합계 텍스트뷰
 
     @Override
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,12 +38,9 @@ class Feed : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.feed, container, false)
 
-        feedScrollView = view.findViewById(R.id.feed_scrollView)
-        feedNameText = view.findViewById(R.id.feed_nickTxt)
-        feedImageButton = view.findViewById(R.id.feed_imageBtn)
-        feedLikeButton = view.findViewById(R.id.feed_likeBtn)
-        feedTotalLikeText = view.findViewById(R.id.feed_totalLikeTxt)
-        //return inflater.inflate(R.layout.feed, container, false)
+        //recycler뷰 관련 설정
+        view.FeedRecyclerView.layoutManager = LinearLayoutManager(activity)
+        view.FeedRecyclerView.adapter = RecyclerViewAdapter()
 
         //툴바 관련 설정 --->
         var toolbar: Toolbar = view.findViewById(R.id.toolbar)
@@ -64,34 +62,66 @@ class Feed : Fragment() {
             }
         }
 
-        //db연결
-        //sqlDB = myHelper.readableDatabase
-        //var cursor: Cursor
-        //cursor = sqlDB.rawQuery("SELECT * FROM diaryTBL;", null)
-        //var strNames = "닉네임" + "\r\n" + "--------" + "\r\n"
-        //var strLikes = "좋아요" + "\r\n" + "--------" + "\r\n"
-        //var strImage = "이미지" + "\r\n" + "--------" + "\r\n"
-        //var strContents = "내용" + "\r\n" + "--------" + "\r\n"
-        //while (cursor.moveToNext()) {
-            //strNames += cursor.getString(0) + "\r\n"
-            //strNumbers += cursor.getString(1) + "\r\n"
-        //}
-        //feedNameText.setText(strNames)
-        //feedTotalLikeText.setText(strLikes)
-        //feedImageButton.setText(strImage)
-        //cursor.close()
-        //sqlDB.close()
+        return view
+    }
 
-        //피드에서 일기의 이미지를 클릭하면
-        feedImageButton.setOnClickListener{
-            //특정 일기 fragment로 이동
+    inner class RecyclerViewAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+        var feedDTOList: ArrayList<FeedDTO> = arrayListOf()
+
+        init {
+            val uid = FirebaseAuth.getInstance().currentUser?.uid
+
+            FirebaseFirestore.getInstance().collection("feeds").whereEqualTo("destinationUid", uid)
+                .addSnapshotListener { value, error ->
+                    feedDTOList.clear()
+                    if(value == null) return@addSnapshotListener
+
+                    for(snapshot in value.documents){
+                        feedDTOList.add(snapshot.toObject(FeedDTO::class.java)!!)
+                        //feedDTOList.add(snapshot.toObject(Class <feedDTOList::class.java>))
+                    }
+                    notifyDataSetChanged()
+                }
         }
 
-        return view
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+            var view = LayoutInflater.from(parent.context).inflate(R.layout.item_feed, parent, false)
+            return CustomViewHolder (view)
+        }
+        inner class CustomViewHolder(view: View) : RecyclerView.ViewHolder(view)
+
+        override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+            var view = holder.itemView
+
+            FirebaseFirestore.getInstance().collection("profileImages").document(feedDTOList[position].uid!!).get()
+                .addOnCompleteListener { task ->
+                    if(task.isSuccessful){
+                        val url = task.result!!["image"]
+                        Glide.with(view.context).load(url).apply(RequestOptions().circleCrop()).into(view.findViewById(R.id.feedItemProfile))
+                    }
+                }
+
+            when(feedDTOList[position].kind){
+                0 -> {
+                    val str_0 = feedDTOList[position].userId + ""
+                    view.feedContenetView.text = str_0
+                }
+                1 -> {
+                    val str_0 = feedDTOList[position].userId + ""
+                    view.feedItemTitle.text = str_0
+                }
+            }
+            view.alarm_comment.visibility = View.INVISIBLE
+        }
+
+        override fun getItemCount(): Int {
+            return feedDTOList.size
+        }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.toolbar_menu, menu)
     }
-
 }
