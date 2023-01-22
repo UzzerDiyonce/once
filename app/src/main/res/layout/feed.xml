@@ -6,7 +6,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/loadback"
     tools:context=".Feed">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#00FFFFFF"
+        android:minHeight="?attr/actionBarSize"
+        app:contentInsetStart="0dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/slackey_regular"
+            android:text=":once"
+            android:textColor="#2A1D17"
+            android:textSize="32dp" />
+
+    </androidx.appcompat.widget.Toolbar>
 
     <ScrollView
         android:id="@+id/feed_scrollView"
