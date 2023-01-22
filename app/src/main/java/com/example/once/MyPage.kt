@@ -10,24 +10,6 @@ import android.widget.LinearLayout
 
 class MyPage : Fragment() {
 
-    lateinit var mypageDibtn : Button
-    lateinit var mypageCapbtn : Button
-
-    lateinit var logoutBtn : Button
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        //하단 네비게이션 바 구현
-        setMypageFragment(MyPage_Diary())
-
-        mypageDibtn.setOnClickListener() {
-            setMypageFragment(MyPage_Diary())
-        }
-        mypageCapbtn.setOnClickListener(){
-            setMypageFragment(MyPage_Capsule())
-        }
-    }
-
     @Override
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,11 +18,5 @@ class MyPage : Fragment() {
         val mypage_view = inflater.inflate(R.layout.my_page, container, false)
 
         return mypage_view
-    }
-
-    public fun setMypageFragment(fragment: Fragment){
-        val transaction = childFragmentManager.beginTransaction()
-        transaction.replace(R.id.mypage_container, fragment)
-        transaction.commit()
     }
 }
