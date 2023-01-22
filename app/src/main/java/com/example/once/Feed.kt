@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.item_alaram.view.*
 import kotlinx.android.synthetic.main.item_feed.view.*
 
 class Feed : Fragment() {
+    private var firestore: FirebaseFirestore? = null
 
     @Override
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,6 +31,9 @@ class Feed : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.feed, container, false)
+
+        //파이어스토어 초기화
+       firestore = FirebaseFirestore.getInstance()
 
         //recycler뷰 관련 설정
         view.FeedRecyclerView.layoutManager = LinearLayoutManager(activity)
@@ -95,7 +99,7 @@ class Feed : Fragment() {
                     }
                 }
 
-            when(feedDTOList[position].kind){
+            when(feedDTOList[position].weather_kind){
                 0 -> {
                     val str_0 = feedDTOList[position].userId + ""
                     view.feedContenetView.text = str_0
