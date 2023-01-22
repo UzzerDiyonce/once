@@ -10,10 +10,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 
 class MainActivity : AppCompatActivity() {
-
+    val db = Firebase.firestore
     lateinit var bottomNav : BottomNavigationView           //하단 네비게이션 바 변수
     lateinit var diary: FloatingActionButton
     lateinit var timecapsule: FloatingActionButton

@@ -1,16 +1,10 @@
 package com.example.once
 
-import android.annotation.SuppressLint
 import android.content.Intent
-import android.media.Image
 import android.os.Bundle
 import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.ScrollView
-import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,7 +14,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.feed.view.*
 import kotlinx.android.synthetic.main.item_alaram.view.*
-import kotlinx.android.synthetic.main.item_feed.*
 import kotlinx.android.synthetic.main.item_feed.view.*
 
 class Feed : Fragment() {
