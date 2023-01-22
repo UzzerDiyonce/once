@@ -7,11 +7,27 @@
         <deviceKey>
           <Key>
             <type value="VIRTUAL_DEVICE_PATH" />
+              chy
+              Updated upstream
+            <value value="C:\Users\user\.android\avd\Nexus_5X_API_32.avd" />
+
+            <value value="C:\Users\user\.android\avd\Nexus_5X_API_32_2.avd" />
+              Stashed changes
+
             <value value="C:\CookAndroid\.android\avd\Nexus_5X_API_32_2.avd" />
+              main
           </Key>
         </deviceKey>
       </Target>
     </targetSelectedWithDropDown>
+      chy
+      Updated upstream
+    <timeTargetWasSelectedWithDropDown value="2023-01-20T06:55:17.701578Z" />
+
+    <timeTargetWasSelectedWithDropDown value="2023-01-21T20:29:07.462269300Z" />
+      Stashed changes
+
     <timeTargetWasSelectedWithDropDown value="2023-01-18T12:36:31.778567300Z" />
+      main
   </component>
 </project>
