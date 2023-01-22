@@ -19,18 +19,6 @@
         android:theme="@style/Theme.Once"
         tools:targetApi="31">
         <activity
-        chy
-        Updated upstream
-
-            android:name=".SettingActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-
-        main
             android:name=".SearchActivity"
             android:exported="false">
             <meta-data
@@ -45,9 +33,6 @@
                 android:value="" />
         </activity>
         <activity
-        chy
-        Stashed changes
-        main
             android:name=".LoginActivity"
             android:exported="false">
             <meta-data
@@ -76,17 +61,12 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        chy
-        Updated upstream
-        main
 
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        chy
 
-        main
         <activity
             android:name=".DiaryActivity"
             android:exported="true">
@@ -94,16 +74,10 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        chy
-        <activity
-            android:name=".TimeCapsuleActivity"
-            android:exported="true">
-            Stashed changes
 
         <activity
             android:name=".TimeCapsuleActivity"
             android:exported="true">
-            main
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
