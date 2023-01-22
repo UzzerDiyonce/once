@@ -27,13 +27,18 @@ class AlaramAcitivity : AppCompatActivity() {
         //메인페이지로 돌아가기 버튼
         backBtn = findViewById(R.id.leftArrowBtn)
         backBtn.setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java))
+            onBackPressed()
+            //startActivity(Intent(this, MainActivity::class.java))
         }
 
         //recycler뷰 관련 설정
         AlaramlistView = findViewById(R.id.AlaramlistView)
         AlaramlistView.adapter = RecyclerViewAdapter()
         AlaramlistView.layoutManager = LinearLayoutManager(this)
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
     }
     inner class RecyclerViewAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
