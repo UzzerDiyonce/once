@@ -1,34 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:orientation="vertical"
+    android:background="@drawable/loadback"
     tools:context=".MyPage">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/mp_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/toolbar_back"
+        android:minHeight="?attr/actionBarSize"
+        app:contentInsetStart="0dp" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_gravity="center_vertical"
+            android:fontFamily="@font/slackey_regular"
+            android:text=":once"
+            android:textColor="#2A1D17"
+            android:textSize="32dp" />
+
+    </androidx.appcompat.widget.Toolbar>
 
     <ScrollView
         android:id="@+id/mypage_scroll"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mp_toolbar">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@+id/mp_toolbar">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal"
                 android:orientation="horizontal">
                 <!--나중에 이미지 DB 연결해서 수정-->
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/mypage_profImage"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_marginLeft="25dp"
-                    android:layout_marginRight="20dp"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_marginRight="15dp"
                     android:background="@android:color/transparent"
                     android:src="@drawable/mypage_profile_img"
                     app:civ_border_color="#000000"
@@ -46,8 +69,10 @@
                         android:id="@+id/mypage_profNickname"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginBottom="6dp"
                         android:text="닉네임은뭘로할까"
+                        android:fontFamily="@font/font_lee"
+                        android:textColor="#4C6701"
                         android:textSize="22sp"
                         android:textStyle="bold" />
 
@@ -59,10 +84,20 @@
 
                         <TextView
                             android:id="@+id/mypage_profFollower"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="20dp"
+                            android:text="안녕하세요, 한줄소개입니다."
+                            android:fontFamily="@font/font_lee"
+                            android:textSize="17sp" />
+
+                        <!--<TextView
+                            android:id="@+id/mypage_profFollower"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="15dp"
+                            android:layout_marginRight="20dp"
                             android:text="팔로워 00명"
+                            android:fontFamily="@font/font_lee"
                             android:textSize="17sp" />
 
                         <TextView
@@ -70,61 +105,67 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="팔로잉 00명"
-                            android:textSize="17sp" />
+                            android:fontFamily="@font/font_lee"
+                            android:textSize="17sp" />-->
                     </LinearLayout>
                 </LinearLayout>
 
                 <ImageButton
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginTop="7dp"
+                    android:layout_gravity="center_vertical"
                     android:background="@android:color/transparent"
                     android:padding="0sp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/ic_baseline_settings_24" />
+                    android:src="@drawable/setting" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/mypage_btnList"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
                 android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/mypage_diaryButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
                     android:layout_gravity="left"
-                    android:layout_weight="1"
+                    android:layout_marginRight="30dp"
+                    android:background="@drawable/button_rectangle"
                     android:text="그림일기"
-                    android:textSize="18sp"
+                    android:fontFamily="@font/font_lee"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/mypage_capsuleButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
                     android:layout_gravity="right"
-                    android:layout_weight="1"
+                    android:background="@drawable/button_rectangle"
                     android:text="타임캡슐"
-                    android:textSize="18sp"
+                    android:fontFamily="@font/font_lee"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
             </LinearLayout>
-            <Button
+            <!--<Button
                 android:id="@+id/mypage_logout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="로그아웃"/>
+                android:text="로그아웃"/>-->
 
             <!--이쪽에 프래그먼트 추가-->
             <FrameLayout
                 android:id="@+id/mypage_container"
                 android:layout_width="match_parent"
                 android:layout_height="700dp"
-                android:layout_below="@+id/button"
-                android:background="@color/teal_700"></FrameLayout>
+                android:layout_marginTop="20dp"
+                android:layout_below="@+id/mypage_btnList">
+            </FrameLayout>
         </LinearLayout>
     </ScrollView>
-</FrameLayout>
+</RelativeLayout>
