@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_gravity="center_vertical"
+            android:layout_marginTop="8dp"
             android:fontFamily="@font/slackey_regular"
             android:text=":once"
             android:textColor="#2A1D17"
@@ -40,79 +40,67 @@
             android:layout_below="@+id/mp_toolbar">
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="144dp"
+                android:layout_marginTop="5dp"
                 android:layout_gravity="center_horizontal"
-                android:orientation="horizontal">
+                android:background="@drawable/mypage_nametag"
+                android:orientation="vertical">
                 <!--나중에 이미지 DB 연결해서 수정-->
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/mypage_profImage"
-                    android:layout_width="75dp"
-                    android:layout_height="75dp"
-                    android:layout_marginRight="15dp"
-                    android:background="@android:color/transparent"
-                    android:src="@drawable/mypage_profile_img"
-                    app:civ_border_color="#000000"
-                    app:civ_border_overlay="true"
-                    app:civ_border_width="2dp" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:orientation="vertical">
+                    android:layout_marginTop="23dp"
+                    android:layout_marginLeft="94dp"
+                    android:orientation="horizontal">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/mypage_profImage"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginRight="15dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/mypage_profile_img"
+                        app:civ_border_color="#000000"
+                        app:civ_border_overlay="true"
+                        app:civ_border_width="1dp" />
 
                     <!--나중에 닉네임 DB 연결해서 수정-->
                     <TextView
                         android:id="@+id/mypage_profNickname"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="6dp"
                         android:text="닉네임은뭘로할까"
+                        android:layout_gravity="center_vertical"
                         android:fontFamily="@font/font_lee"
                         android:textColor="#4C6701"
                         android:textSize="22sp"
                         android:textStyle="bold" />
-
-                    <!--나중에 팔로워/팔로잉 DB 연결해서 수정-->
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/mypage_profFollower"
-                            android:layout_width="200dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="20dp"
-                            android:text="안녕하세요, 한줄소개입니다."
-                            android:fontFamily="@font/font_lee"
-                            android:textSize="17sp" />
-
-                        <!--<TextView
-                            android:id="@+id/mypage_profFollower"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="20dp"
-                            android:text="팔로워 00명"
-                            android:fontFamily="@font/font_lee"
-                            android:textSize="17sp" />
-
-                        <TextView
-                            android:id="@+id/mypage_profFollowing"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="팔로잉 00명"
-                            android:fontFamily="@font/font_lee"
-                            android:textSize="17sp" />-->
-                    </LinearLayout>
                 </LinearLayout>
 
+                <ImageView
+                    android:layout_width="235dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="85dp"
+                    android:src="@drawable/division_line"/>
+
+                <TextView
+                    android:id="@+id/mypage_profIntro"
+                    android:layout_width="210dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-5dp"
+                    android:layout_marginLeft="95dp"
+                    android:text="안녕하세요, 한줄소개입니다. 글이 길어지면 이렇게 내려갑니다."
+                    android:fontFamily="@font/font_lee"
+                    android:textSize="16sp" />
+
                 <ImageButton
+                    android:id="@+id/mypage_setting"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="333dp"
+                    android:layout_marginTop="-72dp"
                     android:layout_gravity="center_vertical"
                     android:background="@android:color/transparent"
                     android:padding="0sp"
@@ -125,7 +113,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:orientation="horizontal">
 
                 <Button
@@ -133,11 +121,12 @@
                     android:layout_width="150dp"
                     android:layout_height="50dp"
                     android:layout_gravity="left"
-                    android:layout_marginRight="30dp"
-                    android:background="@drawable/button_rectangle"
+                    android:layout_marginRight="35dp"
+                    android:background="#00ff0000"
                     android:text="그림일기"
+                    android:layout_weight="1"
                     android:fontFamily="@font/font_lee"
-                    android:textSize="20sp"
+                    android:textSize="25sp"
                     android:textStyle="bold" />
 
                 <Button
@@ -145,10 +134,12 @@
                     android:layout_width="150dp"
                     android:layout_height="50dp"
                     android:layout_gravity="right"
-                    android:background="@drawable/button_rectangle"
+                    android:background="#00ff0000"
                     android:text="타임캡슐"
+                    android:layout_weight="1"
                     android:fontFamily="@font/font_lee"
-                    android:textSize="20sp"
+                    android:textSize="25sp"
+                    android:textColor="#8A7267"
                     android:textStyle="bold" />
             </LinearLayout>
             <!--<Button
@@ -157,13 +148,19 @@
                 android:layout_height="wrap_content"
                 android:text="로그아웃"/>-->
 
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="700dp"
+                android:layout_marginTop="-77dp"
+                android:src="@drawable/mypage_box_outline"
+                android:scaleType="centerCrop"></ImageView>
             <!--이쪽에 프래그먼트 추가-->
             <FrameLayout
                 android:id="@+id/mypage_container"
                 android:layout_width="match_parent"
-                android:layout_height="700dp"
-                android:layout_marginTop="20dp"
-                android:layout_below="@+id/mypage_btnList">
+                android:layout_height="550dp"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="-580dp">
             </FrameLayout>
         </LinearLayout>
     </ScrollView>
