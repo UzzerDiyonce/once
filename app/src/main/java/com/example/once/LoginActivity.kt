@@ -154,6 +154,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     fun toMainActivity(user: FirebaseUser?) {
         if(user !=null) { // MainActivity 로 이동
             startActivity(Intent(this, MainActivity::class.java))
+            register()
             finish()
         }
     } // toMainActivity End
@@ -185,5 +186,11 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         googleSignInClient.revokeAccess().addOnCompleteListener(this) {
 
         }
+    }
+
+    private fun register() {
+        var feedDTO = FeedDTO()
+        feedDTO.uid = FirebaseAuth.getInstance().currentUser?.uid
+        feedDTO.userId = FirebaseAuth.getInstance().currentUser?.email
     }
 }
