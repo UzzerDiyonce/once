@@ -47,6 +47,7 @@ class Feed : Fragment() {
                 R.id.searchMenu -> {
                     //검색 버튼 눌렀을 때
                     Log.d("Toolbar_item: ", "검색 클릭")
+                    startActivity(Intent(context, SearchActivity::class.java))
                     true
                 }
                 R.id.alaramMenu -> {
@@ -91,7 +92,7 @@ class Feed : Fragment() {
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
             var view = holder.itemView
 
-            //저장된 데이터 가져오기
+            //피드 컬렉션에 저장된 데이터 가져오기
             view.feedItemTitle.text = feedDTOList!![position].title //제목
             view.feedContenetView.text = feedDTOList!![position].contents //내용
             view.feedItemName.text = feedDTOList!![position].userId //이메일

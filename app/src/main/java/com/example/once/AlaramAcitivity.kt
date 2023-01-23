@@ -47,7 +47,7 @@ class AlaramAcitivity : AppCompatActivity() {
         init {
             val uid = FirebaseAuth.getInstance().currentUser?.uid
 
-            FirebaseFirestore.getInstance().collection("alarms").whereEqualTo("destinationUid", uid)
+            FirebaseFirestore.getInstance().collection("alarms").whereEqualTo("uid", uid)
                 .addSnapshotListener { value, error ->
                     alarmDTOList.clear()
                     if(value == null) return@addSnapshotListener
@@ -68,25 +68,29 @@ class AlaramAcitivity : AppCompatActivity() {
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
             var view = holder.itemView
 
-            FirebaseFirestore.getInstance().collection("profileImages").document(alarmDTOList[position].uid!!).get()
+            FirebaseFirestore.getInstance().collection("alarms").document(alarmDTOList[position].profileImage!!).get()
                 .addOnCompleteListener { task ->
                     if(task.isSuccessful){
-                        val url = task.result!!["image"]
+                        val url = task.result!!["profileImage"]
                         Glide.with(view.context).load(url).apply(RequestOptions().circleCrop()).into(view.findViewById(R.id.alarm_profile))
                     }
                 }
 
             when(alarmDTOList[position].kind){
                 0 -> {
-                    val str_0 = alarmDTOList[position].userId + " 님이 좋아요를 눌렀습니다."
+                    val str_0 = alarmDTOList[position].fromId + "님이 일기에 도장을 찍었습니다."
                     view.alarm_comment.text = str_0
                 }
                 1 -> {
-                    val str_0 = alarmDTOList[position].userId + " 님이 댓글을 남겼습니다."
+                    val str_0 = alarmDTOList[position].fromId + "님이 댓글을 남겼습니다."
                     view.alarm_comment.text = str_0
                 }
                 2 -> {
-                    val str_0 = alarmDTOList[position].userId + " 님이 팔로우합니다."
+                    val str_0 = alarmDTOList[position].fromId + "님이 친구로 추가했습니다."
+                    view.alarm_comment.text = str_0
+                }
+                3 -> {
+                    val str_0 = alarmDTOList[position].fromId + "님이 회원님과 타임캡슐을 생성했습니다."
                     view.alarm_comment.text = str_0
                 }
             }
