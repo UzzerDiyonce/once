@@ -18,24 +18,62 @@
             android:id="@+id/feedItemTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="70dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginStart="55dp"
+            android:layout_marginTop="16dp"
             android:fontFamily="@font/font_lee"
             android:text="제목"
             android:textColor="#2A1D17"
             android:textSize="24sp"
-            app:layout_constraintBottom_toTopOf="@+id/imageView8"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/feedItemProfile" />
 
         <ImageView
             android:id="@+id/feedItemProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="37dp"
-            android:layout_marginEnd="45dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="305dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/defaultprofileicon" />
+
+        <TextView
+            android:id="@+id/feedItemName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="92dp"
+            android:layout_marginTop="32dp"
+            android:fontFamily="@font/font_lee"
+            android:text="kimdoyoonbabo@gmail.com"
+            android:textColor="#4C6701"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/feedDateView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="219dp"
+            android:layout_marginEnd="40dp"
+            android:fontFamily="@font/font_lee"
+            android:text="2023.01.23"
+            android:textColor="#8A7267"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/feedTimeView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="45dp"
+            android:fontFamily="@font/font_lee"
+            android:text="16시52분"
+            android:textColor="#8A7267"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/feedDateView" />
 
         <ImageView
             android:id="@+id/imageView8"
@@ -45,27 +83,26 @@
             android:layout_marginTop="5dp"
             android:layout_marginEnd="5dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.42"
+            app:layout_constraintHorizontal_bias="0.492"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/feedItemProfile"
+            app:layout_constraintTop_toBottomOf="@+id/feedItemName"
             app:srcCompat="@drawable/line" />
 
         <ImageView
             android:id="@+id/feedImageView"
             android:layout_width="84dp"
             android:layout_height="84dp"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginStart="52dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.497"
+            app:layout_constraintVertical_bias="0.55"
             app:srcCompat="@drawable/ic_launcher_background" />
 
         <TextView
             android:id="@+id/feedContenetView"
             android:layout_width="185dp"
-            android:layout_height="wrap_content"
+            android:layout_height="80dp"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="55dp"
             android:fontFamily="@font/font_lee"
@@ -75,30 +112,21 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.4" />
+            app:layout_constraintVertical_bias="0.51" />
 
-        <ImageButton
-            android:id="@+id/feedCommentBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="19dp"
-            android:layout_marginBottom="43dp"
-            android:background="#00000000"
-            android:minHeight="48dp"
+        <Button
+            android:id="@+id/feedDetailBtn"
+            android:layout_width="82dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="40dp"
+            android:background="@drawable/button_rectangle"
+            android:fontFamily="@font/font_lee"
+            android:text="더 보기"
+            android:textColor="#2A1D17"
+            android:textSize="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/feedLikeBtn"
-            app:srcCompat="@drawable/comment_icon" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-        <ImageButton
-            android:id="@+id/feedLikeBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginBottom="43dp"
-            android:background="#00000000"
-            android:minHeight="48dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/like_icon" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

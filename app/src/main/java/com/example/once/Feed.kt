@@ -92,8 +92,13 @@ class Feed : Fragment() {
             var view = holder.itemView
 
             //저장된 데이터 가져오기
-            view.feedItemTitle.text = feedDTOList!![position].title
-            view.feedContenetView.text = feedDTOList!![position].contents
+            view.feedItemTitle.text = feedDTOList!![position].title //제목
+            view.feedContenetView.text = feedDTOList!![position].contents //내용
+            view.feedItemName.text = feedDTOList!![position].userId //이메일
+
+            view.feedDateView.setOnClickListener {
+                //디테일 화면 레이아웃
+            }
 //            view.feedItemProfile
 //            view.feedImageView
 
