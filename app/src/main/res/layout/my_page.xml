@@ -142,16 +142,11 @@
                     android:textColor="#8A7267"
                     android:textStyle="bold" />
             </LinearLayout>
-            <!--<Button
-                android:id="@+id/mypage_logout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="로그아웃"/>-->
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="700dp"
-                android:layout_marginTop="-77dp"
+                android:layout_marginTop="-78dp"
                 android:src="@drawable/mypage_box_outline"
                 android:scaleType="centerCrop"></ImageView>
             <!--이쪽에 프래그먼트 추가-->

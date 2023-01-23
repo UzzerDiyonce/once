@@ -42,8 +42,55 @@
     <ScrollView
         android:id="@+id/mypage_scroll"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@+id/mp_toolbar">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:fontFamily="@font/font_lee"
+                android:textSize="20sp"
+                android:text="푸시 알림"/>
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/setting_pushSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="135dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="45dp"
+                android:fontFamily="@font/font_lee"
+                android:textSize="20sp"
+                android:text="이메일 수신"/>
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/mypage_emailSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="135dp"
+                android:layout_marginTop="45dp"/>
+
+            <Button
+                android:layout_width="120dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="100dp"
+                android:layout_marginLeft="25dp"
+                android:background="@drawable/button_rectangle"
+                android:fontFamily="@font/font_lee"
+                android:textSize="18sp"
+                android:text="로그아웃"/>
+        </RelativeLayout>
     </ScrollView>
 
 </RelativeLayout>
