@@ -45,52 +45,47 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/mp_toolbar">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:orientation="vertical">
 
-            <TextView
+            <LinearLayout
+                android:id="@+id/mypage_btnList"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:fontFamily="@font/font_lee"
-                android:textSize="20sp"
-                android:text="푸시 알림"/>
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
 
-            <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/setting_pushSwitch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="135dp"/>
+                <Button
+                    android:id="@+id/setting_profButton"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="left"
+                    android:layout_marginRight="35dp"
+                    android:background="#00ff0000"
+                    android:text="프로필"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/font_lee"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="45dp"
-                android:fontFamily="@font/font_lee"
-                android:textSize="20sp"
-                android:text="이메일 수신"/>
-
-            <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/mypage_emailSwitch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="135dp"
-                android:layout_marginTop="45dp"/>
-
-            <Button
-                android:layout_width="120dp"
-                android:layout_height="45dp"
-                android:layout_marginTop="100dp"
-                android:layout_marginLeft="25dp"
-                android:background="@drawable/button_rectangle"
-                android:fontFamily="@font/font_lee"
-                android:textSize="18sp"
-                android:text="로그아웃"/>
-        </RelativeLayout>
+                <Button
+                    android:id="@+id/setting_enviButton"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="right"
+                    android:background="#00ff0000"
+                    android:text="환경설정"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/font_lee"
+                    android:textSize="25sp"
+                    android:textColor="#8A7267"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
     </ScrollView>
 
 </RelativeLayout>
