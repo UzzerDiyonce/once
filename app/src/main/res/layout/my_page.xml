@@ -41,7 +41,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="144dp"
+                android:layout_height="150dp"
                 android:layout_marginTop="5dp"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/mypage_nametag"
@@ -51,7 +51,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="23dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginLeft="94dp"
                     android:orientation="horizontal">
 
@@ -82,16 +82,17 @@
                 <ImageView
                     android:layout_width="235dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="-2dp"
                     android:layout_marginLeft="85dp"
                     android:src="@drawable/division_line"/>
 
                 <TextView
                     android:id="@+id/mypage_profIntro"
-                    android:layout_width="210dp"
+                    android:layout_width="220dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="-5dp"
-                    android:layout_marginLeft="95dp"
-                    android:text="안녕하세요, 한줄소개입니다. 글이 길어지면 이렇게 내려갑니다."
+                    android:layout_marginTop="-7dp"
+                    android:layout_marginLeft="94dp"
+                    android:text="안녕하세요 비욘세입니다 한소 어디까지 길어질까요 이게 공백 포함 40자임"
                     android:fontFamily="@font/font_lee"
                     android:textSize="16sp" />
 
@@ -99,13 +100,21 @@
                     android:id="@+id/mypage_setting"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_marginLeft="333dp"
-                    android:layout_marginTop="-72dp"
+                    android:layout_marginLeft="340dp"
+                    android:layout_marginTop="-88dp"
                     android:layout_gravity="center_vertical"
                     android:background="@android:color/transparent"
                     android:padding="0sp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/setting" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="22dp"
+                    android:layout_marginLeft="346dp"
+                    android:text="편집"
+                    android:fontFamily="@font/font_lee"
+                    android:textColor="#8A7267"
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -142,26 +151,31 @@
                     android:textColor="#8A7267"
                     android:textStyle="bold" />
             </LinearLayout>
-            <!--<Button
-                android:id="@+id/mypage_logout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="로그아웃"/>-->
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="700dp"
-                android:layout_marginTop="-77dp"
+                android:layout_marginTop="-75dp"
                 android:src="@drawable/mypage_box_outline"
                 android:scaleType="centerCrop"></ImageView>
             <!--이쪽에 프래그먼트 추가-->
-            <FrameLayout
+
+            <ScrollView
                 android:id="@+id/mypage_container"
                 android:layout_width="match_parent"
                 android:layout_height="550dp"
                 android:layout_marginHorizontal="30dp"
-                android:layout_marginTop="-580dp">
-            </FrameLayout>
+                android:layout_marginTop="-590dp">
+
+                <!--
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/mypage_diarylistView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_mypage_diary"/>
+                -->
+            </ScrollView>
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>
