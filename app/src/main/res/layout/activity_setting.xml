@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/loadback"
     tools:context=".SettingActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/mp_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/toolbar_back"
         android:minHeight="?attr/actionBarSize"
         app:contentInsetStart="0dp" >
 
@@ -42,8 +42,50 @@
     <ScrollView
         android:id="@+id/mypage_scroll"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@+id/mp_toolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/mypage_btnList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/setting_profButton"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="left"
+                    android:layout_marginRight="35dp"
+                    android:background="#00ff0000"
+                    android:text="프로필"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/font_lee"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/setting_enviButton"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="right"
+                    android:background="#00ff0000"
+                    android:text="환경설정"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/font_lee"
+                    android:textSize="25sp"
+                    android:textColor="#8A7267"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
     </ScrollView>
 
 </RelativeLayout>
