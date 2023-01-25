@@ -1,17 +1,13 @@
 package com.example.once
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.item_alaram.view.*
@@ -26,7 +22,7 @@ class AlaramAcitivity : AppCompatActivity() {
         setContentView(R.layout.activity_alaram_acitivity)
 
         //메인페이지로 돌아가기 버튼
-        backBtn = findViewById(R.id.leftArrowBtn)
+        backBtn = findViewById(R.id.alarmBackBtn)
         backBtn.setOnClickListener {
             onBackPressed()
             //startActivity(Intent(this, MainActivity::class.java))
@@ -38,6 +34,7 @@ class AlaramAcitivity : AppCompatActivity() {
         AlaramlistView.layoutManager = LinearLayoutManager(this)
     }
 
+    //메인 돌아가기 함수
     override fun onBackPressed() {
         super.onBackPressed()
     }
@@ -60,12 +57,14 @@ class AlaramAcitivity : AppCompatActivity() {
                 }
         }
 
+        //xml파일 inflate, viewHolder 생성
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
             var view = LayoutInflater.from(parent.context).inflate(R.layout.item_alaram, parent, false)
             return CustomViewHolder(view)
         }
         inner class CustomViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
+        //실제 데이터 연결
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
             var view = holder.itemView
 
@@ -98,6 +97,7 @@ class AlaramAcitivity : AppCompatActivity() {
             //view.alarm_comment.visibility = View.INVISIBLE
         }
 
+        //recycler뷰 총 아이템 개수 반환
         override fun getItemCount(): Int {
             return alarmDTOList.size
         }

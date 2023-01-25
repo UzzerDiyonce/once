@@ -13,7 +13,7 @@
         android:layout_height="60dp">
 
         <ImageButton
-            android:id="@+id/leftArrowBtn"
+            android:id="@+id/alarmBackBtn"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:layout_gravity="center_vertical"
