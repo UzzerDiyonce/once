@@ -21,6 +21,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.firestore.FirebaseFirestore
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -188,9 +189,15 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
+    //사용자 데이터 등록
     private fun register() {
         var feedDTO = FeedDTO()
-        feedDTO.uid = FirebaseAuth.getInstance().currentUser?.uid
-        feedDTO.userId = FirebaseAuth.getInstance().currentUser?.email
+
+        feedDTO.uid = firebaseAuth.currentUser?.uid //uid 저장
+        feedDTO.userId = firebaseAuth.currentUser?.email //이메일 저장
+        feedDTO.profileImageUrl = firebaseAuth.currentUser?.photoUrl.toString() //프로필 저장
+        //cloud firestore users
+        FirebaseFirestore.getInstance().collection("users")?.document(firebaseAuth!!.currentUser!!.uid)?.set(feedDTO)
+        Log.d("Save Firestore: ", "파이어스토어 저장 성공")
     }
 }
