@@ -3,6 +3,7 @@ package com.example.once
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -68,13 +69,13 @@ class AlaramAcitivity : AppCompatActivity() {
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
             var view = holder.itemView
 
-            FirebaseFirestore.getInstance().collection("alarms").document(alarmDTOList[position].profileImage!!).get()
-                .addOnCompleteListener { task ->
-                    if(task.isSuccessful){
-                        val url = task.result!!["profileImage"]
-                        Glide.with(view.context).load(url).apply(RequestOptions().circleCrop()).into(view.findViewById(R.id.alarm_profile))
-                    }
-                }
+//            FirebaseFirestore.getInstance().collection("alarms").document(alarmDTOList[position].profileImage!!).get()
+//                .addOnCompleteListener { task ->
+//                    if(task.isSuccessful){
+//                        val url = task.result!!["profileImage"]
+//                        Glide.with(view.context).load(url).apply(RequestOptions().circleCrop()).into(view.findViewById(R.id.alarm_profile))
+//                    }
+//                }
 
             when(alarmDTOList[position].kind){
                 0 -> {
@@ -94,7 +95,7 @@ class AlaramAcitivity : AppCompatActivity() {
                     view.alarm_comment.text = str_0
                 }
             }
-            view.alarm_comment.visibility = View.INVISIBLE
+            //view.alarm_comment.visibility = View.INVISIBLE
         }
 
         override fun getItemCount(): Int {
