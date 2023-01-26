@@ -19,6 +19,7 @@
         android:theme="@style/Theme.Once"
         tools:targetApi="31">
         <activity
+        main
             android:name=".CommentActivity"
             android:exported="false">
             <meta-data
@@ -26,6 +27,7 @@
                 android:value="" />
         </activity>
         <activity
+        revert-15-chy
             android:name=".SettingActivity"
             android:exported="false">
             <meta-data
