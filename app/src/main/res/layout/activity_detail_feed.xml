@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/loadback"
     android:orientation="vertical"
-    tools:context=".CommentActivity">
+    android:background="@drawable/loadback"
+    tools:context=".DetailFeedActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="50dp">
 
         <ImageButton
-            android:id="@+id/commentBack"
+            android:id="@+id/detailBackBtn"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginStart="16dp"
@@ -25,70 +25,70 @@
             tools:ignore="SpeakableTextPresentCheck" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/detailTitleView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:fontFamily="@font/font_lee"
-            android:text="댓글 쓱"
+            android:text="그림일기 제목"
             android:textColor="#2A1D17"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:fontFamily="@font/font_lee" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/commentRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="531dp"
-        tools:listitem="@layout/item_comment">
-
-    </androidx.recyclerview.widget.RecyclerView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="545dp"
+        android:background="@drawable/diarylayout">
 
-        <ImageView
-            android:id="@+id/commentProfile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <TextView
+            android:id="@+id/detailContentView"
+            android:layout_width="361dp"
+            android:layout_height="229dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="296dp"
+            android:fontFamily="@font/font_lee"
+            android:text="TextView"
+            android:textColor="#2A1D17"
+            android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/defaultprofileicon" />
-
-        <EditText
-            android:id="@+id/commentText"
-            android:layout_width="280dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/comment_rect"
-            android:fontFamily="@font/font_lee"
-            android:hint=" 여기에 댓글을 쓸 수 있어요."
-            android:textColor="#2A1D17"
-            android:textColorHint="#8A7267"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/commentProfile" />
-
-        <Button
-            android:id="@+id/commentBtn"
-            android:layout_width="48dp"
-            android:layout_height="49dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/button_rectangle"
-            android:fontFamily="@font/font_lee"
-            android:text="쓱"
-            android:textColor="#2A1D17"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <Button
+            android:id="@+id/detailLikeBtn"
+            android:layout_width="104dp"
+            android:layout_height="52dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="7dp"
+            android:background="@drawable/button_rectangle"
+            android:fontFamily="@font/font_lee"
+            android:text="도장 꾹"
+            android:textColor="#2A1D17"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/detailCommentBtn"
+            android:layout_width="104dp"
+            android:layout_height="52dp"
+            android:layout_marginStart="11dp"
+            android:layout_marginBottom="7dp"
+            android:background="@drawable/button_rectangle"
+            android:fontFamily="@font/font_lee"
+            android:text="댓글 쓱"
+            android:textColor="#2A1D17"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/detailLikeBtn" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

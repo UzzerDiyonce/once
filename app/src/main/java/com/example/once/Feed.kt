@@ -63,6 +63,7 @@ class Feed : Fragment() {
         return view
     }
 
+    //리사이클러뷰 어댑터
     inner class RecyclerViewAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         var feedDTOList: ArrayList<FeedDTO> = arrayListOf()
