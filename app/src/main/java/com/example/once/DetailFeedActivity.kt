@@ -26,7 +26,7 @@ class DetailFeedActivity : AppCompatActivity() {
         uid = FirebaseAuth.getInstance().currentUser?.uid
 
         //댓글창 버튼
-        detailCommentBtn.setOnClickListener { 
+        detailCommentBtn.setOnClickListener {
 
         }
     }
