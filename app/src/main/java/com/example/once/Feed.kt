@@ -85,6 +85,11 @@ class Feed : Fragment() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
             var view = LayoutInflater.from(parent.context).inflate(R.layout.item_feed, parent, false)
+
+            view.feedDetailBtn.setOnClickListener {
+                startActivity(Intent(context, CommentActivity::class.java))
+            }
+
             return CustomViewHolder (view)
         }
         inner class CustomViewHolder(view: View) : RecyclerView.ViewHolder(view)
