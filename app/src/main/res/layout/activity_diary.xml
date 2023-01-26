@@ -17,7 +17,7 @@
         android:layout_height="80dp">
 
         <ImageButton
-            android:id="@+id/leftArrowBtn"
+            android:id="@+id/alarmBackBtn"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:layout_gravity="center_vertical"
@@ -40,7 +40,7 @@
             android:minWidth="48dp"
             android:minHeight="48dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/leftArrowBtn"
+            app:layout_constraintStart_toEndOf="@+id/alarmBackBtn"
             android:layout_marginRight="16dp"
             android:layout_marginStart="16dp"
             app:layout_constraintTop_toTopOf="parent" />

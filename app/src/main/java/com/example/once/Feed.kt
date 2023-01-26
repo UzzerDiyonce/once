@@ -47,6 +47,7 @@ class Feed : Fragment() {
                 R.id.searchMenu -> {
                     //검색 버튼 눌렀을 때
                     Log.d("Toolbar_item: ", "검색 클릭")
+                    startActivity(Intent(context, SearchActivity::class.java))
                     true
                 }
                 R.id.alaramMenu -> {
@@ -69,7 +70,7 @@ class Feed : Fragment() {
         init {
             val uid = FirebaseAuth.getInstance().currentUser?.uid
 
-            FirebaseFirestore.getInstance().collection("feeds").whereEqualTo("destinationUid", uid)
+            FirebaseFirestore.getInstance().collection("feed").whereEqualTo("uid", uid)
                 .addSnapshotListener { value, error ->
                     feedDTOList.clear()
                     if(value == null) return@addSnapshotListener
@@ -91,25 +92,37 @@ class Feed : Fragment() {
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
             var view = holder.itemView
 
-            FirebaseFirestore.getInstance().collection("profileImages").document(feedDTOList[position].uid!!).get()
-                .addOnCompleteListener { task ->
-                    if(task.isSuccessful){
-                        val url = task.result!!["image"]
-                        Glide.with(view.context).load(url).apply(RequestOptions().circleCrop()).into(view.findViewById(R.id.feedItemProfile))
-                    }
-                }
+            //피드 컬렉션에 저장된 데이터 가져오기
+            view.feedItemTitle.text = feedDTOList!![position].title //제목
+            view.feedContenetView.text = feedDTOList!![position].contents //내용
+            view.feedItemName.text = feedDTOList!![position].userId //이메일
 
-            when(feedDTOList[position].weather_kind){
-                0 -> {
-                    val str_0 = feedDTOList[position].userId + ""
-                    view.feedContenetView.text = str_0
-                }
-                1 -> {
-                    val str_0 = feedDTOList[position].userId + ""
-                    view.feedItemTitle.text = str_0
-                }
+            view.feedDateView.setOnClickListener {
+                //디테일 화면 레이아웃
             }
-            view.alarm_comment.visibility = View.INVISIBLE
+//            view.feedItemProfile
+//            view.feedImageView
+
+
+//            FirebaseFirestore.getInstance().collection("feed").document(feedDTOList[position].uid!!).get()
+//                .addOnCompleteListener { task ->
+//                    if(task.isSuccessful){
+//                        val url = task.result!!["profileImageUrl"]
+//                        Glide.with(view.context).load(url).apply(RequestOptions().circleCrop()).into(view.findViewById(R.id.feedItemProfile))
+//                    }
+//                }
+//
+//            when(feedDTOList[position].weather_kind){
+//                0 -> {
+//                    val str_0 = feedDTOList[position].userId + ""
+//                    view.feedContenetView.text = str_0
+//                }
+//                1 -> {
+//                    val str_0 = feedDTOList[position].userId + ""
+//                    view.feedItemTitle.text = str_0
+//                }
+//            }
+//            view.alarm_comment.visibility = View.INVISIBLE
         }
 
         override fun getItemCount(): Int {
