@@ -24,9 +24,6 @@
             android:background="#00000000"
             android:minWidth="48dp"
             android:minHeight="48dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/leftarrow_icon"
             tools:ignore="SpeakableTextPresentCheck" />
 
@@ -121,6 +118,7 @@
                 android:layout_height="wrap_content">
 
                 <Button
+                    android:id="@+id/im"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="100dp"
@@ -136,8 +134,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:id="@+id/imgView"
+                    android:layout_width="380dp"
+                    android:layout_height="200dp"
+                    android:layout_marginStart="16dp"
+                    android:maxHeight="200dp"
+                    android:maxWidth="350dp"/>
             </LinearLayout>
         </LinearLayout>
 
