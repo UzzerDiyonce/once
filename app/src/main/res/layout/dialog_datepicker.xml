@@ -14,9 +14,13 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
-        android:background="@drawable/loadback"
+        android:headerBackground="@color/black"
+        android:yearListSelectorColor="@color/black"
+
+        android:background="@drawable/background_calander"
         android:calendarViewShown="false"
-        android:datePickerMode="calendar">
+        android:datePickerMode="calendar"
+        android:foregroundTint="@color/black">
 
         <ImageView
             android:id="@+id/datePickView"
@@ -25,8 +29,7 @@
             android:layout_gravity="center|bottom"
             android:layout_marginTop="30dp"
             android:layout_marginRight="30dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_baseline_calendar_today_24" />
+            android:scaleType="centerCrop" />
     </DatePicker>
 
 

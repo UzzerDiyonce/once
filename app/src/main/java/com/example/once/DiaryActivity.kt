@@ -11,6 +11,8 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import java.text.SimpleDateFormat
+import java.util.*
 
 class DiaryActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
 
@@ -35,10 +37,6 @@ class DiaryActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
     var month = 0
     var day = 0
 
-    var savedYear = 0
-    var savedMonth = 0
-    var savedDay = 0
-
     @Override
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +47,14 @@ class DiaryActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
         datePickBtn = findViewById(R.id.dateBtn)
         dateView = findViewById(R.id.dateView)
 
+        val calendar = Calendar.getInstance()
+        val datePick = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+            calendar.set(Calendar.YEAR, year)
+            calendar.set(Calendar.MONTH, month)
+            calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+            updateLabel(calendar)
+        }
+
         //뒤로가기 버튼 눌렀을 때 메인 액티비티로 돌아감
         backBtn.setOnClickListener{
             var intent = Intent(this, MainActivity::class.java)
@@ -57,24 +63,18 @@ class DiaryActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
 
         //날짜 선택 버튼을 눌렀을 때 팝업창 띄움
         datePickBtn.setOnClickListener{
-            getDateCalendar()
-            DatePickerDialog(this, this, year, month, day).show()
+            DatePickerDialog(this, datePick, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)).show()
         }
     }
 
-    private fun getDateCalendar(){
-        val calendar = Calendar.getInstance()
-        year = calendar.get(Calendar.YEAR)
-        month = calendar.get(Calendar.MONTH)
-        day = calendar.get(Calendar.DAY_OF_MONTH)
+    private fun updateLabel(calendar: Calendar){
+        val myFormat = "YYYY년 MM월 DD일"
+        val simpleDateFormat = SimpleDateFormat(myFormat, Locale.KOREA)
+        dateView.setText((simpleDateFormat.format(calendar.time)))
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
-        savedYear = year
-        savedMonth = month
-        savedDay = dayOfMonth
-
-        getDateCalendar()
-
+        TODO("Not yet implemented")
     }
 }
