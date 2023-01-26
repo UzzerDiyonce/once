@@ -92,7 +92,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="-7dp"
                     android:layout_marginLeft="94dp"
-                    android:text="안녕하세요 비욘세입니다 한소 어디까지 길어질까요 이게 공백 포함 40자임"
+                    android:text="안녕하세요. 비욘셉니다. 제 소개는 딱 삼십글자입니다."
                     android:fontFamily="@font/font_lee"
                     android:textSize="16sp" />
 
@@ -123,7 +123,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="25dp"
                 android:orientation="horizontal">
 
                 <Button
@@ -156,7 +156,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="700dp"
-                android:layout_marginTop="-75dp"
+                android:layout_marginTop="-80dp"
                 android:src="@drawable/mypage_box_outline"
                 android:scaleType="centerCrop"></ImageView>
             <!--이쪽에 프래그먼트 추가-->
@@ -165,6 +165,9 @@
                 android:id="@+id/mypage_container"
                 android:layout_width="match_parent"
                 android:layout_height="550dp"
+                android:scrollbarThumbHorizontal="@drawable/line"
+                android:scrollbarTrackHorizontal="@drawable/line"
+                android:scrollbarSize="2dp"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="-600dp">
 
