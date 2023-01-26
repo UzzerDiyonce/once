@@ -33,6 +33,8 @@
             android:background="#00000000"
             android:fontFamily="@font/font_lee"
             android:hint="검색어를 입력하세요"
+            android:textColorHint="#595757"
+            android:textColor="#2A1D17"
             android:minHeight="48dp"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"

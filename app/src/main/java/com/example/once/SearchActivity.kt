@@ -19,7 +19,6 @@ class SearchActivity : AppCompatActivity() {
     lateinit var searchBtn: ImageButton
     lateinit var searchEditText: EditText
     private var firestore: FirebaseFirestore? = null
-    var found = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,22 +34,17 @@ class SearchActivity : AppCompatActivity() {
         searchEditText = findViewById(R.id.searchEditTxt)
         var searchWord = searchEditText.text.toString()
 
+        //recycler뷰 관련 설정
+        searchListView = findViewById(R.id.SearchListView)
+        searchListView.adapter = RecyclerViewAdapter()
+        searchListView.layoutManager = LinearLayoutManager(this)
+
         //검색버튼&기능
         searchBtn = findViewById(R.id.searchBtn)
         searchBtn.setOnClickListener {
-            searchListView.adapter = RecyclerViewAdapter()
             (searchListView.adapter as RecyclerViewAdapter).search(searchWord)
-        }
-
-        //파이어스토어 변수 초기화
-        firestore = FirebaseFirestore.getInstance()
-
-        //recycler뷰 관련 설정
-        searchListView = findViewById(R.id.SearchListView)
-        if(found)
-        {
-            //searchListView.adapter = RecyclerViewAdapter()
-            searchListView.layoutManager = LinearLayoutManager(this)
+            //파이어스토어 변수 초기화
+            firestore = FirebaseFirestore.getInstance()
         }
     }
 
@@ -59,6 +53,7 @@ class SearchActivity : AppCompatActivity() {
         super.onBackPressed()
     }
 
+    //리사이클러뷰 어댑터
     inner class RecyclerViewAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         var searchDTO: ArrayList<SearchDTO> = arrayListOf()
 
@@ -105,16 +100,10 @@ class SearchActivity : AppCompatActivity() {
                     if (snapshot.getString("title")!!.contains(searchWord)) {
                         var item = snapshot.toObject(SearchDTO::class.java)
                         searchDTO.add(item!!)
-                        found = true
                     }
                     if (snapshot.getString("contents")!!.contains(searchWord)) {
                         var item = snapshot.toObject(SearchDTO::class.java)
                         searchDTO.add(item!!)
-                        found = true
-                    }
-                    else
-                    {
-                        found = false
                     }
                 }
                 notifyDataSetChanged()
