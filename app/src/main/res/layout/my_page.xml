@@ -100,21 +100,22 @@
                     android:id="@+id/mypage_setting"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_marginLeft="340dp"
-                    android:layout_marginTop="-88dp"
+                    android:layout_marginLeft="333dp"
+                    android:layout_marginTop="-85dp"
                     android:layout_gravity="center_vertical"
                     android:background="@android:color/transparent"
                     android:padding="0sp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/setting" />
+                <!--
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="22dp"
-                    android:layout_marginLeft="346dp"
+                    android:layout_marginLeft="340dp"
                     android:text="편집"
                     android:fontFamily="@font/font_lee"
                     android:textColor="#8A7267"
-                    android:textSize="16sp" />
+                    android:textSize="16sp" />-->
             </LinearLayout>
 
             <LinearLayout
@@ -164,17 +165,15 @@
                 android:id="@+id/mypage_container"
                 android:layout_width="match_parent"
                 android:layout_height="550dp"
-                android:layout_marginHorizontal="30dp"
-                android:layout_marginTop="-590dp">
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="-600dp">
 
-                <!--
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/mypage_diarylistView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/item_mypage_diary"/>
-                -->
             </ScrollView>
         </LinearLayout>
     </ScrollView>
