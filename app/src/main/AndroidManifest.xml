@@ -19,21 +19,7 @@
         android:theme="@style/Theme.Once"
         tools:targetApi="31">
         <activity
-            android:name=".SettingEnviActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".MypageCapsuleActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".MypageDiaryActivity"
+            android:name=".CommentActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
