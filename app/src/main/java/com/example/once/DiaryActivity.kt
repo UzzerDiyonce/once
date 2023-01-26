@@ -69,7 +69,7 @@ class DiaryActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
     }
 
     private fun updateLabel(calendar: Calendar){
-        val myFormat = "YYYY년 MM월 DD일"
+        val myFormat = "YYYY년\nMM월 DD일"
         val simpleDateFormat = SimpleDateFormat(myFormat, Locale.KOREA)
         dateView.setText((simpleDateFormat.format(calendar.time)))
     }

@@ -62,7 +62,7 @@
                 <TextView
                     android:id="@+id/dateView"
                     android:layout_width="134dp"
-                    android:layout_height="48dp"
+                    android:layout_height="55dp"
                     android:layout_gravity="center_vertical"
                     android:textSize="20dp" />
                 <!-- 날짜 선택 -->
@@ -116,13 +116,14 @@
                 android:layout_height="wrap_content">
 
                 <Button
-                    android:id="@+id/im"
+                    android:id="@+id/galleryBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="100dp"
                     android:text="사진 넣기" />
 
                 <Button
+                    android:id="@+id/pictureBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
@@ -138,6 +139,18 @@
                     android:layout_marginStart="16dp"
                     android:maxHeight="200dp"
                     android:maxWidth="350dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="380dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp">
+
+                <EditText
+                    android:id="@+id/diaryContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="260dp"
+                    tools:ignore="SpeakableTextPresentCheck" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
