@@ -50,7 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            
+
             <!-- 상단: 날짜 및 날씨 -->
             <LinearLayout
                 android:layout_width="match_parent"
@@ -140,8 +140,6 @@
                     android:maxWidth="350dp"/>
             </LinearLayout>
         </LinearLayout>
-
-
     </ScrollView>
 
 
