@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="300dp"
+    android:layout_height="500dp"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    tools:context=".DiaryActivity">
+
+    <DatePicker
+        android:id="@+id/calendar"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:headerBackground="@color/black"
+        android:yearListSelectorColor="@color/black"
+
+        android:background="@drawable/background_calander"
+        android:calendarViewShown="false"
+        android:datePickerMode="calendar"
+        android:foregroundTint="@color/black">
+
+        <ImageView
+            android:id="@+id/datePickView"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center|bottom"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="30dp"
+            android:scaleType="centerCrop" />
+    </DatePicker>
+
+
+</LinearLayout>
