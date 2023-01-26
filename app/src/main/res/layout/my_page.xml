@@ -49,52 +49,60 @@
                 <!--나중에 이미지 DB 연결해서 수정-->
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginLeft="94dp"
-                    android:orientation="horizontal">
+                    android:orientation="vertical"
+                    android:layout_marginTop="23dp"
+                    android:layout_gravity="center_vertical">
 
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/mypage_profImage"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_marginRight="15dp"
-                        android:background="@android:color/transparent"
-                        android:src="@drawable/mypage_profile_img"
-                        app:civ_border_color="#000000"
-                        app:civ_border_overlay="true"
-                        app:civ_border_width="1dp" />
-
-                    <!--나중에 닉네임 DB 연결해서 수정-->
-                    <TextView
-                        android:id="@+id/mypage_profNickname"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="닉네임은뭘로할까"
-                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="94dp"
+                        android:orientation="horizontal">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/mypage_profImage"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_marginRight="15dp"
+                            android:background="@android:color/transparent"
+                            android:src="@drawable/mypage_profile_img"
+                            app:civ_border_color="#000000"
+                            app:civ_border_overlay="true"
+                            app:civ_border_width="1dp" />
+
+                        <!--나중에 닉네임 DB 연결해서 수정-->
+                        <TextView
+                            android:id="@+id/mypage_profNickname"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="닉네임은뭘로할까"
+                            android:layout_gravity="center_vertical"
+                            android:fontFamily="@font/font_lee"
+                            android:textColor="#4C6701"
+                            android:textSize="22sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="235dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-2dp"
+                        android:layout_marginLeft="85dp"
+                        android:src="@drawable/division_line"/>
+
+                    <TextView
+                        android:id="@+id/mypage_profIntro"
+                        android:layout_width="220dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-7dp"
+                        android:layout_marginLeft="94dp"
+                        android:text="안녕하세요. 비욘셉니다. 제 소개는 딱 삼십글자입니다."
                         android:fontFamily="@font/font_lee"
-                        android:textColor="#4C6701"
-                        android:textSize="22sp"
-                        android:textStyle="bold" />
+                        android:textSize="16sp" />
+
                 </LinearLayout>
-
-                <ImageView
-                    android:layout_width="235dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="-2dp"
-                    android:layout_marginLeft="85dp"
-                    android:src="@drawable/division_line"/>
-
-                <TextView
-                    android:id="@+id/mypage_profIntro"
-                    android:layout_width="220dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="-7dp"
-                    android:layout_marginLeft="94dp"
-                    android:text="안녕하세요. 비욘셉니다. 제 소개는 딱 삼십글자입니다."
-                    android:fontFamily="@font/font_lee"
-                    android:textSize="16sp" />
 
                 <ImageButton
                     android:id="@+id/mypage_setting"
