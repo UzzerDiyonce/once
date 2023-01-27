@@ -19,7 +19,11 @@ import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.activity_comment.*
 import kotlinx.android.synthetic.main.activity_comment.view.*
 import kotlinx.android.synthetic.main.feed.view.*
+import kotlinx.android.synthetic.main.item_comment.*
 import kotlinx.android.synthetic.main.item_comment.view.*
+import kotlinx.android.synthetic.main.item_feed.view.*
+import java.text.SimpleDateFormat
+import java.util.Date
 
 class CommentActivity : AppCompatActivity() {
     lateinit var commentBackBtn: ImageButton
@@ -27,12 +31,16 @@ class CommentActivity : AppCompatActivity() {
     lateinit var commentTxt: EditText
     lateinit var commentRecyclerView: RecyclerView
 
-    var contentUid: String? = null
-    //var destinationUid: String? = null
+    //피드 변수 코멘트에서 받기
+    var contentUidForCom: String? = null
+    var destinationUidForCom: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_comment)
+
+        //초기화
+        commentTxt = findViewById(R.id.commentText)
 
         //메인페이지로 돌아가기 버튼
         commentBackBtn = findViewById(R.id.commentBack)
@@ -41,8 +49,8 @@ class CommentActivity : AppCompatActivity() {
         }
 
         //변수 설정
-        contentUid = intent.getStringExtra("contentUid")
-        //destinationUid = intent.getStringExtra("destinationUid")
+        contentUidForCom = intent.getStringExtra("contentUid")
+        destinationUidForCom = intent.getStringExtra("destinationUid")
 
         //recycler뷰 관련 설정
         commentRecyclerView = findViewById(R.id.commentRecyclerView)
@@ -61,12 +69,12 @@ class CommentActivity : AppCompatActivity() {
             comment.timestamp = System.currentTimeMillis()
 
             //db 저장
-            FirebaseFirestore.getInstance().collection("feed").document(contentUid!!).collection("comments").document().set(comment)
+            FirebaseFirestore.getInstance().collection("feed").document(contentUidForCom!!).collection("comments").document().set(comment)
             //Log.d("contentUid: ", contentUid.toString())
             commentTxt.setText("")
         }
     }
-    //메인 돌아가기 함수
+    //돌아가기 함수
     override fun onBackPressed() {
         super.onBackPressed()
     }
@@ -77,8 +85,8 @@ class CommentActivity : AppCompatActivity() {
 
         init {
             FirebaseFirestore.getInstance().collection("feed")
-                .document(contentUid!!).collection("comments")
-                .orderBy("timestamp", Query.Direction.DESCENDING)
+                .document(contentUidForCom!!).collection("comments")
+                .orderBy("timestamp", Query.Direction.ASCENDING)
                 .addSnapshotListener { value, error ->
                     comments.clear()
                     if(value == null) return@addSnapshotListener
@@ -100,12 +108,42 @@ class CommentActivity : AppCompatActivity() {
             view.com_text.text = comments[position].comment
             view.com_nick.text = comments[position].userId
 
-            FirebaseFirestore.getInstance().collection("users")
-                .document(comments[position].uid!!).get()
-                .addOnCompleteListener { task ->
+            //타임스탬프 변수, Date 형식으로 변환
+            val timestamp = comments[position].timestamp //작성시간
+            val currentTime = System.currentTimeMillis() //현재시간
+            val timeDiffer = currentTime - timestamp!! //시간차이
+            var sdf = SimpleDateFormat("h시간 전") //시간포맷
+            var testTime = SimpleDateFormat("yyyy.MM.dd hh시 mm분") //테스트용 시간포맷
+            var date = sdf.format(timeDiffer)
+            if(timeDiffer > 3600000) {
+                view.com_time.text = date
+                Log.d("현재시간: ", testTime.format(currentTime))
+                Log.d("작성시간: ", testTime.format(timestamp))
+            }
+            else {
+                sdf = SimpleDateFormat("m분 전")
+                date = sdf.format(timeDiffer)
+                view.com_time.text = date
+                Log.d("현재시간: ", testTime.format(currentTime))
+                Log.d("작성시간: ", testTime.format(timestamp))
+            }
+
+//            FirebaseFirestore.getInstance().collection("users")
+//                .document(comments[position].uid!!).get()
+//                .addOnCompleteListener { task ->
+//                    if(task.isSuccessful) {
+//                        val url = task.result!!["profileImage"]
+//                        Glide.with(holder.itemView.context).load(url).apply(RequestOptions()).into(view.com_profile)
+//                    }
+//                }
+
+            FirebaseFirestore.getInstance().collection("users").document(destinationUidForCom!!)
+                .get().addOnCompleteListener { task ->
                     if(task.isSuccessful) {
-                        val url = task.result!!["profileImage"]
-                        Glide.with(holder.itemView.context).load(url).apply(RequestOptions()).into(view.com_profile)
+                        val url = task.result!!["profileImageUrl"]
+                        Glide.with(holder.itemView.context).load(url)
+                            .apply(RequestOptions().circleCrop())
+                            .into(com_profile)
                     }
                 }
         }
