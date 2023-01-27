@@ -8,6 +8,7 @@ data class FeedDTO (
     var title: String? = null, //작성제목
     var contents: String? = null, //작성내용
     var imageUrl: String? = null, //업로드이미지
+    var likeCount: Int = 0, //좋아요(도장)
     //세부내용 피드
     var weather_kind: Int? = null, //날씨종류 0: 맑음 | 1: 흐림 | 2: 비 | 3: 눈
 ) {

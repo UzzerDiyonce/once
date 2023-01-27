@@ -27,12 +27,16 @@ class CommentActivity : AppCompatActivity() {
     lateinit var commentTxt: EditText
     lateinit var commentRecyclerView: RecyclerView
 
-    var contentUid: String? = null
-    //var destinationUid: String? = null
+    //피드 변수 코멘트에서 받기
+    var contentUidForCom: String? = null
+    var destinationUidForCom: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_comment)
+
+        //초기화
+        commentTxt = findViewById(R.id.commentText)
 
         //메인페이지로 돌아가기 버튼
         commentBackBtn = findViewById(R.id.commentBack)
@@ -41,8 +45,8 @@ class CommentActivity : AppCompatActivity() {
         }
 
         //변수 설정
-        contentUid = intent.getStringExtra("contentUid")
-        //destinationUid = intent.getStringExtra("destinationUid")
+        contentUidForCom = intent.getStringExtra("contentUid")
+        destinationUidForCom = intent.getStringExtra("destinationUid")
 
         //recycler뷰 관련 설정
         commentRecyclerView = findViewById(R.id.commentRecyclerView)
@@ -61,12 +65,12 @@ class CommentActivity : AppCompatActivity() {
             comment.timestamp = System.currentTimeMillis()
 
             //db 저장
-            FirebaseFirestore.getInstance().collection("feed").document(contentUid!!).collection("comments").document().set(comment)
+            FirebaseFirestore.getInstance().collection("feed").document(contentUidForCom!!).collection("comments").document().set(comment)
             //Log.d("contentUid: ", contentUid.toString())
             commentTxt.setText("")
         }
     }
-    //메인 돌아가기 함수
+    //돌아가기 함수
     override fun onBackPressed() {
         super.onBackPressed()
     }
@@ -77,7 +81,7 @@ class CommentActivity : AppCompatActivity() {
 
         init {
             FirebaseFirestore.getInstance().collection("feed")
-                .document(contentUid!!).collection("comments")
+                .document(contentUidForCom!!).collection("comments")
                 .orderBy("timestamp", Query.Direction.DESCENDING)
                 .addSnapshotListener { value, error ->
                     comments.clear()
