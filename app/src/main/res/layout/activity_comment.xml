@@ -60,20 +60,32 @@
             app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@drawable/defaultprofileicon" />
 
-        <EditText
-            android:id="@+id/commentText"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="280dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginBottom="16dp"
+            android:layout_height="52dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginBottom="14dp"
             android:background="@drawable/comment_rect"
-            android:fontFamily="@font/font_lee"
-            android:hint=" 여기에 댓글을 쓸 수 있어요."
-            android:textColor="#2A1D17"
-            android:textColorHint="#8A7267"
-            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/commentProfile" />
+            app:layout_constraintStart_toEndOf="@+id/commentProfile">
+
+            <EditText
+                android:id="@+id/commentText"
+                android:layout_width="260dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="12dp"
+                android:background="#00000000"
+                android:fontFamily="@font/font_lee"
+                android:hint="여기에 댓글을 쓸 수 있어요."
+                android:textColor="#2A1D17"
+                android:textColorHint="#8A7267"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Button
             android:id="@+id/commentBtn"

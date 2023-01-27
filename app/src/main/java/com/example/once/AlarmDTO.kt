@@ -2,6 +2,7 @@ package com.example.once
 
 data class AlarmDTO (
     var uid: String? = null,
+    var userId: String? = null,
     var fromUid: String? = null, //알람 보낸 사람의 UID
     var fromId: String? = null, //알람 보낸 사람의 ID
     var profileImage: String? = null, //알람 보낸 사람의 프로필
