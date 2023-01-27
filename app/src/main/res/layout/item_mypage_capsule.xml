@@ -60,7 +60,7 @@
             android:layout_marginStart="120dp"
             android:layout_marginTop="5dp"
             android:fontFamily="@font/font_lee"
-            android:text="2023.01.01"
+            android:text="2023.12.22"
             android:textColor="#2A1D17"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"

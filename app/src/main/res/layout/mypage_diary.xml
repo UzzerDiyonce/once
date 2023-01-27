@@ -9,7 +9,7 @@
     tools:context=".MyPage">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/mp_toolbar"
+        android:id="@+id/mypage_diary_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="?attr/actionBarSize"
@@ -28,10 +28,11 @@
     </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
+        android:id="@+id/mypage_diaryContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_below="@+id/mp_toolbar">
+        android:layout_below="@+id/mypage_diary_toolbar">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -103,7 +104,7 @@
                     android:orientation="vertical">
 
                     <ImageButton
-                        android:id="@+id/mypage_setting"
+                        android:id="@+id/mypageSettingBtn"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_gravity="center_vertical"
@@ -126,61 +127,68 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/mypage_btnList"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="25dp"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <Button
-                android:id="@+id/mypage_diaryButton"
-                android:layout_width="150dp"
-                android:layout_height="50dp"
-                android:layout_gravity="left"
-                android:layout_marginRight="35dp"
-                android:background="#00ff0000"
-                android:text="그림일기"
-                android:layout_weight="1"
-                android:fontFamily="@font/font_lee"
-                android:textSize="25sp"
-                android:textStyle="bold" />
+            <LinearLayout
+                android:id="@+id/mypage_btnList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="28dp"
+                android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/mypage_capsuleButton"
-                android:layout_width="150dp"
-                android:layout_height="50dp"
-                android:layout_gravity="right"
-                android:background="#00ff0000"
-                android:text="타임캡슐"
-                android:layout_weight="1"
-                android:fontFamily="@font/font_lee"
-                android:textSize="25sp"
-                android:textColor="#8A7267"
-                android:textStyle="bold" />
-        </LinearLayout>
+                <Button
+                    android:id="@+id/mypage_diaryButton"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="left"
+                    android:layout_marginRight="35dp"
+                    android:background="#00ff0000"
+                    android:text="그림일기"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/font_lee"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="700dp"
-            android:layout_marginTop="-75dp"
-            android:src="@drawable/mypage_box_outline"
-            android:scaleType="centerCrop"></ImageView>
-        <!--이쪽에 프래그먼트 추가-->
+                <Button
+                    android:id="@+id/mypage_capsuleButton"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="right"
+                    android:background="#00ff0000"
+                    android:text="타임캡슐"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/font_lee"
+                    android:textSize="25sp"
+                    android:textColor="#8A7267"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
-        <ScrollView
-            android:id="@+id/mypage_container"
-            android:layout_width="match_parent"
-            android:layout_height="550dp"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="-600dp">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/mypage_diarylistView"
+            <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_mypage_diary"/>
-        </ScrollView>
+                android:layout_height="700dp"
+                android:layout_marginTop="-78dp"
+                android:src="@drawable/mypage_box_outline"
+                android:scaleType="centerCrop"></ImageView>
+            <!--이쪽에 프래그먼트 추가-->
+
+            <ScrollView
+                android:id="@+id/mypage_container"
+                android:layout_width="match_parent"
+                android:layout_height="550dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="-600dp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/mypage_diarylistView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_mypage_diary"/>
+            </ScrollView>
+
+        </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

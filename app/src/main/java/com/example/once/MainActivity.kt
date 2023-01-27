@@ -10,7 +10,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import android.widget.Button
+import android.widget.ImageButton
 import com.google.firebase.ktx.Firebase
+import com.example.once.MyPage
 
 
 class MainActivity : AppCompatActivity() {
@@ -65,14 +68,16 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        val mypageFragment = MyPage()
+        /*val mypageFragment = MyPage()
         val fragment : Fragment? =
             supportFragmentManager.findFragmentByTag(MyPage::class.java.simpleName)
 
         if(fragment !is MyPage){
             supportFragmentManager.beginTransaction()
-                .add(R.id.)
-        }
+                .add(R.id.mypage_diaryContainer, mypageFragment, MyPage::class.java.simpleName)
+                .commit()
+        }*/
+
     }
     private fun loadFragment(fragment: Fragment){
         val transaction = supportFragmentManager.beginTransaction()
