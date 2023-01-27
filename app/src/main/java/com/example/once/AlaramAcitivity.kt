@@ -38,6 +38,8 @@ class AlaramAcitivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
     }
+
+    //리사이클러뷰 어댑터
     inner class RecyclerViewAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         var alarmDTOList: ArrayList<AlarmDTO> = arrayListOf()
