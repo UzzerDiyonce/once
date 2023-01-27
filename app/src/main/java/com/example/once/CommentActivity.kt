@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.FirestoreRegistrar
 import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.activity_comment.*
 import kotlinx.android.synthetic.main.activity_comment.view.*
@@ -62,6 +63,7 @@ class CommentActivity : AppCompatActivity() {
         commentBtn.setOnClickListener {
 
             //DTO 초기화
+            var feedDTO = FeedDTO()
             var comment = FeedDTO.Comment()
             comment.userId = FirebaseAuth.getInstance().currentUser?.email
             comment.uid = FirebaseAuth.getInstance().currentUser?.uid
@@ -128,22 +130,13 @@ class CommentActivity : AppCompatActivity() {
                 Log.d("작성시간: ", testTime.format(timestamp))
             }
 
-//            FirebaseFirestore.getInstance().collection("users")
-//                .document(comments[position].uid!!).get()
-//                .addOnCompleteListener { task ->
-//                    if(task.isSuccessful) {
-//                        val url = task.result!!["profileImage"]
-//                        Glide.with(holder.itemView.context).load(url).apply(RequestOptions()).into(view.com_profile)
-//                    }
-//                }
-
-            FirebaseFirestore.getInstance().collection("users").document(destinationUidForCom!!)
+            FirebaseFirestore.getInstance().collection("users").document(comments[position].uid!!)
                 .get().addOnCompleteListener { task ->
                     if(task.isSuccessful) {
                         val url = task.result!!["profileImageUrl"]
                         Glide.with(holder.itemView.context).load(url)
                             .apply(RequestOptions().circleCrop())
-                            .into(com_profile)
+                            .into(view.com_profile)
                     }
                 }
         }
