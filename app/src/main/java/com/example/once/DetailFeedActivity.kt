@@ -49,6 +49,7 @@ class DetailFeedActivity : AppCompatActivity() {
             var intent = Intent(v.context, CommentActivity::class.java)
             intent.putExtra("contentUid", contentUid)
             intent.putExtra("destinationUid", destinationUid)
+            Log.d("목적지Uid: ", destinationUid.toString())
             startActivity(intent)
         }
 
@@ -77,7 +78,8 @@ class DetailFeedActivity : AppCompatActivity() {
             else {
                 feedDTO?.likeCount = feedDTO?.likeCount!! + 1
                 feedDTO?.likers!![uid.toString()] = true
-                likeAlarm(feedDTO.uid!!)
+                //likeAlarm(feedDTO.uid!!)
+                likeAlarm(destinationUid!!)
                 Log.d("좋아요 누른 경우:", feedDTO?.likeCount.toString())
             }
             transaction.set(tsDoc, feedDTO)

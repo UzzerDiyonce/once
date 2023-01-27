@@ -19,7 +19,11 @@ import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.activity_comment.*
 import kotlinx.android.synthetic.main.activity_comment.view.*
 import kotlinx.android.synthetic.main.feed.view.*
+import kotlinx.android.synthetic.main.item_comment.*
 import kotlinx.android.synthetic.main.item_comment.view.*
+import kotlinx.android.synthetic.main.item_feed.view.*
+import java.text.SimpleDateFormat
+import java.util.Date
 
 class CommentActivity : AppCompatActivity() {
     lateinit var commentBackBtn: ImageButton
@@ -103,14 +107,43 @@ class CommentActivity : AppCompatActivity() {
             var view = holder.itemView
             view.com_text.text = comments[position].comment
             view.com_nick.text = comments[position].userId
-            view.com_time.text = comments[position].timestamp.toString()
 
-            FirebaseFirestore.getInstance().collection("users")
-                .document(comments[position].uid!!).get()
-                .addOnCompleteListener { task ->
+            //타임스탬프 변수, Date 형식으로 변환
+            val timestamp = comments[position].timestamp //작성시간
+            val currentTime = System.currentTimeMillis() //현재시간
+            val timeDiffer = currentTime - timestamp!! //시간차이
+            var sdf = SimpleDateFormat("h시간 전") //시간포맷
+            var testTime = SimpleDateFormat("yyyy.MM.dd hh시 mm분") //테스트용 시간포맷
+            var date = sdf.format(timeDiffer)
+            if(timeDiffer > 3600000) {
+                view.com_time.text = date
+                Log.d("현재시간: ", testTime.format(currentTime))
+                Log.d("작성시간: ", testTime.format(timestamp))
+            }
+            else {
+                sdf = SimpleDateFormat("m분 전")
+                date = sdf.format(timeDiffer)
+                view.com_time.text = date
+                Log.d("현재시간: ", testTime.format(currentTime))
+                Log.d("작성시간: ", testTime.format(timestamp))
+            }
+
+//            FirebaseFirestore.getInstance().collection("users")
+//                .document(comments[position].uid!!).get()
+//                .addOnCompleteListener { task ->
+//                    if(task.isSuccessful) {
+//                        val url = task.result!!["profileImage"]
+//                        Glide.with(holder.itemView.context).load(url).apply(RequestOptions()).into(view.com_profile)
+//                    }
+//                }
+
+            FirebaseFirestore.getInstance().collection("users").document(destinationUidForCom!!)
+                .get().addOnCompleteListener { task ->
                     if(task.isSuccessful) {
-                        val url = task.result!!["profileImage"]
-                        Glide.with(holder.itemView.context).load(url).apply(RequestOptions()).into(view.com_profile)
+                        val url = task.result!!["profileImageUrl"]
+                        Glide.with(holder.itemView.context).load(url)
+                            .apply(RequestOptions().circleCrop())
+                            .into(com_profile)
                     }
                 }
         }
