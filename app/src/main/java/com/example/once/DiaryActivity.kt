@@ -45,7 +45,6 @@ class DiaryActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
 
     companion object{
         const val PARAM_KEY_IMAGE = "image"
-        const val PARAM_KEY_PRODUCT_ID
     }
     @Override
     override fun onCreate(savedInstanceState: Bundle?) {
