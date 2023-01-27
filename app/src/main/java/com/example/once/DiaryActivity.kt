@@ -83,7 +83,6 @@ class DiaryActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
 
         galleryBtn.setOnClickListener {
             checkGallAuthority()
-
         }
     }
 

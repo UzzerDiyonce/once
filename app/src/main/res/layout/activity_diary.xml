@@ -118,14 +118,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="100dp"
-                    android:text="사진 넣기" />
+                    android:background=""
+                    android:text="사진 넣기"
+                    android:drawableLeft="ga"/>
 
-                <Button
+                <ImageButton
                     android:id="@+id/pictureBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
                     android:layout_marginStart="20dp"
-                    android:text="그림 넣기" />
+                    android:background="@drawable/rectangle_button"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/drawing_icon"/>
             </LinearLayout>
             <ImageView
                 android:id="@+id/imgView"
@@ -143,12 +147,15 @@
                 tools:ignore="SpeakableTextPresentCheck"
                 android:gravity="top"
                 android:lineSpacingExtra="13.5dp"/>
-            <Button
+
+            <ImageButton
                 android:layout_width="100dp"
                 android:layout_height="50dp"
                 android:layout_gravity="right"
                 android:layout_marginEnd="20dp"
-                android:text="완료" />
+                android:background="@drawable/rectangle_button"
+                android:text="완료"
+                tools:ignore="SpeakableTextPresentCheck" />
         </LinearLayout>
     </ScrollView>
 
