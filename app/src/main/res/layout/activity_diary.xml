@@ -45,24 +45,23 @@
         android:layout_height="wrap_content"
         android:background="@drawable/diarylayout"
         android:orientation="horizontal">
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
-
             <!-- 상단: 날짜 및 날씨 -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="15dp"
-                android:layout_marginEnd="16dp">
+                android:layout_marginEnd="16dp"
+                android:orientation="horizontal">
                 <!-- 날짜 표시 -->
                 <TextView
                     android:id="@+id/dateView"
                     android:layout_width="134dp"
-                    android:layout_height="48dp"
+                    android:layout_height="55dp"
                     android:layout_gravity="center_vertical"
                     android:textSize="20dp" />
                 <!-- 날짜 선택 -->
@@ -110,35 +109,46 @@
                         android:scaleY="0.7" />
                 </RadioGroup>
             </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <Button
-                    android:id="@+id/im"
+                    android:id="@+id/galleryBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="100dp"
                     android:text="사진 넣기" />
 
                 <Button
+                    android:id="@+id/pictureBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:text="그림 넣기" />
             </LinearLayout>
-            <LinearLayout
+            <ImageView
+                android:id="@+id/imgView"
+                android:layout_width="380dp"
+                android:layout_height="200dp"
+                android:layout_marginStart="16dp"
+                android:maxHeight="200dp"
+                android:maxWidth="350dp"/>
+            <EditText
+                android:id="@+id/diaryContent"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <ImageView
-                    android:id="@+id/imgView"
-                    android:layout_width="380dp"
-                    android:layout_height="200dp"
-                    android:layout_marginStart="16dp"
-                    android:maxHeight="200dp"
-                    android:maxWidth="350dp"/>
-            </LinearLayout>
+                android:layout_height="260dp"
+                android:background="@null"
+                android:layout_marginTop="16dp"
+                tools:ignore="SpeakableTextPresentCheck"
+                android:gravity="top"
+                android:lineSpacingExtra="13.5dp"/>
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_gravity="right"
+                android:layout_marginEnd="20dp"
+                android:text="완료" />
         </LinearLayout>
     </ScrollView>
 
