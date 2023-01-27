@@ -9,8 +9,9 @@
     tools:context=".CommentActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="55dp">
 
         <ImageButton
             android:id="@+id/commentBack"
@@ -38,69 +39,82 @@
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/commentRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="531dp"
-        tools:listitem="@layout/item_comment">
-
-    </androidx.recyclerview.widget.RecyclerView>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/commentProfile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="20dp"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/commentRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="60dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/defaultprofileicon" />
+            tools:listitem="@layout/item_comment">
+
+        </androidx.recyclerview.widget.RecyclerView>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="280dp"
-            android:layout_height="52dp"
-            android:layout_marginStart="6dp"
-            android:layout_marginBottom="14dp"
-            android:background="@drawable/comment_rect"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/commentProfile">
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:layout_marginTop="3dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/commentRecyclerView">
 
-            <EditText
-                android:id="@+id/commentText"
-                android:layout_width="260dp"
-                android:layout_height="48dp"
-                android:layout_marginStart="12dp"
-                android:background="#00000000"
-                android:fontFamily="@font/font_lee"
-                android:hint="여기에 댓글을 쓸 수 있어요."
-                android:textColor="#2A1D17"
-                android:textColorHint="#8A7267"
-                android:textSize="18sp"
+            <ImageView
+                android:id="@+id/commentProfile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:srcCompat="@drawable/defaultprofileicon" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="280dp"
+                android:layout_height="52dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginBottom="14dp"
+                android:background="@drawable/comment_rect"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/commentProfile">
+
+                <EditText
+                    android:id="@+id/commentText"
+                    android:layout_width="260dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="12dp"
+                    android:background="#00000000"
+                    android:fontFamily="@font/font_lee"
+                    android:hint="여기에 댓글을 쓸 수 있어요."
+                    android:textColor="#2A1D17"
+                    android:textColorHint="#8A7267"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Button
+                android:id="@+id/commentBtn"
+                android:layout_width="48dp"
+                android:layout_height="49dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/button_rectangle"
+                android:fontFamily="@font/font_lee"
+                android:text="쓱"
+                android:textColor="#2A1D17"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <Button
-            android:id="@+id/commentBtn"
-            android:layout_width="48dp"
-            android:layout_height="49dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/button_rectangle"
-            android:fontFamily="@font/font_lee"
-            android:text="쓱"
-            android:textColor="#2A1D17"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>
