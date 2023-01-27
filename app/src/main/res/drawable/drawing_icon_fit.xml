@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:drawable="@drawable/rectangle_button"
-        android:width="100dp"
-        android:height="50dp" />
+        android:drawable="@drawable/drawing_icon"
+        android:width="48dp"
+        android:height="48dp" />
 </layer-list>

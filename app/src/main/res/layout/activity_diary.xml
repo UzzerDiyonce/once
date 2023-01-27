@@ -122,14 +122,15 @@
                     android:text="사진 넣기"
                     android:drawableLeft="ga"/>
 
-                <ImageButton
+                <Button
                     android:id="@+id/pictureBtn"
                     android:layout_width="100dp"
                     android:layout_height="50dp"
                     android:layout_marginStart="20dp"
-                    android:background="@drawable/rectangle_button"
+                    android:background="@drawable/button_border"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/drawing_icon"/>
+                    android:text="그림 넣기"
+                    android:drawableLeft="@drawable/drawing_icon"/>
             </LinearLayout>
             <ImageView
                 android:id="@+id/imgView"
