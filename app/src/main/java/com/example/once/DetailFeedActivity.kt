@@ -49,7 +49,6 @@ class DetailFeedActivity : AppCompatActivity() {
             intent.putExtra("contentUid", contentUid)
             intent.putExtra("destinationUid", destinationUid)
             startActivity(intent)
-            //startActivity(Intent(this, CommentActivity::class.java))
         }
     }
     //메인 돌아가기 함수

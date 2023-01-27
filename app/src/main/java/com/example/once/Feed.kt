@@ -76,7 +76,7 @@ class Feed : Fragment() {
         var contentUidList: ArrayList<String> = arrayListOf()
 
         init {
-            firestore?.collection("feed")?.orderBy("timestamp", Query.Direction.DESCENDING)
+            firestore?.collection("feed")?.orderBy("timestamp", Query.Direction.ASCENDING)
                 ?.addSnapshotListener { value, error ->
                     feedDTOList.clear()
                     contentUidList.clear()

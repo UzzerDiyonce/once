@@ -82,7 +82,7 @@ class CommentActivity : AppCompatActivity() {
         init {
             FirebaseFirestore.getInstance().collection("feed")
                 .document(contentUidForCom!!).collection("comments")
-                .orderBy("timestamp", Query.Direction.DESCENDING)
+                .orderBy("timestamp", Query.Direction.ASCENDING)
                 .addSnapshotListener { value, error ->
                     comments.clear()
                     if(value == null) return@addSnapshotListener
