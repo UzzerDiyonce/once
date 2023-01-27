@@ -103,6 +103,7 @@ class CommentActivity : AppCompatActivity() {
             var view = holder.itemView
             view.com_text.text = comments[position].comment
             view.com_nick.text = comments[position].userId
+            view.com_time.text = comments[position].timestamp.toString()
 
             FirebaseFirestore.getInstance().collection("users")
                 .document(comments[position].uid!!).get()
