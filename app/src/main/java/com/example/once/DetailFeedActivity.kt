@@ -76,8 +76,10 @@ class DetailFeedActivity : AppCompatActivity() {
             detailFriendIcon.setImageResource(R.drawable.withfriedn)
             detailFriend.text = "함께한 친구"
 
+            //함께한 친구 버튼을 눌렀을 때 다이얼로그 띄우기
             detailFriend.setOnClickListener {
-
+                val dialog = CustomDialog()
+                dialog.show(supportFragmentManager, "CustomDialog")
             }
         }
 
