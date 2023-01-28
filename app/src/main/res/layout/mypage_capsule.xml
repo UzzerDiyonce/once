@@ -9,7 +9,7 @@
     tools:context=".MyPageCapsule">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/mypage_capsule_toolbar"
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="?attr/actionBarSize"
@@ -32,7 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_below="@+id/mypage_capsule_toolbar">
+        android:layout_below="@+id/toolbar">
 
         <LinearLayout
             android:layout_width="match_parent"

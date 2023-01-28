@@ -9,7 +9,7 @@
     tools:context=".MyPage">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/mypage_diary_toolbar"
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="?attr/actionBarSize"
@@ -32,7 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_below="@+id/mypage_diary_toolbar">
+        android:layout_below="@+id/toolbar">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -67,16 +67,18 @@
                         app:civ_border_overlay="true"
                         app:civ_border_width="1dp" />
 
-                    <!--나중에 닉네임 DB 연결해서 수정-->
                     <TextView
                         android:id="@+id/mypage_profNickname"
-                        android:layout_width="wrap_content"
+                        android:layout_width="175dp"
                         android:layout_height="wrap_content"
-                        android:text="태종태세비욘세"
+                        android:layout_marginLeft="-5dp"
                         android:layout_gravity="center_vertical"
                         android:fontFamily="@font/font_lee"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:text="onceuzdm23@naver.com"
                         android:textColor="#4C6701"
-                        android:textSize="24sp"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -182,11 +184,11 @@
                 android:layout_marginTop="-600dp">
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/mypage_diarylistView"
+                    android:id="@+id/mypageDiaryListView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/item_mypage_diary"/>
+                    tools:listitem="@layout/item_mypage_list"/>
             </ScrollView>
 
         </LinearLayout>

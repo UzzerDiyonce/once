@@ -67,17 +67,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
-        /*val mypageFragment = MyPage()
-        val fragment : Fragment? =
-            supportFragmentManager.findFragmentByTag(MyPage::class.java.simpleName)
-
-        if(fragment !is MyPage){
-            supportFragmentManager.beginTransaction()
-                .add(R.id.mypage_diaryContainer, mypageFragment, MyPage::class.java.simpleName)
-                .commit()
-        }*/
-
     }
     private fun loadFragment(fragment: Fragment){
         val transaction = supportFragmentManager.beginTransaction()
