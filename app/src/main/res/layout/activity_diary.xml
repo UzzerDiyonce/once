@@ -39,31 +39,37 @@
             android:minHeight="48dp"/>
     </LinearLayout>
 
-    <!-- 본문 : 내용 작성란 -->
+    <!-- 본문 -->
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/diarylayout"
+        android:layout_height="800dp"
+        android:background="@drawable/layout_diary"
         android:orientation="horizontal">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-            <!-- 상단: 날짜 및 날씨 -->
+            <!-- 최상단: 날짜 -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="16dp"
+                android:layout_gravity="center_vertical"
                 android:orientation="horizontal">
                 <!-- 날짜 표시 -->
                 <TextView
                     android:id="@+id/dateView"
-                    android:layout_width="134dp"
+                    android:layout_width="300dp"
                     android:layout_height="55dp"
-                    android:layout_gravity="center_vertical"
-                    android:textSize="20dp" />
+                    android:hint="0000년 00월 00일 0요일"
+                    android:gravity="center"
+                    android:textSize="25dp" />
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
                 <!-- 날짜 선택 -->
                 <ImageButton
                     android:id="@+id/dateBtn"
@@ -73,42 +79,43 @@
                     android:background="@android:color/transparent"
                     app:srcCompat="@drawable/ic_baseline_calendar_today_24"
                     tools:ignore="SpeakableTextPresentCheck,DuplicateClickableBoundsCheck" />
-                <!--날씨 선택-->
-                <RadioGroup
+            </LinearLayout>
+            <!--날씨 선택-->
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:button="@drawable/radio_sunny"
+                    android:scaleX="0.7"
+                    android:scaleY="0.7" />
 
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:button="@drawable/radio_sunny"
-                        android:scaleX="0.7"
-                        android:scaleY="0.7" />
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@drawable/radio_cloudy"
+                    android:scaleX="0.7"
+                    android:scaleY="0.7" />
 
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:button="@drawable/radio_cloudy"
-                        android:scaleX="0.7"
-                        android:scaleY="0.7" />
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@drawable/radio_rainy"
+                    android:scaleX="0.7"
+                    android:scaleY="0.7" />
 
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:button="@drawable/radio_rainy"
-                        android:scaleX="0.7"
-                        android:scaleY="0.7" />
-
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:button="@drawable/radio_snowy"
-                        android:scaleX="0.7"
-                        android:scaleY="0.7" />
-                </RadioGroup>
-            </LinearLayout>
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@drawable/radio_snowy"
+                    android:scaleX="0.7"
+                    android:scaleY="0.7" />
+            </RadioGroup>
+            <!-- 사진/그림 첨부 -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -118,9 +125,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="100dp"
-                    android:background=""
-                    android:text="사진 넣기"
-                    android:drawableLeft="ga"/>
+                    android:text="사진 넣기" />
 
                 <Button
                     android:id="@+id/pictureBtn"
@@ -129,9 +134,11 @@
                     android:layout_marginStart="20dp"
                     android:background="@drawable/button_border"
                     android:scaleType="fitCenter"
-                    android:text="그림 넣기"
-                    android:drawableLeft="@drawable/drawing_icon"/>
+                    android:drawableLeft="@drawable/drawing_icon_fit"
+                    android:paddingLeft="5dp"
+                    android:text="그림 넣기"/>
             </LinearLayout>
+
             <ImageView
                 android:id="@+id/imgView"
                 android:layout_width="380dp"
@@ -149,12 +156,13 @@
                 android:gravity="top"
                 android:lineSpacingExtra="13.5dp"/>
 
-            <ImageButton
+            <Button
                 android:layout_width="100dp"
                 android:layout_height="50dp"
                 android:layout_gravity="right"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="20dp"
-                android:background="@drawable/rectangle_button"
+                android:background="@drawable/button_border"
                 android:text="완료"
                 tools:ignore="SpeakableTextPresentCheck" />
         </LinearLayout>
