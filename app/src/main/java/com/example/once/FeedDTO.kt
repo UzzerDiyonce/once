@@ -16,6 +16,7 @@ data class FeedDTO (
     data class Comment(
         var userId: String? = null, //이메일
         var uid: String? = null, //uid
+        var userProfile: String? = null, //프로필
         var comment: String? = null, //댓글
         var timestamp: Long? = null //timestamp
     )
