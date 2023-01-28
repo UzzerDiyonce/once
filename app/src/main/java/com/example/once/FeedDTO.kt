@@ -11,8 +11,10 @@ data class FeedDTO (
     var imageUrl: String? = null, //업로드이미지
     var likeCount: Int = 0, //좋아요(도장)
     var likers: MutableMap<String, Boolean> = HashMap(),
-    //세부내용 피드
+    //세부내용 날씨 종류
     var weather_kind: Int? = null, //날씨종류 0: 맑음 | 1: 흐림 | 2: 비 | 3: 눈
+    //피드 종류
+    var feed_kind: Int? = null //피드종류 0: 기본일기 | 1: 타임캡슐
 ) {
     data class Comment(
         var userId: String? = null, //이메일
