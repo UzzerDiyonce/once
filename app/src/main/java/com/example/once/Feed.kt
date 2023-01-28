@@ -16,6 +16,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.feed.view.*
 import kotlinx.android.synthetic.main.item_alaram.view.*
+import kotlinx.android.synthetic.main.item_feed.*
 import kotlinx.android.synthetic.main.item_feed.view.*
 import java.text.SimpleDateFormat
 
@@ -124,14 +125,23 @@ class Feed : Fragment() {
             view.feedContenetView.text = feedDTOList!![position].contents //내용
             //타임스탬프
             val timestamp = feedDTOList[position].timestamp
-            val sdf = SimpleDateFormat("yyyy.MM.dd hh시 mm분")
+            val sdf = SimpleDateFormat("yyyy.MM.dd hh시 mm분") //피드용 포맷
+            val d_sdf = SimpleDateFormat("yyyy 년 MM 월 dd 일 E요일") //디테일뷰용 포맷
             val date = sdf.format(timestamp)
+            val d_date = d_sdf.format(timestamp)
             view.feedDateView.text = date
-            //피드 더보기 버튼 클릭
+
+            //피드 더보기 버튼 클릭 시, 해당 피드데이터 전달
             view.feedDetailBtn.setOnClickListener { v->
                 var intent = Intent(v.context, DetailFeedActivity::class.java)
                 intent.putExtra("contentUid", contentUidList[position])
                 intent.putExtra("destinationUid", feedDTOList[position].uid)
+                intent.putExtra("date", d_date)
+                intent.putExtra("title", feedDTOList[position].title)
+                intent.putExtra("image", feedDTOList[position].imageUrl)
+                intent.putExtra("contents", feedDTOList[position].contents)
+                intent.putExtra("weather", feedDTOList[position].weather_kind.toString())
+                intent.putExtra("feedKind", feedDTOList[position].feed_kind.toString())
                 startActivity(intent)
             }
             //피드 프로필 이미지
