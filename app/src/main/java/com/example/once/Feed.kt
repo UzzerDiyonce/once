@@ -16,7 +16,9 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.feed.view.*
 import kotlinx.android.synthetic.main.item_alaram.view.*
+import kotlinx.android.synthetic.main.item_feed.*
 import kotlinx.android.synthetic.main.item_feed.view.*
+import java.text.SimpleDateFormat
 
 class Feed : Fragment() {
     private var firestore: FirebaseFirestore? = null
@@ -75,6 +77,7 @@ class Feed : Fragment() {
         var feedDTOList: ArrayList<FeedDTO> = arrayListOf()
         var contentUidList: ArrayList<String> = arrayListOf()
 
+        //피드 데이터 시간에 대해 오름차순으로 정렬, 배열 비우기
         init {
             firestore?.collection("feed")?.orderBy("timestamp", Query.Direction.ASCENDING)
                 ?.addSnapshotListener { value, error ->
@@ -103,6 +106,7 @@ class Feed : Fragment() {
 //                }
         }
 
+        //뷰홀더
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
             var view = LayoutInflater.from(parent.context).inflate(R.layout.item_feed, parent, false)
             return CustomViewHolder (view)
@@ -113,20 +117,36 @@ class Feed : Fragment() {
             var view = holder.itemView
 
             //피드 컬렉션에 저장된 데이터 가져오기
+            if(feedDTOList!![position].feed_kind == 1) {
+                view.feedFriend.setBackgroundResource(R.drawable.withfriedn)
+            }
             view.feedItemTitle.text = feedDTOList!![position].title //제목
             view.feedItemName.text = feedDTOList!![position].userId //유저 아이디 저장
             Glide.with(holder.itemView.context).load(feedDTOList!![position].imageUrl)
                 .into(view.feedImageView) //이미지 저장
             view.feedContenetView.text = feedDTOList!![position].contents //내용
-            //view.feedDateView.text =
-            //피드 더보기 버튼 클릭
+            //타임스탬프
+            val timestamp = feedDTOList[position].timestamp
+            val sdf = SimpleDateFormat("yyyy.MM.dd hh시 mm분") //피드용 포맷
+            val d_sdf = SimpleDateFormat("yyyy 년 MM 월 dd 일 E요일") //디테일뷰용 포맷
+            val date = sdf.format(timestamp)
+            val d_date = d_sdf.format(timestamp)
+            view.feedDateView.text = date
+
+            //피드 더보기 버튼 클릭 시, 해당 피드데이터 디테일 액티비티로 전달
             view.feedDetailBtn.setOnClickListener { v->
                 var intent = Intent(v.context, DetailFeedActivity::class.java)
                 intent.putExtra("contentUid", contentUidList[position])
                 intent.putExtra("destinationUid", feedDTOList[position].uid)
+                intent.putExtra("date", d_date)
+                intent.putExtra("title", feedDTOList[position].title)
+                intent.putExtra("image", feedDTOList[position].imageUrl)
+                intent.putExtra("contents", feedDTOList[position].contents)
+                intent.putExtra("weather", feedDTOList[position].weather_kind.toString())
+                intent.putExtra("feedKind", feedDTOList[position].feed_kind.toString())
                 startActivity(intent)
             }
-
+            //피드 프로필 이미지 가져와서 할당
             FirebaseFirestore.getInstance().collection("users").document(feedDTOList[position].uid!!)
                 .get().addOnCompleteListener { task ->
                     if(task.isSuccessful) {
@@ -136,36 +156,6 @@ class Feed : Fragment() {
                             .into(view.feedItemProfile)
                     }
                 }
-
-
-//            //피드 컬렉션에 저장된 데이터 가져오기
-//            view.feedItemTitle.text = feedDTOList!![position].title //제목
-//            view.feedContenetView.text = feedDTOList!![position].contents //내용
-//            view.feedItemName.text = feedDTOList!![position].userId //이메일
-
-//            view.feedItemProfile
-//            view.feedImageView
-
-
-//            FirebaseFirestore.getInstance().collection("feed").document(feedDTOList[position].uid!!).get()
-//                .addOnCompleteListener { task ->
-//                    if(task.isSuccessful){
-//                        val url = task.result!!["profileImageUrl"]
-//                        Glide.with(view.context).load(url).apply(RequestOptions().circleCrop()).into(view.findViewById(R.id.feedItemProfile))
-//                    }
-//                }
-//
-//            when(feedDTOList[position].weather_kind){
-//                0 -> {
-//                    val str_0 = feedDTOList[position].userId + ""
-//                    view.feedContenetView.text = str_0
-//                }
-//                1 -> {
-//                    val str_0 = feedDTOList[position].userId + ""
-//                    view.feedItemTitle.text = str_0
-//                }
-//            }
-//            view.alarm_comment.visibility = View.INVISIBLE
         }
 
         override fun getItemCount(): Int {
