@@ -33,13 +33,19 @@ class MyPage : Fragment() {
 
     private lateinit var bind : MypageDiaryBinding
 
+    lateinit var mainActivity : MainActivity
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mainActivity = context as MainActivity
+    }
+
     @Override
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.mypage_diary, container, false)
-        bind = MypageDiaryBinding.inflate(layoutInflater)
 
         //파이어스토어 초기화
         firestore = FirebaseFirestore.getInstance()
@@ -65,15 +71,20 @@ class MyPage : Fragment() {
             }
         }
 
-        return bind.root
-    }
+        var setBtn: ImageButton = view.findViewById(R.id.mypageSettingBtn)
+        setBtn.setOnClickListener{
+            //편집 버튼 눌렀을 때
+            Log.d("GotoSettingAct: ", "편집 클릭")
+            startActivity(Intent(context, SettingActivity::class.java))
+        }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setOnClickListener()
-    }
+        var capsuleBtn: Button = view.findViewById(R.id.mypage_capsuleButton)
+        capsuleBtn.setOnClickListener {
+            // 내 타임캡슐 버튼 눌렀을 때
+            Log.d("GotoCapsuleFrag: ", "편집 클릭")
+            mainActivity.loadFragment(MyPageCapsule())
+        }
 
-    private fun setOnClickListener(){
-        val btnSequence = bind.mypageDiaryContainer.children
+        return view
     }
 }

@@ -70,13 +70,16 @@
                     <!--나중에 닉네임 DB 연결해서 수정-->
                     <TextView
                         android:id="@+id/mypage_profNickname"
-                        android:layout_width="wrap_content"
+                        android:layout_width="175dp"
                         android:layout_height="wrap_content"
-                        android:text="태종태세비욘세"
+                        android:layout_marginLeft="-5dp"
                         android:layout_gravity="center_vertical"
                         android:fontFamily="@font/font_lee"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:text="onceuzdm23@naver.com"
                         android:textColor="#4C6701"
-                        android:textSize="24sp"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -104,7 +107,7 @@
                     android:orientation="vertical">
 
                     <ImageButton
-                        android:id="@+id/mypage_setting"
+                        android:id="@+id/mypageSettingBtn"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_gravity="center_vertical"
@@ -132,7 +135,6 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/mypage_btnList"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -154,7 +156,6 @@
                     android:textStyle="bold" />
 
                 <Button
-                    android:id="@+id/mypage_capsuleButton"
                     android:layout_width="150dp"
                     android:layout_height="50dp"
                     android:layout_gravity="right"
@@ -186,7 +187,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/item_mypage_capsule"/>
+                    tools:listitem="@layout/item_mypage_list"/>
             </ScrollView>
 
         </LinearLayout>

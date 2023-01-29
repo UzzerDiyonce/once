@@ -61,7 +61,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="35dp"
+                android:layout_marginTop="50dp"
                 android:layout_gravity="center_horizontal"
                 android:orientation="horizontal">
 
@@ -89,14 +89,13 @@
                 android:layout_height="140dp"
                 android:background="@android:color/transparent"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="-530dp"
+                android:layout_marginTop="-550dp"
                 android:src="@drawable/mypage_profile_img"
                 app:civ_border_color="#000000"
                 app:civ_border_overlay="true"
                 app:civ_border_width="1dp" />
 
             <LinearLayout
-                android:id="@+id/settingAlarmBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="-150dp"
@@ -104,6 +103,7 @@
                 android:orientation="vertical">
 
                 <ImageButton
+                    android:id="@+id/settingAlarmBtn"
                     android:layout_width="35dp"
                     android:layout_height="40dp"
                     android:scaleType="centerCrop"
@@ -111,6 +111,7 @@
                     android:src="@drawable/alaram_icon" />
 
                 <TextView
+                    android:id="@+id/settingAlarmBtnText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"

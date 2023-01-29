@@ -12,6 +12,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import android.widget.Button
 import android.widget.ImageButton
+import androidx.fragment.app.FragmentManager
 import com.google.firebase.ktx.Firebase
 import com.example.once.MyPage
 
@@ -68,7 +69,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-    private fun loadFragment(fragment: Fragment){
+    public fun loadFragment(fragment: Fragment){
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.main_frame, fragment)
         transaction.commit()
