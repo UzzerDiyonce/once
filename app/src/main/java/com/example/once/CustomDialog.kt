@@ -18,6 +18,7 @@ class CustomDialog : DialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //풀스크린으로 다이얼로그 설정
         setStyle(STYLE_NO_TITLE, R.style.dialog_fullscreen)
         isCancelable = true
     }
@@ -34,10 +35,8 @@ class CustomDialog : DialogFragment() {
 
         //버튼 눌렀을 때
         binding?.dialogBack?.setOnClickListener {
-            dismiss()
+            dismiss() //닫기
         }
-
-        //binding?.dialogFriend?.text =
 
         // Inflate the layout for this fragment
         //return inflater.inflate(R.layout.dialog_layout, container, false)

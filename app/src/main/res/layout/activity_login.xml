@@ -6,8 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/loadback"
-    android:orientation="vertical"
-    android:gravity="center"
     tools:context=".LoginActivity">
 
     <ImageView
@@ -47,13 +45,10 @@
         android:id="@+id/btn_googleSignIn"
         android:layout_width="match_parent"
         android:layout_height="53dp"
-        android:layout_centerInparent="true"
         android:layout_marginStart="65dp"
         android:layout_marginEnd="65dp"
         android:layout_marginBottom="178dp"
         android:background="@drawable/button_rectangle"
-        android:text="구글 로그인"
-        app:isDarkTheme="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

@@ -85,6 +85,7 @@ class CommentActivity : AppCompatActivity() {
     inner class RecyclerViewAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         var comments: ArrayList<FeedDTO.Comment> = arrayListOf()
 
+        //피드 데이터 시간에 대해 오름차순으로 정렬
         init {
             FirebaseFirestore.getInstance().collection("feed")
                 .document(contentUidForCom!!).collection("comments")
@@ -99,6 +100,7 @@ class CommentActivity : AppCompatActivity() {
                 }
         }
 
+        //뷰홀더
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
             var view = LayoutInflater.from(parent.context).inflate(R.layout.item_comment, parent, false)
             return CustomViewHolder(view)
@@ -106,6 +108,7 @@ class CommentActivity : AppCompatActivity() {
         inner class CustomViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+            //데이터 할당
             var view = holder.itemView
             view.com_text.text = comments[position].comment
             view.com_nick.text = comments[position].userId
@@ -117,11 +120,13 @@ class CommentActivity : AppCompatActivity() {
             var sdf = SimpleDateFormat("h시간 전") //시간포맷
             var testTime = SimpleDateFormat("yyyy.MM.dd hh시 mm분") //테스트용 시간포맷
             var date = sdf.format(timeDiffer)
+            //현재 시간과 차이가 1시간 초과일 경우
             if(timeDiffer > 3600000) {
                 view.com_time.text = date
                 Log.d("현재시간: ", testTime.format(currentTime))
                 Log.d("작성시간: ", testTime.format(timestamp))
             }
+            //그 이하일 경우
             else {
                 sdf = SimpleDateFormat("m분 전")
                 date = sdf.format(timeDiffer)
@@ -130,6 +135,7 @@ class CommentActivity : AppCompatActivity() {
                 Log.d("작성시간: ", testTime.format(timestamp))
             }
 
+            //유저 데이터의 프로필 이미지 가져와서 댓글 프로필 저장
             FirebaseFirestore.getInstance().collection("users").document(comments[position].uid!!)
                 .get().addOnCompleteListener { task ->
                     if(task.isSuccessful) {
