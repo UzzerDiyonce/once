@@ -26,8 +26,7 @@ class DiaryActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
     lateinit var backBtn: ImageButton
 
     //본문: 상단
-    lateinit var datePickBtn: ImageButton
-    lateinit var dateView: TextView
+    lateinit var dateView: Button
 
     //본문: 이미지 삽입
     lateinit var galleryBtn: Button
@@ -39,13 +38,10 @@ class DiaryActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
 
     private var REQUEST_READ_EXTERNAL_STORAGE = 1000
 
-    var year = 0
-    var month = 0
-    var day = 0
-
     companion object{
         const val PARAM_KEY_IMAGE = "image"
     }
+
     @Override
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,11 +49,10 @@ class DiaryActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
 
         backBtn = findViewById(R.id.leftArrowBtn)
 
-        datePickBtn = findViewById(R.id.dateBtn)
         dateView = findViewById(R.id.dateView)
 
         galleryBtn = findViewById(R.id.galleryBtn)
-        drawingBtn = findViewById(R.id.pictureBtn)
+        drawingBtn = findViewById(R.id.drawing_Btn)
         imgView = findViewById(R.id.imgView)
 
         //날짜 선택
@@ -76,7 +71,7 @@ class DiaryActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
         }
 
         //날짜 선택 버튼을 눌렀을 때 팝업창 띄움
-        datePickBtn.setOnClickListener{
+        dateView.setOnClickListener{
             DatePickerDialog(this, datePick, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH)).show()
         }
@@ -84,11 +79,16 @@ class DiaryActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
         galleryBtn.setOnClickListener {
             checkGallAuthority()
         }
+
+        drawingBtn.setOnClickListener {
+            val intent = Intent(this, DrawingActivity::class.java);
+            startActivity(intent)
+        }
     }
 
     //날짜 출력
     private fun updateLabel(calendar: Calendar){
-        val myFormat = "YYYY년\nMM월 DD일"
+        val myFormat = "YYYY년 MM월 DD일 E요일"
         val simpleDateFormat = SimpleDateFormat(myFormat, Locale.KOREA)
         dateView.setText((simpleDateFormat.format(calendar.time)))
     }
