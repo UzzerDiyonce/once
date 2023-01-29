@@ -50,7 +50,11 @@
         android:id="@+id/btn_googleSignIn"
         android:layout_width="match_parent"
         android:layout_height="53dp"
+        android:layout_centerInparent="true"
+        android:text="구글 로그인"
+        app:isDarkTheme="true"
         android:layout_marginTop="10dp">
     </com.google.android.gms.common.SignInButton>
+
 
 </LinearLayout>
