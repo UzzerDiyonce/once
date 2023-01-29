@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/loadback"
     android:orientation="vertical"
+    android:gravity="center"
     tools:context=".LoginActivity">
 
     <LinearLayout
@@ -48,7 +49,7 @@
     <com.google.android.gms.common.SignInButton
         android:id="@+id/btn_googleSignIn"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="53dp"
         android:layout_marginTop="10dp">
     </com.google.android.gms.common.SignInButton>
 
