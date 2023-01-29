@@ -30,10 +30,10 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavi"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="72dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:background="#fff"
+        android:background="@drawable/navi_background"
         app:labelVisibilityMode="unlabeled"
         app:menu="@menu/main" />
 
@@ -52,7 +52,7 @@
             android:clickable="true"
             android:contentDescription="TODO"
             android:focusable="true"
-            app:backgroundTint="@color/purple_200"
+            app:backgroundTint="#8A7267"
             app:srcCompat="@drawable/ic_outline_task_24"
             app:shapeAppearanceOverlay="@style/ShapeAppearance.MaterialComponents.LargeComponent"
             tools:ignore="SpeakableTextPresentCheck,DuplicateSpeakableTextCheck,ImageContrastCheck" />
@@ -67,7 +67,7 @@
             android:clickable="true"
             android:contentDescription="TODO"
             android:focusable="true"
-            app:backgroundTint="@color/purple_700"
+            app:backgroundTint="#2A1D17"
             app:tint = "@color/white"
             app:srcCompat="@drawable/ic_baseline_mail_outline_24"
             app:shapeAppearanceOverlay="@style/ShapeAppearance.MaterialComponents.LargeComponent"
