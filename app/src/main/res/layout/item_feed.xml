@@ -44,7 +44,7 @@
             android:layout_marginStart="92dp"
             android:layout_marginTop="32dp"
             android:fontFamily="@font/font_lee"
-            android:text="kimdoyoonbabo@gmail.com"
+            android:text="test@gmail.com"
             android:textColor="#4C6701"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -54,26 +54,14 @@
             android:id="@+id/feedDateView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="219dp"
-            android:layout_marginEnd="40dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="187dp"
             android:fontFamily="@font/font_lee"
-            android:text="2023.01.23"
+            android:text="20XX.XX.XX 00시 00분"
             android:textColor="#8A7267"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/feedImageView"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/feedTimeView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="45dp"
-            android:fontFamily="@font/font_lee"
-            android:text="16시52분"
-            android:textColor="#8A7267"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/feedDateView" />
 
         <ImageView
             android:id="@+id/imageView8"
@@ -102,9 +90,10 @@
         <TextView
             android:id="@+id/feedContenetView"
             android:layout_width="185dp"
-            android:layout_height="80dp"
+            android:layout_height="70dp"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="55dp"
+            android:layout_marginBottom="12dp"
             android:fontFamily="@font/font_lee"
             android:text="내용내용내용내용내용내용내용내용"
             android:textColor="#2A1D17"
@@ -127,6 +116,16 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/feedFriend"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginBottom="3dp"
+            android:text=""
+            app:layout_constraintBottom_toBottomOf="@+id/feedImageView"
+            app:layout_constraintEnd_toEndOf="@+id/feedImageView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
