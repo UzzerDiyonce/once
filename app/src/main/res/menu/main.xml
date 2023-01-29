@@ -3,16 +3,16 @@
     <item
         android:id="@+id/item_feed"
         android:enabled="true"
-        android:icon="@drawable/ic_baseline_home_24"
+        android:icon="@drawable/home_icon"
         android:title="피드" />
     <item
         android:id="@+id/item_record"
         android:enabled="true"
-        android:icon="@drawable/ic_baseline_add_circle_outline_24"
+        android:icon="@drawable/record_icon"
         android:title="기록" />
     <item
         android:id="@+id/item_mypage"
         android:enabled="true"
-        android:icon="@drawable/ic_baseline_account_box_24"
+        android:icon="@drawable/mypage_icon"
         android:title="마이페이지" />
 </menu>
