@@ -77,6 +77,7 @@ class Feed : Fragment() {
         var feedDTOList: ArrayList<FeedDTO> = arrayListOf()
         var contentUidList: ArrayList<String> = arrayListOf()
 
+        //피드 데이터 시간에 대해 오름차순으로 정렬, 배열 비우기
         init {
             firestore?.collection("feed")?.orderBy("timestamp", Query.Direction.ASCENDING)
                 ?.addSnapshotListener { value, error ->
@@ -105,6 +106,7 @@ class Feed : Fragment() {
 //                }
         }
 
+        //뷰홀더
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
             var view = LayoutInflater.from(parent.context).inflate(R.layout.item_feed, parent, false)
             return CustomViewHolder (view)
@@ -131,7 +133,7 @@ class Feed : Fragment() {
             val d_date = d_sdf.format(timestamp)
             view.feedDateView.text = date
 
-            //피드 더보기 버튼 클릭 시, 해당 피드데이터 전달
+            //피드 더보기 버튼 클릭 시, 해당 피드데이터 디테일 액티비티로 전달
             view.feedDetailBtn.setOnClickListener { v->
                 var intent = Intent(v.context, DetailFeedActivity::class.java)
                 intent.putExtra("contentUid", contentUidList[position])
@@ -144,7 +146,7 @@ class Feed : Fragment() {
                 intent.putExtra("feedKind", feedDTOList[position].feed_kind.toString())
                 startActivity(intent)
             }
-            //피드 프로필 이미지
+            //피드 프로필 이미지 가져와서 할당
             FirebaseFirestore.getInstance().collection("users").document(feedDTOList[position].uid!!)
                 .get().addOnCompleteListener { task ->
                     if(task.isSuccessful) {

@@ -33,18 +33,17 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     private val RC_SIGN_IN = 99
     private lateinit var btn_googleSignIn: SignInButton
     private lateinit var login_layout: View
-    private lateinit var logout: Button
     private var REQUEST_READ_EXTERNAL_STORAGE = 1000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        //초기화
         login_layout = findViewById(R.id.login_layout)
         btn_googleSignIn = findViewById(R.id.btn_googleSignIn)
-        logout = findViewById(R.id.logoutButton)
 
-        logout.setOnClickListener { signOut() } //로그아웃
+        //logout.setOnClickListener { signOut() } //로그아웃
         //구글로그인
         btn_googleSignIn.setOnClickListener {signIn()}
         //Google 로그인 옵션 구성. requestIdToken 및 Email 요청
@@ -172,6 +171,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             //cloud firestore users
             //FirebaseFirestore.getInstance().collection("users")?.document(firebaseAuth!!.currentUser!!.uid)?.set(feedDTO)
             //Log.d("Save Firestore: ", "파이어스토어 저장 성공")
+            //피드에 데이터 전달
             intent.putExtra("uid", uid)
             intent.putExtra("userId", userId)
             intent.putExtra("profileImageUrl", profileImageUrl)

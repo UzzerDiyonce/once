@@ -60,6 +60,7 @@ class DetailFeedActivity : AppCompatActivity() {
         detailDateView.text = date //날짜
         Glide.with(this).load(Image).into(detailImageView) //이미지
         detailContentView.text = contents //내용
+        //날씨
         if(weather == 0) {
             detailSun.setImageResource(R.drawable.sunny_colored)
         }
@@ -72,6 +73,7 @@ class DetailFeedActivity : AppCompatActivity() {
         if(weather == 3) {
             detailSnow.setImageResource(R.drawable.snow_colored)
         }
+        //피드 종류
         if(feedKind == 1) {
             detailFriendIcon.setImageResource(R.drawable.withfriedn)
             detailFriend.text = "함께한 친구"
@@ -88,7 +90,7 @@ class DetailFeedActivity : AppCompatActivity() {
             onBackPressed()
         }
         
-        //댓글창 버튼
+        //댓글창 버튼, 댓글 액티비티로 데이터 전달
         detailCommentBtn.setOnClickListener { v->
             var intent = Intent(v.context, CommentActivity::class.java)
             intent.putExtra("contentUid", contentUid)
@@ -112,7 +114,7 @@ class DetailFeedActivity : AppCompatActivity() {
         firestore?.runTransaction { transaction ->
             var feedDTO = transaction.get(tsDoc!!).toObject(FeedDTO::class.java)
 
-            //이미 좋아요 한 경우
+            //이미 좋아요 한 경우, 피드 데이터에서 like 카운트 -1, 레이아웃 수정
             if(feedDTO!!.likers.containsKey(uid)) {
                 feedDTO?.likeCount = feedDTO?.likeCount!! - 1
                 feedDTO?.likers!!.remove(uid)
@@ -121,7 +123,7 @@ class DetailFeedActivity : AppCompatActivity() {
                 detailLikeBtn.setTextColor(Color.parseColor("#2A1D17"))
                 detailStamp.setImageBitmap(null)
             }
-            //아니면 좋아요
+            //아니면 좋아요, 피드 데이터에서 like 카운트 +1, 레이아웃 수정
             else {
                 feedDTO?.likeCount = feedDTO?.likeCount!! + 1
                 feedDTO?.likers!![uid.toString()] = true
@@ -135,7 +137,7 @@ class DetailFeedActivity : AppCompatActivity() {
             transaction.set(tsDoc, feedDTO)
         }
     }
-    //좋아요 알림
+    //좋아요 알림 -> 알림액티비티에서 사용
     fun likeAlarm(destinationUid: String) {
         val alarmDTO = AlarmDTO()
         alarmDTO.fromUid = destinationUid
