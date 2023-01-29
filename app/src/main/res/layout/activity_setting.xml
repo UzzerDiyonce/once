@@ -66,6 +66,7 @@
                 android:orientation="horizontal">
 
                 <Button
+                    android:id="@+id/logoutBtn"
                     android:layout_width="150dp"
                     android:layout_height="50dp"
                     android:layout_marginRight="20dp"
@@ -75,6 +76,7 @@
                     android:text="로그아웃"/>
 
                 <Button
+                    android:id="@+id/memLeaveBtn"
                     android:layout_width="150dp"
                     android:layout_height="50dp"
                     android:background="@drawable/button_rectangle"
@@ -143,10 +145,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="7dp"
-                    android:textSize="16sp"
+                    android:textSize="15sp"
                     android:textColor="#8A7267"
                     android:fontFamily="@font/font_lee"
-                    android:text="계정"/>
+                    android:text="계정"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/settingEmail"
@@ -179,10 +182,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="7dp"
-                    android:textSize="16sp"
+                    android:textSize="15sp"
                     android:textColor="#8A7267"
                     android:fontFamily="@font/font_lee"
-                    android:text="한 줄 소개"/>
+                    android:text="한 줄 소개"
+                    android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/settingInfo"
@@ -195,8 +199,7 @@
                     android:maxLength="30"
                     android:maxLines="3"
                     android:background="@null"
-                    android:hint="당신을 소개해보세요."
-                    android:text="안녕하세요. 비욘셉니다.\n제 소개는 딱\n삼십글자입니다."/>
+                    android:hint="당신을 소개해보세요."/>
 
                 <ImageView
                     android:layout_width="260dp"
@@ -209,9 +212,9 @@
                     android:id="@+id/settingInfoCnt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginLeft="110dp"
-                    android:layout_marginTop="-10dp"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="3dp"
+                    android:layout_marginTop="-11dp"
                     android:textSize="16sp"
                     android:textColor="#8A7267"
                     android:fontFamily="@font/font_lee"
