@@ -53,7 +53,7 @@ class DetailFeedActivity : AppCompatActivity() {
         contents = intent.getStringExtra("contents")
         var weather = intent.getStringExtra("weather")?.toInt()
         var feedKind = intent.getStringExtra("feedKind")?.toInt()
-        var friends = intent.getSerializableExtra("friends") as ArrayList<String>
+//        var friends = intent.getSerializableExtra("friends") as ArrayList<String>
 
         detailTitleView.text = title //제목
         detailDateView.text = date //날짜
@@ -74,6 +74,8 @@ class DetailFeedActivity : AppCompatActivity() {
         }
         //피드 종류
         if(feedKind == 1) {
+            var friends = intent.getSerializableExtra("friends") as ArrayList<String>
+
             detailFriendIcon.setImageResource(R.drawable.withfriedn)
             detailFriend.text = "함께한 친구"
 
