@@ -52,6 +52,39 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"></com.google.android.gms.common.SignInButton>
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <EditText
+        android:id="@+id/emailEdt"
+        android:layout_width="280dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="65dp"
+        android:fontFamily="@font/font_lee"
+        android:hint="이메일"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_googleSignIn" />
+
+    <EditText
+        android:id="@+id/pwdEdt"
+        android:layout_width="280dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="65dp"
+        android:fontFamily="@font/font_lee"
+        android:hint="비밀번호"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/emailEdt" />
+
+    <Button
+        android:id="@+id/logBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:text="로그인"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
