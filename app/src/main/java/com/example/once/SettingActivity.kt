@@ -11,28 +11,34 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.ImageButton
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentManager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import de.hdodenhof.circleimageview.CircleImageView
+import kotlinx.android.synthetic.main.item_feed.view.*
 
 class SettingActivity : AppCompatActivity() {
     private var firestore: FirebaseFirestore? = null
     var uid = FirebaseAuth.getInstance().currentUser?.uid
     var googleSignInClient : GoogleSignInClient?= null
     private var fireAuth : FirebaseAuth? = null
+    private lateinit var dbRef : DatabaseReference
 
     lateinit var backBtn: ImageButton
     lateinit var alarmBtn: ImageButton
@@ -44,6 +50,8 @@ class SettingActivity : AppCompatActivity() {
     lateinit var editInfo : EditText
     lateinit var logoutBtn: Button
     lateinit var deleteMemBtn: Button
+    lateinit var saveBtn: Button
+    lateinit var emailTxt: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +59,9 @@ class SettingActivity : AppCompatActivity() {
 
         //파이어스토어 초기화
         firestore = FirebaseFirestore.getInstance()
+
+        //데이터베이스 참조
+        dbRef = FirebaseDatabase.getInstance().reference
 
         //변수 초기화
         uid = FirebaseAuth.getInstance().currentUser?.uid
@@ -86,16 +97,9 @@ class SettingActivity : AppCompatActivity() {
             }
         }
 
-        profImg = findViewById(R.id.setting_profImage)
-        profImgBtn = findViewById(R.id.settingCamerBtn)
-        // 카메라 버튼 누르면 갤러리를 불러와 프로필 사진 변경
-        profImgBtn.setOnClickListener{
-            initImageViewProfile()
-        }
-
+        // 한줄소개 글자 수 카운트
         infoTxt = findViewById(R.id.settingInfoCnt)
         editInfo = findViewById(R.id.settingInfo)
-
         editInfo.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
@@ -111,16 +115,70 @@ class SettingActivity : AppCompatActivity() {
             }
         })
 
+        // 연결된 이메일 계정 불러오기
+        emailTxt = findViewById(R.id.settingEmail)
+
+        var documentRef = firestore?.collection("users")?.document(FirebaseAuth.getInstance().currentUser!!.uid)
+        firestore?.runTransaction{ transaction ->
+            var myDTO = transaction.get(documentRef!!).toObject(MypageDTO::class.java)
+            emailTxt.text = myDTO?.userId.toString()
+
+            // 한줄소개 비어있으면 비어있는 채로, 비어있지 않으면 기존 한줄소개 내용을 불러오기
+            if(myDTO?.profInfo == null)
+            {
+                editInfo.setText(null)
+            }
+            else
+            {
+                editInfo.setText(myDTO?.profInfo.toString())
+            }
+            //피드 프로필 이미지 가져와서 할당
+            FirebaseFirestore.getInstance().collection("users").document(myDTO!!.uid!!)
+                .get().addOnCompleteListener { task ->
+                    if(task.isSuccessful) {
+                        val url = task.result!!["profileImageUrl"]
+                        Glide.with(this)
+                            .load(url)
+                            .into(profImg)
+                    }
+                }
+        }
+
+        // 프로필 이미지 변경
+        profImg = findViewById(R.id.setting_profImage)
+        profImgBtn = findViewById(R.id.settingCamerBtn)
+        // 카메라 버튼 누르면 갤러리를 불러와 프로필 사진 변경
+        profImgBtn.setOnClickListener{
+            initImageViewProfile()
+        }
+
+        // 로그아웃
         logoutBtn = findViewById(R.id.logoutBtn)
         logoutBtn.setOnClickListener {
             logout()
         }
 
+        // 회원탈퇴
         deleteMemBtn = findViewById(R.id.memLeaveBtn)
         deleteMemBtn.setOnClickListener{
             deleteMem()
         }
+
+        // 데이터 저장
+        saveBtn = findViewById(R.id.settingSaveBtn)
+        saveBtn.setOnClickListener {
+            var myDTO = MypageDTO()
+            
+            myDTO.alarmSet = isAlarmOn
+            myDTO.profileImageUrl = profImg.toString()
+            myDTO.profInfo = editInfo.text.toString()
+
+            // 데이터 저장
+            firestore?.collection("users")?.document(uid.toString())?.set(myDTO)
+            Toast.makeText(this, "수정되었습니다.",Toast.LENGTH_SHORT).show()
+        }
     }
+
 
     // 뒤로 가기
     override fun onBackPressed() {
