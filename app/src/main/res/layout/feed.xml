@@ -32,7 +32,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/FeedRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="581dp"
         tools:listitem="@layout/item_feed" />
 
 </LinearLayout>
