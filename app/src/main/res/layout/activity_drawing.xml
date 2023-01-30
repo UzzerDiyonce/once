@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <!-- 본문 : 그림판 -->
-            <LinearLayout
+            <com.eazyalgo.paintapp.PaintView
                 android:id="@+id/drawing_field"
                 android:layout_width="match_parent"
                 android:layout_height="410dp"

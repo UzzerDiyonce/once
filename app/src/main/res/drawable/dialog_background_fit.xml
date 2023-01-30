@@ -2,6 +2,6 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:drawable="@drawable/dialog_background"
-        android:width="425.6dp"
-        android:height="389.6dp"/>
+        android:width="380dp"
+        android:height="312dp"/>
 </layer-list>

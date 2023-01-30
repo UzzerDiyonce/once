@@ -13,6 +13,7 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.DatePicker
+import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
@@ -35,6 +36,7 @@ open class DiaryActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListen
     lateinit var galleryBtn: Button
     lateinit var drawingBtn: Button
     lateinit var imgView: ImageView
+    lateinit var diaryContent: EditText
     private var imageUri: Uri? = null
 
     //팝업창
@@ -72,7 +74,11 @@ open class DiaryActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListen
         }
 
         //뒤로가기 버튼 눌렀을 때 다이얼로그 호출
-        backBtn.setOnClickListener{
+        backBtn.setOnClickListener {
+            intent.putExtra("date", dateView.text.toString())
+            intent.type = ("image/*")
+            intent.putExtra(Intent.EXTRA_STREAM, imageUri)
+            intent.putExtra("content", diaryContent.text.toString())
             backBinding = ActivityDiaryBinding.inflate(layoutInflater)
             setContentView(backBinding.root)
             window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -85,7 +91,7 @@ open class DiaryActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListen
             //메인 액티비티로 돌아감
             val yesBackBtn = backDialogView.findViewById<Button>(R.id.yesBackBtn)
             yesBackBtn.setOnClickListener {
-                var intent = Intent(this, MainActivity::class.java)
+                val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
             }
             //기존 액티비티에 남아있음

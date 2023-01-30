@@ -3,18 +3,23 @@ package com.example.once
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Paint
+import android.graphics.Path
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.Button
 import android.widget.ImageButton
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RadioButton
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.example.once.CanvasView.Companion.currentColor
 
 class DrawingActivity : AppCompatActivity() {
 
@@ -29,11 +34,19 @@ class DrawingActivity : AppCompatActivity() {
 
     private var imageUri: Uri? = null
 
+    private lateinit var extraCanvas: Canvas
+    private lateinit var extraBitmap: Bitmap
 
     private var REQUEST_READ_EXTERNAL_STORAGE = 1000
 
+    companion object {
+        var path = Path()
+        var paintBrush = Paint()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val canvasView = CanvasView(this)
         setContentView(R.layout.activity_drawing)
 
         backBtn = findViewById(R.id.leftArrowBtn)
@@ -46,6 +59,19 @@ class DrawingActivity : AppCompatActivity() {
         galleryBtn.setOnClickListener {
             checkGallAuthority()
             selectGallery()
+        }
+        
+        backBtn.setOnClickListener {
+            onBackPressed()
+        }
+
+        pencilBtn.setOnClickListener {
+            Toast.makeText(this, "그리기", Toast.LENGTH_SHORT).show()
+            usingBrush(paintBrush.color)
+        }
+
+        eraserBtn.setOnClickListener {
+            Toast.makeText(this, "지우기", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -90,7 +116,11 @@ class DrawingActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK && requestCode == REQUEST_READ_EXTERNAL_STORAGE) {
             imageUri = data?.data
-            //drawingView.setImageURI(imageUri)
         }
+    }
+
+    private fun usingBrush(color: Int){
+        currentColor = color
+        path = Path()
     }
 }
