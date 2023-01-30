@@ -4,15 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/transparent"
+    android:background="#00000000"
     tools:context=".CustomDialog">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/transparent">
+        android:background="@drawable/loadback">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/dial_layout"
             android:layout_width="270dp"
             android:layout_height="460dp"
             android:layout_gravity="bottom"
