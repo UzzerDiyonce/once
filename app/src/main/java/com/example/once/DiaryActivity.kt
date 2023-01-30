@@ -79,6 +79,7 @@ open class DiaryActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListen
             intent.type = ("image/*")
             intent.putExtra(Intent.EXTRA_STREAM, imageUri)
             intent.putExtra("content", diaryContent.text.toString())
+
             backBinding = ActivityDiaryBinding.inflate(layoutInflater)
             setContentView(backBinding.root)
             window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -91,8 +92,7 @@ open class DiaryActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListen
             //메인 액티비티로 돌아감
             val yesBackBtn = backDialogView.findViewById<Button>(R.id.yesBackBtn)
             yesBackBtn.setOnClickListener {
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
+                onBackPressed()
             }
             //기존 액티비티에 남아있음
             val noBackBtn = backDialogView.findViewById<Button>(R.id.noBackBtn)
@@ -166,6 +166,7 @@ open class DiaryActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListen
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
         startActivityForResult(intent, REQUEST_READ_EXTERNAL_STORAGE)
     }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
