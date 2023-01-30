@@ -12,14 +12,12 @@ import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_detail_feed.*
+import kotlinx.android.synthetic.main.dialog_layout.*
 import kotlinx.android.synthetic.main.item_feed.view.*
 
 class DetailFeedActivity : AppCompatActivity() {
     var firestore: FirebaseFirestore? = null
     var uid = FirebaseAuth.getInstance().currentUser?.uid
-    var currentUserUid: String? = null
-    var feedDTO: ArrayList<FeedDTO> = arrayListOf()
-    var contentUidList: ArrayList<String> = arrayListOf()
 
     //피드 변수 가져오기
     var contentUid: String? = null
@@ -55,6 +53,7 @@ class DetailFeedActivity : AppCompatActivity() {
         contents = intent.getStringExtra("contents")
         var weather = intent.getStringExtra("weather")?.toInt()
         var feedKind = intent.getStringExtra("feedKind")?.toInt()
+        var friends = intent.getSerializableExtra("friends") as ArrayList<String>
 
         detailTitleView.text = title //제목
         detailDateView.text = date //날짜
@@ -82,6 +81,17 @@ class DetailFeedActivity : AppCompatActivity() {
             detailFriend.setOnClickListener {
                 val dialog = CustomDialog()
                 dialog.show(supportFragmentManager, "CustomDialog")
+
+                var bundle = Bundle()
+                bundle.putStringArrayList("d_friends", friends)
+                dialog.arguments = bundle
+
+//                var len = friends.size
+//                for(i in 0..len-1)
+//                {
+//                    //Log.d("함께한 친구", friends[i])
+//                    dialogFriend.text = friends[i] + "\n"
+//                }
             }
         }
 
@@ -146,7 +156,5 @@ class DetailFeedActivity : AppCompatActivity() {
         alarmDTO.kind = 0
         alarmDTO.timestamp = System.currentTimeMillis()
         FirebaseFirestore.getInstance().collection("alarms").document().set(alarmDTO)
-//        var message = FirebaseAuth.getInstance()?.currentUser?.email + "님이 좋아요를 눌렀습니다."
-//        FcmPush.instance.
     }
 }

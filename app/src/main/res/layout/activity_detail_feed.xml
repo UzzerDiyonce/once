@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/loadback"
+    android:id="@+id/detail_layout"
     tools:context=".DetailFeedActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout

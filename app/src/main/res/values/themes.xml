@@ -27,6 +27,7 @@
         <item name="android:windowBackground">@android:color/transparent</item>
         <!-- 배경 dim 설정 -->
         <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:colorBackground">?attr/colorBackgroundFloating</item>
         <item name="android:backgroundDimAmount">0.0</item>
     </style>
 </resources>

@@ -91,19 +91,6 @@ class Feed : Fragment() {
                     }
                     notifyDataSetChanged()
                 }
-//            val uid = FirebaseAuth.getInstance().currentUser?.uid
-//
-//            FirebaseFirestore.getInstance().collection("feed").whereEqualTo("uid", uid)
-//                .addSnapshotListener { value, error ->
-//                    feedDTOList.clear()
-//                    if(value == null) return@addSnapshotListener
-//
-//                    for(snapshot in value.documents){
-//                        feedDTOList.add(snapshot.toObject(FeedDTO::class.java)!!)
-//                        //feedDTOList.add(snapshot.toObject(Class <feedDTOList::class.java>))
-//                    }
-//                    notifyDataSetChanged()
-//                }
         }
 
         //뷰홀더
@@ -144,6 +131,10 @@ class Feed : Fragment() {
                 intent.putExtra("contents", feedDTOList[position].contents)
                 intent.putExtra("weather", feedDTOList[position].weather_kind.toString())
                 intent.putExtra("feedKind", feedDTOList[position].feed_kind.toString())
+                //타임캡슐의 경우, 함께한 친구 데이터 전달
+                if(feedDTOList[position].feed_kind == 1) {
+                    intent.putExtra("friends", feedDTOList[position].friends)
+                }
                 startActivity(intent)
             }
             //피드 프로필 이미지 가져와서 할당
@@ -161,7 +152,6 @@ class Feed : Fragment() {
         override fun getItemCount(): Int {
             return feedDTOList.size
         }
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
