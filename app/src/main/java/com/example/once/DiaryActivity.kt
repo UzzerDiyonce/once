@@ -4,23 +4,26 @@ import android.Manifest
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.icu.util.Calendar
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.DatePicker
-import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.example.once.databinding.ActivityDiaryBinding
 import java.text.SimpleDateFormat
 import java.util.*
 
-class DiaryActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
+open class DiaryActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
 
     //상단 바
     lateinit var backBtn: ImageButton
@@ -32,15 +35,18 @@ class DiaryActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
     lateinit var galleryBtn: Button
     lateinit var drawingBtn: Button
     lateinit var imgView: ImageView
+    private var imageUri: Uri? = null
+
+    //팝업창
+    lateinit var backBinding: ActivityDiaryBinding
+    lateinit var completeBinding: ActivityDiaryBinding
+
     //본문: 글
 
     //하단: 완료 버튼
+    lateinit var completeBtn: Button
 
     private var REQUEST_READ_EXTERNAL_STORAGE = 1000
-
-    companion object{
-        const val PARAM_KEY_IMAGE = "image"
-    }
 
     @Override
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,6 +60,7 @@ class DiaryActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
         galleryBtn = findViewById(R.id.galleryBtn)
         drawingBtn = findViewById(R.id.drawing_Btn)
         imgView = findViewById(R.id.imgView)
+        completeBtn = findViewById(R.id.completeBtn)
 
         //날짜 선택
         val calendar = Calendar.getInstance()
@@ -61,13 +68,31 @@ class DiaryActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
             calendar.set(Calendar.YEAR, year)
             calendar.set(Calendar.MONTH, month)
             calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-            updateLabel(calendar)
+            updateDate(calendar)
         }
 
-        //뒤로가기 버튼 눌렀을 때 메인 액티비티로 돌아감
+        //뒤로가기 버튼 눌렀을 때 다이얼로그 호출
         backBtn.setOnClickListener{
-            var intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            backBinding = ActivityDiaryBinding.inflate(layoutInflater)
+            setContentView(backBinding.root)
+            window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            val backDialogView = LayoutInflater.from(this).inflate(R.layout.page_back_warning, null)
+            val backBuilder = AlertDialog.Builder(this)
+                .setView(backDialogView)
+
+            val backAlertDialog = backBuilder.show()
+
+            //메인 액티비티로 돌아감
+            val yesBackBtn = backDialogView.findViewById<Button>(R.id.yesBackBtn)
+            yesBackBtn.setOnClickListener {
+                var intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+            }
+            //기존 액티비티에 남아있음
+            val noBackBtn = backDialogView.findViewById<Button>(R.id.noBackBtn)
+            noBackBtn.setOnClickListener {
+                backAlertDialog.dismiss()
+            }
         }
 
         //날짜 선택 버튼을 눌렀을 때 팝업창 띄움
@@ -78,16 +103,22 @@ class DiaryActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
 
         galleryBtn.setOnClickListener {
             checkGallAuthority()
+            selectGallery()
         }
 
         drawingBtn.setOnClickListener {
             val intent = Intent(this, DrawingActivity::class.java);
             startActivity(intent)
         }
+
+        completeBtn.setOnClickListener {
+            completeBinding = ActivityDiaryBinding.inflate(layoutInflater)
+            setContentView(completeBinding.root)
+        }
     }
 
     //날짜 출력
-    private fun updateLabel(calendar: Calendar){
+    private fun updateDate(calendar: Calendar){
         val myFormat = "YYYY년 MM월 DD일 E요일"
         val simpleDateFormat = SimpleDateFormat(myFormat, Locale.KOREA)
         dateView.setText((simpleDateFormat.format(calendar.time)))
@@ -112,21 +143,30 @@ class DiaryActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
                 }
                 dlg.setNegativeButton("취소", null)
                 dlg.show()
-            } else {
+            } else if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.READ_EXTERNAL_STORAGE)){
+                //부여 되었다면 갤러리 호출
+                selectGallery()
+            }
+            else {
                 //처음 권한 요청
                 ActivityCompat.requestPermissions(this,
                     arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
                     REQUEST_READ_EXTERNAL_STORAGE)
             }
-        //부여 되었다면 갤러리 호출
-        else
-            selectGallery()
     }
 
     private fun selectGallery(){
-        val intent = Intent(Intent.ACTION_PICK)
-        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*")
+        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
+        startActivityForResult(intent, REQUEST_READ_EXTERNAL_STORAGE)
+    }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK && requestCode == REQUEST_READ_EXTERNAL_STORAGE) {
+            imageUri = data?.data
+            imgView.setImageURI(imageUri)
+        }
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {

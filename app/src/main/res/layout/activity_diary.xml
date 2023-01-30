@@ -164,6 +164,7 @@
             </LinearLayout>
             <!-- 완료 버튼 -->
             <Button
+                android:id="@+id/completeBtn"
                 android:layout_width="100dp"
                 android:layout_height="50dp"
                 android:layout_gravity="right"
@@ -176,6 +177,4 @@
                 tools:ignore="SpeakableTextPresentCheck" />
         </LinearLayout>
     </ScrollView>
-
-
 </LinearLayout>
