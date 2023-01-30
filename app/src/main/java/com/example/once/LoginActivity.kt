@@ -8,6 +8,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -32,6 +34,9 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     //private const val TAG = "GoogleActivity"
     private val RC_SIGN_IN = 99
     private lateinit var btn_googleSignIn: SignInButton
+    private lateinit var emailEditText: EditText
+    private lateinit var pwdEditText: EditText
+    private lateinit var loginBtn: Button
     private lateinit var login_layout: View
     private var REQUEST_READ_EXTERNAL_STORAGE = 1000
 
@@ -42,6 +47,32 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         //초기화
         login_layout = findViewById(R.id.login_layout)
         btn_googleSignIn = findViewById(R.id.btn_googleSignIn)
+        emailEditText = findViewById(R.id.emailEdt)
+        pwdEditText = findViewById(R.id.pwdEdt)
+        loginBtn = findViewById(R.id.logBtn)
+
+        //로그인 버튼 누르면
+        loginBtn.setOnClickListener {
+            var email = emailEditText.text.toString()
+            var password = pwdEditText.text.toString()
+            FirebaseAuth.getInstance().createUserWithEmailAndPassword(email,password) // 회원 가입
+                .addOnCompleteListener {
+                        result ->
+                    if(result.isSuccessful){
+                        Toast.makeText(this,"회원가입이 완료되었습니다.",Toast.LENGTH_SHORT).show()
+                        if(FirebaseAuth.getInstance().currentUser!=null){
+                            var intent = Intent(this, MainActivity::class.java)
+                            startActivity(intent)
+                        }
+                    }
+                    else if(result.exception?.message.isNullOrEmpty()){
+                        Toast.makeText(this,"오류가 발생했습니다.",Toast.LENGTH_SHORT).show()
+                    }
+                    else{
+                        login(email,password)
+                    }
+                }
+        }
 
         //logout.setOnClickListener { signOut() } //로그아웃
         //구글로그인
@@ -98,6 +129,17 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                 // 처음 권한 요청
                 ActivityCompat.requestPermissions(this,
                     arrayOf(Manifest.permission.CAMERA), REQUEST_READ_EXTERNAL_STORAGE)
+            }
+    }
+
+    fun login(email:String,password:String){
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(email,password) // 로그인
+            .addOnCompleteListener {
+                    result->
+                if(result.isSuccessful){
+                    var intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                }
             }
     }
 
