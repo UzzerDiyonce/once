@@ -117,7 +117,7 @@ class MyPage : Fragment() {
 
 
             // 프로필 이미지 가져와서 할당
-            firestore?.collection("users")?.document(uid.toString())
+            /*firestore?.collection("users")?.document(uid.toString())
                 ?.get()?.addOnCompleteListener { task ->
                     if(task.isSuccessful) {
                         val url = task.result!!["profileImageUrl"]
@@ -125,7 +125,16 @@ class MyPage : Fragment() {
                             .load(url)
                             .into(profImg)
                     }
-                }
+                }*/
+            // 프로필 이미지
+            if(profUri != null)
+            {
+                profImg.setImageURI(profUri)
+            }
+            else
+            {
+                profImg.setImageResource(R.drawable.defaultprofimg)
+            }
         }
 
         /*dbRef.addValueEventListener(object : ValueEventListener{
