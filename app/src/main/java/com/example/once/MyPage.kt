@@ -6,12 +6,9 @@ import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.*
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.mypage_diary.*
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.children
 import com.example.once.databinding.MypageDiaryBinding
@@ -20,8 +17,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.feed.view.*
 import kotlinx.android.synthetic.main.mypage_diary.view.*
 import kotlinx.android.synthetic.main.item_alaram.view.*
@@ -31,12 +30,14 @@ import java.text.SimpleDateFormat
 
 class MyPage : Fragment() {
     private var firestore: FirebaseFirestore? = null
-    var uid = FirebaseAuth.getInstance().currentUser?.uid
+    private lateinit var dbRef : DatabaseReference
+    private var fireAuth : FirebaseAuth? = null
 
     private lateinit var bind : MypageDiaryBinding
 
     lateinit var profInfo : TextView
     lateinit var emailTxt : TextView
+    lateinit var profImg : CircleImageView
 
     lateinit var mainActivity : MainActivity
 
@@ -54,35 +55,81 @@ class MyPage : Fragment() {
 
         //파이어스토어 초기화
         firestore = FirebaseFirestore.getInstance()
+        fireAuth = FirebaseAuth.getInstance()
+
+        dbRef = FirebaseDatabase.getInstance().reference
 
         //변수 초기화
-        uid = FirebaseAuth.getInstance().currentUser?.uid
+        var uid = FirebaseAuth.getInstance().currentUser?.uid
+        var userid = FirebaseAuth.getInstance().currentUser?.email
 
-        var documentRef = firestore?.collection("users")?.document(uid!!)
+        profInfo = view.findViewById(R.id.mypage_profInfo)
+        emailTxt = view.findViewById(R.id.mypage_profEmail)
+        profImg = view.findViewById(R.id.mypage_profImage)
+
+        //이메일
+        emailTxt.text = userid.toString()
+
+        var documentRef = firestore?.collection("users")?.document(fireAuth!!.currentUser!!.uid)
         firestore?.runTransaction { transaction ->
-            var myDTO = transaction.get(documentRef!!).toObject(MypageDTO::class.java)
-            //이메일
-            emailTxt.text = myDTO?.userId.toString()
+            var myDTO = transaction.get(documentRef!!).toObject(FeedDTO::class.java)
             // 한줄소개
             if(myDTO?.profInfo == null)
             {
                 profInfo.text = null
+                Log.d("초기설정", profInfo.text.toString())
             }
             else
             {
                 profInfo.text = myDTO?.profInfo.toString()
+                FirebaseFirestore.getInstance().collection("users")
+                    .document(FirebaseAuth.getInstance().currentUser!!.uid).set(profInfo.text.toString())
+                Log.d("초기설정", profInfo.text.toString())
             }
             // 프로필 이미지 가져와서 할당
-            firestore?.collection("users")?.document(myDTO!!.uid!!)
+            firestore?.collection("users")?.document(uid.toString())
                 ?.get()?.addOnCompleteListener { task ->
                     if(task.isSuccessful) {
                         val url = task.result!!["profileImageUrl"]
-                        Glide.with(this)
+                        Glide.with(view.context)
                             .load(url)
-                            .into(mypage_profImage)
+                            .into(profImg)
                     }
                 }
         }
+
+        dbRef.addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var myDTO = FeedDTO()
+                // 한줄소개
+                if(myDTO.profInfo == null)
+                {
+                    profInfo.text = null
+                }
+                else
+                {
+                    profInfo.text = myDTO?.profInfo.toString()
+                    Log.d("들어왔니", profInfo.text.toString())
+                    FirebaseFirestore.getInstance().collection("users")
+                        .document(FirebaseAuth.getInstance().currentUser!!.uid).set(profInfo.text.toString())
+                }
+
+                firestore?.collection("users")?.document(uid.toString())
+                    ?.get()?.addOnCompleteListener { task ->
+                        if(task.isSuccessful) {
+                            val url = task.result!!["profileImageUrl"]
+                            Glide.with(view.context)
+                                .load(url)
+                                .into(profImg)
+                        }
+                    }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+        })
 
         //recycler뷰 관련 설정
         view.mypageListView.layoutManager = LinearLayoutManager(activity)
@@ -109,9 +156,6 @@ class MyPage : Fragment() {
             }
         }
 
-        profInfo = view.findViewById(R.id.mypage_profInfo)
-        emailTxt = view.findViewById(R.id.mypage_profEmail)
-
         var setBtn: ImageButton = view.findViewById(R.id.mypageSettingBtn)
         setBtn.setOnClickListener{
             //편집 버튼 눌렀을 때
@@ -133,18 +177,18 @@ class MyPage : Fragment() {
     //리사이클러뷰 어댑터
     @SuppressLint("NotifyDataSetChanged")
     inner class RecyclerViewAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-        var mypageDTOList: ArrayList<MypageDTO> = arrayListOf()
+        var mypageDTOList: ArrayList<FeedDTO> = arrayListOf()
         var contentUidList: ArrayList<String> = arrayListOf()
 
         //피드 데이터 시간에 대해 오름차순으로 정렬, 배열 비우기
         init {
-            firestore?.collection("mypage")?.orderBy("timestamp", Query.Direction.ASCENDING)
+            firestore?.collection("users")?.whereEqualTo("uid", FirebaseAuth.getInstance().currentUser?.uid)?.orderBy("timestamp", Query.Direction.ASCENDING)
                 ?.addSnapshotListener { value, error ->
                     mypageDTOList.clear()
                     contentUidList.clear()
                     if(value == null) return@addSnapshotListener
                     for(snapshot in value!!.documents) {
-                        var item = snapshot.toObject(MypageDTO::class.java)
+                        var item = snapshot.toObject(FeedDTO::class.java)
                         mypageDTOList.add(item!!)
                         contentUidList.add(snapshot.id)
                     }

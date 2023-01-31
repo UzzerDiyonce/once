@@ -59,21 +59,52 @@ class SettingActivity : AppCompatActivity() {
 
         //파이어스토어 초기화
         firestore = FirebaseFirestore.getInstance()
+        fireAuth = FirebaseAuth.getInstance()
 
         //데이터베이스 참조
         dbRef = FirebaseDatabase.getInstance().reference
 
         //변수 초기화
+        var user = FirebaseAuth.getInstance().currentUser
         uid = FirebaseAuth.getInstance().currentUser?.uid
+        var userid = FirebaseAuth.getInstance().currentUser?.email
 
-        // 구글 로그아웃을 위해 로그인 세션 가져오기
-        var gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
-            .requestEmail()
-            .build()
-        googleSignInClient = GoogleSignIn.getClient(this, gso)
+        var documentRef = firestore?.collection("users")?.document(FirebaseAuth.getInstance().currentUser!!.uid)
 
-        fireAuth = FirebaseAuth.getInstance()
+        if(user != null){
+            firestore?.runTransaction{ transaction ->
+                var myDTO = transaction.get(documentRef!!).toObject(FeedDTO::class.java)
+
+                if(myDTO?.alarmSet == null)
+                {
+                    isAlarmOn = true
+                }
+                else
+                {
+                    isAlarmOn = myDTO?.alarmSet!!
+                }
+                // 한줄소개 비어있으면 비어있는 채로, 비어있지 않으면 기존 한줄소개 내용을 불러오기
+                if(myDTO?.profInfo == null)
+                {
+                    editInfo.setText(null)
+                }
+                else
+                {
+                    editInfo.setText(myDTO?.profInfo.toString())
+                }
+                //피드 프로필 이미지 가져와서 할당
+                FirebaseFirestore.getInstance().collection("users").document(myDTO!!.uid!!)
+                    .get().addOnCompleteListener { task ->
+                        if(task.isSuccessful) {
+                            val url = myDTO.profileImageUrl
+                            Glide.with(this)
+                                .load(url)
+                                .apply(RequestOptions().circleCrop())
+                                .into(profImg)
+                        }
+                    }
+            }
+        }
 
         //이전 화면으로 돌아가기 버튼
         backBtn = findViewById(R.id.mypageSettingBackBtn)
@@ -117,32 +148,7 @@ class SettingActivity : AppCompatActivity() {
 
         // 연결된 이메일 계정 불러오기
         emailTxt = findViewById(R.id.settingEmail)
-
-        var documentRef = firestore?.collection("users")?.document(FirebaseAuth.getInstance().currentUser!!.uid)
-        firestore?.runTransaction{ transaction ->
-            var myDTO = transaction.get(documentRef!!).toObject(MypageDTO::class.java)
-            emailTxt.text = myDTO?.userId.toString()
-
-            // 한줄소개 비어있으면 비어있는 채로, 비어있지 않으면 기존 한줄소개 내용을 불러오기
-            if(myDTO?.profInfo == null)
-            {
-                editInfo.setText(null)
-            }
-            else
-            {
-                editInfo.setText(myDTO?.profInfo.toString())
-            }
-            //피드 프로필 이미지 가져와서 할당
-            FirebaseFirestore.getInstance().collection("users").document(myDTO!!.uid!!)
-                .get().addOnCompleteListener { task ->
-                    if(task.isSuccessful) {
-                        val url = task.result!!["profileImageUrl"]
-                        Glide.with(this)
-                            .load(url)
-                            .into(profImg)
-                    }
-                }
-        }
+        emailTxt.text = userid.toString()
 
         // 프로필 이미지 변경
         profImg = findViewById(R.id.setting_profImage)
@@ -151,6 +157,13 @@ class SettingActivity : AppCompatActivity() {
         profImgBtn.setOnClickListener{
             initImageViewProfile()
         }
+
+        // 구글 로그아웃을 위해 로그인 세션 가져오기
+        var gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+        googleSignInClient = GoogleSignIn.getClient(this, gso)
 
         // 로그아웃
         logoutBtn = findViewById(R.id.logoutBtn)
@@ -167,14 +180,21 @@ class SettingActivity : AppCompatActivity() {
         // 데이터 저장
         saveBtn = findViewById(R.id.settingSaveBtn)
         saveBtn.setOnClickListener {
-            var myDTO = MypageDTO()
-            
+            var myDTO = FeedDTO()
+
+            myDTO.uid = FirebaseAuth.getInstance().currentUser?.uid
+            myDTO.userId = FirebaseAuth.getInstance().currentUser?.email
             myDTO.alarmSet = isAlarmOn
             myDTO.profileImageUrl = profImg.toString()
             myDTO.profInfo = editInfo.text.toString()
 
             // 데이터 저장
-            firestore?.collection("users")?.document(uid.toString())?.set(myDTO)
+            //firestore?.collection("users")?.document(fireAuth!!.currentUser!!.uid)?.set(myDTO!!)
+            firestore?.collection("users")?.document(uid.toString())?.set(myDTO!!)
+//            val db = firestore?.collection("users")?.document(uid.toString())
+//            db?.update("alarmSet", isAlarmOn)
+//            db?.update("profInfo", editInfo)
+//            db?.update("profileImageUrl", profImg)
             Toast.makeText(this, "수정되었습니다.",Toast.LENGTH_SHORT).show()
         }
     }
@@ -198,6 +218,10 @@ class SettingActivity : AppCompatActivity() {
     // 회원탈퇴
     private fun deleteMem(){
         fireAuth?.currentUser?.delete()
+
+        val docRef = firestore?.collection("users")?.document(uid.toString())
+        googleSignInClient?.revokeAccess()?.addOnCompleteListener(this) {
+        }
         logout()
     }
 
