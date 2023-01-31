@@ -56,20 +56,22 @@ class DrawingActivity : AppCompatActivity() {
 
         drawingView = findViewById(R.id.drawing_field)
 
+        //갤러리에서 사진 선택
         galleryBtn.setOnClickListener {
             checkGallAuthority()
             selectGallery()
         }
-        
+
+        //뒤로 가기 버튼
         backBtn.setOnClickListener {
             onBackPressed()
         }
-
+        //그리기 버튼
         pencilBtn.setOnClickListener {
             Toast.makeText(this, "그리기", Toast.LENGTH_SHORT).show()
             usingBrush(paintBrush.color)
         }
-
+        //지우기 버튼
         eraserBtn.setOnClickListener {
             Toast.makeText(this, "지우기", Toast.LENGTH_SHORT).show()
         }

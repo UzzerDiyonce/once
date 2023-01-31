@@ -9,6 +9,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
@@ -29,18 +30,20 @@ class TimeCapsuleActivity : AppCompatActivity() {
     lateinit var galleryBtn: Button
     lateinit var drawingBtn: Button
     lateinit var imgView: ImageView
-    //lateinit var resultLauncher: ActivityResultLauncher<Intent>
     private var imageUri: Uri? = null
     //본문: 글
+    lateinit var capsuleContent: EditText
 
     //하단: 완료 버튼
+    lateinit var completeBtn: Button
 
+    //권한
     private var REQUEST_READ_EXTERNAL_STORAGE = 1000
 
     @Override
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_diary)
+        setContentView(R.layout.activity_time_capsule)
 
         backBtn = findViewById(R.id.leftArrowBtn)
 
@@ -49,6 +52,9 @@ class TimeCapsuleActivity : AppCompatActivity() {
         galleryBtn = findViewById(R.id.galleryBtn)
         drawingBtn = findViewById(R.id.drawing_Btn)
         imgView = findViewById(R.id.imgView)
+
+        capsuleContent = findViewById(R.id.capsuleContent)
+        completeBtn = findViewById(R.id.completeBtn)
 
         //날짜 선택
         val calendar = Calendar.getInstance()
@@ -61,8 +67,7 @@ class TimeCapsuleActivity : AppCompatActivity() {
 
         //뒤로가기 버튼 눌렀을 때 메인 액티비티로 돌아감
         backBtn.setOnClickListener{
-            var intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            onBackPressed()
         }
 
         //날짜 선택 버튼을 눌렀을 때 팝업창 띄움
@@ -71,13 +76,26 @@ class TimeCapsuleActivity : AppCompatActivity() {
                 calendar.get(Calendar.DAY_OF_MONTH)).show()
         }
 
+        //갤러리 버튼을 눌러 사진 첨부
         galleryBtn.setOnClickListener {
             checkGallAuthority()
             selectGallery()
         }
 
+        //그림 버튼을 눌러 그림 그리러 감
         drawingBtn.setOnClickListener {
             val intent = Intent(this, DrawingActivity::class.java);
+            startActivity(intent)
+        }
+
+        //완료 버튼을 눌러 날짜 선택하러 감
+        completeBtn.setOnClickListener {
+            val intent = Intent(this, SetTimeCapsuleOpenDate::class.java);
+            intent.putExtra("date", dateView.text.toString())
+            intent.type = ("image/*")
+            //intent.putExtra("imgView", imgView)
+            intent.putExtra("content", capsuleContent.text.toString())
+
             startActivity(intent)
         }
     }

@@ -148,7 +148,7 @@
                     android:maxWidth="350dp"/>
                 <!-- 내용 작성 -->
                 <EditText
-                    android:id="@+id/diaryContent"
+                    android:id="@+id/capsuleContent"
                     android:layout_width="370dp"
                     android:layout_height="300dp"
                     android:layout_marginTop="10dp"
@@ -163,6 +163,7 @@
             </LinearLayout>
             <!-- 완료 버튼 -->
             <Button
+                android:id="@+id/completeBtn"
                 android:layout_width="100dp"
                 android:layout_height="50dp"
                 android:layout_gravity="right"

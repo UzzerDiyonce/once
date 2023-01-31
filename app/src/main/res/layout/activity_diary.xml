@@ -38,7 +38,8 @@
             android:textSize="25sp"
             android:fontFamily="@font/font_lee"
             android:minWidth="48dp"
-            android:minHeight="48dp"/>
+            android:minHeight="48dp"
+            android:maxLength="12"/>
     </LinearLayout>
 
     <!-- 본문 -->
@@ -174,7 +175,8 @@
                 android:text="완료"
                 android:fontFamily="@font/font_lee"
                 android:textSize="25sp"
-                tools:ignore="SpeakableTextPresentCheck" />
+                tools:ignore="SpeakableTextPresentCheck"
+                android:maxLines="7"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

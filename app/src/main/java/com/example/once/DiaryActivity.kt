@@ -10,7 +10,10 @@ import android.icu.util.Calendar
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.DatePicker
 import android.widget.EditText
@@ -20,7 +23,13 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.once.databinding.ActivityDiaryBinding
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
+import kotlinx.android.synthetic.main.item_comment.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -73,13 +82,9 @@ open class DiaryActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListen
             updateDate(calendar)
         }
 
+
         //뒤로가기 버튼 눌렀을 때 다이얼로그 호출
         backBtn.setOnClickListener {
-            intent.putExtra("date", dateView.text.toString())
-            intent.type = ("image/*")
-            intent.putExtra(Intent.EXTRA_STREAM, imageUri)
-            intent.putExtra("content", diaryContent.text.toString())
-
             backBinding = ActivityDiaryBinding.inflate(layoutInflater)
             setContentView(backBinding.root)
             window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -103,7 +108,8 @@ open class DiaryActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListen
 
         //날짜 선택 버튼을 눌렀을 때 팝업창 띄움
         dateView.setOnClickListener{
-            DatePickerDialog(this, datePick, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+
+            val datePicker = DatePickerDialog(this, datePick, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH)).show()
         }
 
@@ -167,7 +173,6 @@ open class DiaryActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListen
         startActivityForResult(intent, REQUEST_READ_EXTERNAL_STORAGE)
     }
 
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK && requestCode == REQUEST_READ_EXTERNAL_STORAGE) {
@@ -179,4 +184,5 @@ open class DiaryActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListen
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
         TODO("Not yet implemented")
     }
+
 }
