@@ -41,6 +41,8 @@ class MainActivity : AppCompatActivity() {
 
         //네비게이션 바 메뉴 누를 시 액션
         bottomNav.setOnItemSelectedListener {
+            diary.setVisibility(View.INVISIBLE)
+            timecapsule.setVisibility(View.INVISIBLE)
             when(it.itemId) {
                 R.id.item_feed -> {                         //피드 메뉴를 누르면 피드 메뉴로 넘어감
                     loadFragment(Feed())
