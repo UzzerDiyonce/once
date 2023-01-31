@@ -13,29 +13,26 @@ import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
-import android.widget.DatePicker
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.RadioButton
-import android.widget.RadioGroup
+import android.widget.*
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.once.databinding.ActivityDiaryBinding
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.UploadTask
+import kotlinx.android.synthetic.main.activity_detail_feed.*
 import kotlinx.android.synthetic.main.item_comment.view.*
+import kotlinx.android.synthetic.main.item_feed.view.*
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
+
 
 open class DiaryActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
 
@@ -45,13 +42,8 @@ open class DiaryActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListen
     //본문: 상단
     lateinit var dateView: Button
     lateinit var edtTitle: EditText
-    lateinit var weatherBtn: RadioGroup
 
-    //날씨종류 0: 맑음 | 1: 흐림 | 2: 비 | 3: 눈
-    var sunny: Int? = 0
-    var cloudy: Int? = 1
-    var rainy: Int? = 2
-    var snowy: Int? = 3
+    lateinit var radioWeather: RadioGroup
 
     //본문: 이미지 삽입
     lateinit var galleryBtn: Button
@@ -59,6 +51,12 @@ open class DiaryActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListen
     lateinit var imgView: ImageView
     lateinit var diaryContent: EditText
     private var imageUri: Uri? = null
+
+    lateinit var radioButton: RadioButton
+    lateinit var sunny: RadioButton
+    lateinit var cloudy: RadioButton
+    lateinit var rainy: RadioButton
+    lateinit var snowy: RadioButton
 
     //팝업창
     lateinit var backBinding: ActivityDiaryBinding
@@ -71,6 +69,8 @@ open class DiaryActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListen
 
     private var REQUEST_READ_EXTERNAL_STORAGE = 1000
     var firestore: FirebaseFirestore? = null
+    private var uri: Uri? = null
+    var feedKind = 0
 
     @Override
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -81,15 +81,21 @@ open class DiaryActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListen
         firestore = FirebaseFirestore.getInstance()
 
         backBtn = findViewById(R.id.leftArrowBtn)
+        radioWeather = findViewById(R.id.weather)
+
         edtTitle = findViewById(R.id.edtTitle)
         diaryContent = findViewById(R.id.diaryContent)
         dateView = findViewById(R.id.dateView)
+
+        sunny = findViewById(R.id.sunny)
+        cloudy = findViewById(R.id.cloudy)
+        rainy = findViewById(R.id.rainy)
+        snowy = findViewById(R.id.snowy)
 
         galleryBtn = findViewById(R.id.galleryBtn)
         drawingBtn = findViewById(R.id.drawing_Btn)
         imgView = findViewById(R.id.imgView)
         completeBtn = findViewById(R.id.completeBtn)
-
 
         //날짜 선택
         val calendar = Calendar.getInstance()
@@ -126,7 +132,6 @@ open class DiaryActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListen
 
         //날짜 선택 버튼을 눌렀을 때 팝업창 띄움
         dateView.setOnClickListener{
-
             val datePicker = DatePickerDialog(this, datePick, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH)).show()
         }
@@ -144,20 +149,90 @@ open class DiaryActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListen
         completeBtn.setOnClickListener {
             completeBinding = ActivityDiaryBinding.inflate(layoutInflater)
             setContentView(completeBinding.root)
+//            try{
+//                feedDTO.userId = FirebaseAuth.getInstance().currentUser?.email
+//                feedDTO.uid = FirebaseAuth.getInstance().currentUser?.uid
+//                feedDTO.timestamp = System.currentTimeMillis()
+//                //날씨 내용 제목 이미지
+//                feedDTO.contents = diaryContent.text.toString()
+//                //feedDTO.imageUrl = imgView.toUrl
+//                feedDTO.title = edtTitle.text.toString()
+//                feedDTO.feed_kind = feedKind
+//                if(sunny.isChecked) {
+//                    feedDTO.weather_kind = 0
+//                }
+//                if(cloudy.isChecked) {
+//                    feedDTO.weather_kind = 1
+//                }
+//                if(rainy.isChecked) {
+//                    feedDTO.weather_kind = 2
+//                }
+//                if(snowy.isChecked) {
+//                    feedDTO.weather_kind = 3
+//                }
+//                Toast.makeText(this, "일기 저장에 성공하였습니다.", android.widget.Toast.LENGTH_SHORT).show()
+//            } catch(e: Exception) {
+//                Toast.makeText(this, "일기 저장에 실패하였습니다.", android.widget.Toast.LENGTH_SHORT).show()
+//            }
+            uri?.let { it1 -> uploadImageToFirebase(it1!!) }
+//            FirebaseFirestore.getInstance().collection("feed")
+//                .document(FirebaseAuth.getInstance().currentUser!!.uid).set(feedDTO)
 
-            //DTO 초기화
+        }
+    }
+
+    fun uploadImageToFirebase(uri: Uri){
+        //파이어베이스 스토리지 접근 위해 선언
+        var storage: FirebaseStorage? = FirebaseStorage.getInstance()
+        var fileName = "IMAGE_${SimpleDateFormat("yyyymmdd_HHmmss").format(Date())}_.png"
+        var imageRef = storage!!.reference.child("images/").child(fileName)
+
+        imageRef.putFile(uri!!).continueWithTask { task: Task<UploadTask.TaskSnapshot> ->
+            return@continueWithTask imageRef.downloadUrl
+        }.addOnSuccessListener {
+
             var feedDTO = FeedDTO()
-            feedDTO.userId = FirebaseAuth.getInstance().currentUser?.email
-            feedDTO.uid = FirebaseAuth.getInstance().currentUser?.uid
-            //feedContent.comment = feedContent.text.toString()
-            feedDTO.timestamp = System.currentTimeMillis()
-            //날씨 내용 제목 이미지
-            feedDTO.contents = diaryContent.text.toString()
-            feedDTO.imageUrl = imgView.toString()
-            feedDTO.contents = edtTitle.text.toString()
+            feedDTO.imageUrl = it.toString()
 
-            FirebaseFirestore.getInstance().collection("feed")
-                .document(FirebaseAuth.getInstance().currentUser!!.uid).set(feedDTO)
+            try{
+                feedDTO.userId = FirebaseAuth.getInstance().currentUser?.email
+                feedDTO.uid = FirebaseAuth.getInstance().currentUser?.uid
+                //피드 프로필 이미지 가져와서 할당
+                FirebaseFirestore.getInstance().collection("users").document(feedDTO.uid.toString())
+                    .get().addOnCompleteListener { task ->
+                        if(task.isSuccessful) {
+                            val url = task.result!!["profileImageUrl"]
+                            feedDTO.profileImageUrl = url.toString()
+                        }
+                    }
+                feedDTO.timestamp = System.currentTimeMillis()
+                //날씨 내용 제목 이미지
+                feedDTO.contents = diaryContent.text.toString()
+                //feedDTO.imageUrl = imgView.toUrl
+                feedDTO.title = edtTitle.text.toString()
+                feedDTO.feed_kind = feedKind
+                if(sunny.isChecked) {
+                    feedDTO.weather_kind = 0
+                }
+                if(cloudy.isChecked) {
+                    feedDTO.weather_kind = 1
+                }
+                if(rainy.isChecked) {
+                    feedDTO.weather_kind = 2
+                }
+                if(snowy.isChecked) {
+                    feedDTO.weather_kind = 3
+                }
+                Toast.makeText(this, "일기 저장에 성공하였습니다.", android.widget.Toast.LENGTH_SHORT).show()
+            } catch(e: Exception) {
+                Toast.makeText(this, "일기 저장에 실패하였습니다.", android.widget.Toast.LENGTH_SHORT).show()
+            }
+
+            //위의 이미지와 내용 입력이 완료되었으면 파이어스토어에 내용이 들어가도록
+            FirebaseFirestore.getInstance().collection("feed").document().set(feedDTO)
+            finish()
+        }.addOnFailureListener{
+            println(it)
         }
     }
 
@@ -203,6 +278,15 @@ open class DiaryActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListen
     private fun selectGallery(){
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
         startActivityForResult(intent, REQUEST_READ_EXTERNAL_STORAGE)
+        if(ContextCompat.checkSelfPermission(this.applicationContext, android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
+            launcher.launch("image/*")
+        }
+        true
+    }
+    private var launcher = registerForActivityResult(ActivityResultContracts.GetContent()){ it ->
+        uri = it
+        //binding.itemimageUpload.setImageURI(uri)
+        Log.e("text", uri.toString())
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
