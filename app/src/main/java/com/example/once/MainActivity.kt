@@ -68,6 +68,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+    
+    //프래그먼트 불러오기
     fun loadFragment(fragment: Fragment){
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.main_frame, fragment)
