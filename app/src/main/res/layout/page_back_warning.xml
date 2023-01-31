@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:textAppearance="@style/TextStyle"
+    android:background="@drawable/dialog_background_fit"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/font_lee"
+        android:text="작성 중인 기록을\n지우고 이동할까요?"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="15dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/yesBackBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_border"
+            android:fontFamily="@font/font_lee"
+            android:scaleX="0.8"
+            android:scaleY="0.8"
+            android:text="네"
+            android:textColor="@color/black"
+            android:textSize="25sp" />
+
+        <Button
+            android:id="@+id/noBackBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_border"
+            android:fontFamily="@font/font_lee"
+            android:scaleX="0.8"
+            android:scaleY="0.8"
+            android:text="아니요"
+            android:textColor="@color/black"
+            android:textSize="25sp" />
+    </LinearLayout>
+
+</LinearLayout>

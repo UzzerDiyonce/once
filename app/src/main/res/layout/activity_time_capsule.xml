@@ -1,14 +1,180 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/loadback"
+    android:orientation="vertical"
     tools:context=".TimeCapsuleActivity">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <!--상단 툴바: 뒤로가기 버튼 및 제목 작성란-->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="60dp">
 
-</FrameLayout>
+        <ImageButton
+            android:id="@+id/leftArrowBtn"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="16dp"
+            android:layout_weight="1"
+            android:background="#00000000"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            app:srcCompat="@drawable/leftarrow_icon"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <EditText
+            android:id="@+id/edtTitle"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="11dp"
+            android:layout_marginEnd="16dp"
+            android:layout_gravity="center_vertical"
+            android:hint="제목 공백 포함 12자"
+            android:textSize="25sp"
+            android:fontFamily="@font/font_lee"
+            android:minWidth="48dp"
+            android:minHeight="48dp"/>
+    </LinearLayout>
+
+    <!-- 본문 -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/diary_background"
+                android:orientation="vertical">
+                <!-- 최상단: 날짜 표시 및 선택 버튼 -->
+                <Button
+                    android:id="@+id/dateView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:background="@null"
+                    android:hint="0000년 00월 00일 0요일"
+                    android:textSize="28sp"
+                    android:fontFamily="@font/font_lee"/>
+                <!-- 날씨 선택 -->
+                <RadioGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="1dp"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@drawable/radio_sunny"
+                        android:scaleX="0.7"
+                        android:scaleY="0.7" />
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@drawable/radio_cloudy"
+                        android:scaleX="0.7"
+                        android:scaleY="0.7" />
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@drawable/radio_rainy"
+                        android:scaleX="0.7"
+                        android:scaleY="0.7" />
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@drawable/radio_snowy"
+                        android:scaleX="0.7"
+                        android:scaleY="0.7" />
+                </RadioGroup>
+                <!-- 사진/그림 첨부 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
+                    <!-- 사진 넣기 버튼 구현 -->
+                    <Button
+                        android:id="@+id/galleryBtn"
+                        android:layout_width="100dp"
+                        android:layout_gravity="center"
+                        android:layout_height="50dp"
+                        android:background="@drawable/button_border"
+                        android:drawableLeft="@drawable/gallery_icon_fit"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:layout_marginStart="80dp"
+                        android:text="사진 넣기"
+                        android:fontFamily="@font/font_lee"/>
+                    <View
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"/>
+
+                    <!-- 그림 넣기 버튼 구현 -->
+                    <Button
+                        android:id="@+id/drawing_Btn"
+                        android:layout_width="100dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="20dp"
+                        android:background="@drawable/button_border"
+                        android:drawableLeft="@drawable/drawing_icon_fit"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:text="그림 넣기"
+                        android:fontFamily="@font/font_lee"/>
+                </LinearLayout>
+                <!-- 첨부된 이미지 -->
+                <ImageView
+                    android:id="@+id/imgView"
+                    android:layout_width="370dp"
+                    android:layout_height="240dp"
+                    android:layout_gravity="center"
+                    android:maxHeight="200dp"
+                    android:maxWidth="350dp"/>
+                <!-- 내용 작성 -->
+                <EditText
+                    android:id="@+id/capsuleContent"
+                    android:layout_width="370dp"
+                    android:layout_height="300dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center"
+                    android:background="@null"
+                    android:gravity="top"
+                    android:hint="미래의 나와 친구들에게 들려줄 재미있는 이야기"
+                    android:textSize="25sp"
+                    android:fontFamily="@font/font_lee"
+                    android:lineSpacingExtra="15dp"
+                    tools:ignore="SpeakableTextPresentCheck" />
+            </LinearLayout>
+            <!-- 완료 버튼 -->
+            <Button
+                android:id="@+id/completeBtn"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_gravity="right"
+                android:layout_marginBottom="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/button_border"
+                android:text="완료"
+                android:fontFamily="@font/font_lee"
+                android:textSize="25sp"
+                tools:ignore="SpeakableTextPresentCheck" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

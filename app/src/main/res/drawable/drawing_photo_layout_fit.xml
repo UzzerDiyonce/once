@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:drawable="@drawable/drawing_photo_layout"
+        android:width="410dp"
+        android:height="410dp"/>
+</layer-list>

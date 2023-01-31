@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/loadback"
+    android:textAppearance="@style/TextStyle"
+    tools:context=".DrawingActivity"
+    android:orientation="vertical">
+    <!-- 상단 툴바: 뒤로가기 버튼 및 그림 아이콘 -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+        <!-- 뒤로가기 버튼 -->
+        <ImageButton
+            android:id="@+id/leftArrowBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="16dp"
+            android:layout_weight="1"
+            android:background="#00000000"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/leftarrow_icon"
+            tools:ignore="SpeakableTextPresentCheck" />
+        <!-- 그림 아이콘 -->
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="160dp"
+            android:layout_marginEnd="160dp"
+            android:layout_weight="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/drawing_colored_icon" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="SpeakableTextPresentCheck">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <!-- 본문 : 그림판 -->
+            <LinearLayout
+                android:id="@+id/drawing_field"
+                android:layout_width="match_parent"
+                android:layout_height="410dp"
+                android:background="@drawable/square_drawing_field"
+                android:orientation="vertical" />
+            <!-- 본문 : 메뉴 -->
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/drawing_photo_layout_fit"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/gallery_colored_icon_fit"
+                        android:layout_marginStart="80dp"
+                        android:layout_gravity="left"/>
+                    <View
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_marginEnd="80dp"
+                        app:srcCompat="@drawable/drawing_colored_icon_fit" />
+                </LinearLayout>
+                <!-- 옵션 메뉴 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+                    <Button
+                        android:id="@+id/galleryBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:drawableTop="@drawable/camera_colored_icon_fit"
+                        android:layout_marginStart="65dp"
+                        android:layout_gravity="left|center_vertical"
+                        android:text="사진 첨부"
+                        android:fontFamily="@font/font_lee"
+                        android:textSize="20sp"/>
+                    <View
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"/>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <RadioGroup
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:layout_marginEnd="80dp"
+                            android:orientation="vertical">
+                            <RadioButton
+                                android:id="@+id/pencilBtn"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@null"
+                                android:button="@android:color/transparent"
+                                android:drawableTop="@drawable/radio_pencil"
+                                android:text="그리기"
+                                android:fontFamily="@font/font_lee"
+                                android:textAlignment="center"
+                                android:textSize="20dp"/>
+                            <RadioButton
+                                android:id="@+id/eraserBtn"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="40dp"
+                                android:background="@null"
+                                android:button="@android:color/transparent"
+                                android:drawableTop="@drawable/radio_eraser"
+                                android:text="지우기"
+                                android:fontFamily="@font/font_lee"
+                                android:textAlignment="center"
+                                android:textSize="20dp"/>
+                        </RadioGroup>
+                    </LinearLayout>
+                </LinearLayout>
+            </FrameLayout>
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_gravity="right"
+                android:layout_marginBottom="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/button_border"
+                android:text="완료"
+                android:fontFamily="@font/font_lee"
+                android:textSize="25sp"
+                tools:ignore="SpeakableTextPresentCheck" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

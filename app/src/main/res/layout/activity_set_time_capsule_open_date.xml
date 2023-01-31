@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/loadback"
+    tools:context=".SetTimeCapsuleOpenDate"
+    android:orientation="vertical">
+
+    <!-- 상단 툴바: 뒤로가기 버튼 -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+    <!-- 뒤로가기 버튼 -->
+    <ImageButton
+        android:id="@+id/leftArrowBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="16dp"
+        android:layout_weight="1"
+        android:background="#00000000"
+        android:minWidth="48dp"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/leftarrow_icon"
+        tools:ignore="SpeakableTextPresentCheck" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:text="언제 타임캡슐이 열리면\n좋을까?"
+        android:textSize="25sp"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        android:fontFamily="@font/font_lee"/>
+
+    <!-- 날짜 표시 및 선택 버튼 -->
+    <Button
+        android:id="@+id/dateView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:background="@null"
+        android:hint="0000년 00월 00일 0요일"
+        android:textSize="28sp"
+        android:fontFamily="@font/font_lee"/>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="70dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitCenter"
+            android:src="@drawable/character_with_comment" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_lee"
+            android:text="최소\n일주일 전부터\n최대 3년 후까지..."
+            android:textAlignment="center"
+            android:layout_marginTop="45dp"
+            android:layout_marginStart="30dp"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+    </FrameLayout>
+
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:background="@drawable/rectangle_button"
+        android:text="완료"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="right"
+        android:textSize="20sp"
+        android:fontFamily="@font/font_lee"
+        android:layout_marginEnd="20dp"/>
+
+
+</LinearLayout>
