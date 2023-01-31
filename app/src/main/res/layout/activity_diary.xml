@@ -69,6 +69,7 @@
                     android:fontFamily="@font/font_lee"/>
                 <!-- 날씨 선택 -->
                 <RadioGroup
+                    android:id="@+id/weather"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -76,6 +77,7 @@
                     android:orientation="horizontal">
 
                     <RadioButton
+                        android:id="@+id/sunny"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:button="@drawable/radio_sunny"
@@ -83,6 +85,7 @@
                         android:scaleY="0.7" />
 
                     <RadioButton
+                        android:id="@+id/cloudy"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:button="@drawable/radio_cloudy"
@@ -90,6 +93,7 @@
                         android:scaleY="0.7" />
 
                     <RadioButton
+                        android:id="@+id/rainy"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:button="@drawable/radio_rainy"
@@ -97,6 +101,7 @@
                         android:scaleY="0.7" />
 
                     <RadioButton
+                        android:id="@+id/snowy"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:button="@drawable/radio_snowy"

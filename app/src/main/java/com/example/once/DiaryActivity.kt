@@ -19,6 +19,8 @@ import android.widget.DatePicker
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.RadioButton
+import android.widget.RadioGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -27,11 +29,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.once.databinding.ActivityDiaryBinding
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.item_comment.view.*
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 open class DiaryActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
 
@@ -40,6 +44,14 @@ open class DiaryActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListen
 
     //본문: 상단
     lateinit var dateView: Button
+    lateinit var edtTitle: EditText
+    lateinit var weatherBtn: RadioGroup
+
+    //날씨종류 0: 맑음 | 1: 흐림 | 2: 비 | 3: 눈
+    var sunny: Int? = 0
+    var cloudy: Int? = 1
+    var rainy: Int? = 2
+    var snowy: Int? = 3
 
     //본문: 이미지 삽입
     lateinit var galleryBtn: Button
@@ -58,20 +70,26 @@ open class DiaryActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListen
     lateinit var completeBtn: Button
 
     private var REQUEST_READ_EXTERNAL_STORAGE = 1000
+    var firestore: FirebaseFirestore? = null
 
     @Override
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_diary)
 
-        backBtn = findViewById(R.id.leftArrowBtn)
+        //db관련
+        firestore = FirebaseFirestore.getInstance()
 
+        backBtn = findViewById(R.id.leftArrowBtn)
+        edtTitle = findViewById(R.id.edtTitle)
+        diaryContent = findViewById(R.id.diaryContent)
         dateView = findViewById(R.id.dateView)
 
         galleryBtn = findViewById(R.id.galleryBtn)
         drawingBtn = findViewById(R.id.drawing_Btn)
         imgView = findViewById(R.id.imgView)
         completeBtn = findViewById(R.id.completeBtn)
+
 
         //날짜 선택
         val calendar = Calendar.getInstance()
@@ -126,6 +144,20 @@ open class DiaryActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListen
         completeBtn.setOnClickListener {
             completeBinding = ActivityDiaryBinding.inflate(layoutInflater)
             setContentView(completeBinding.root)
+
+            //DTO 초기화
+            var feedDTO = FeedDTO()
+            feedDTO.userId = FirebaseAuth.getInstance().currentUser?.email
+            feedDTO.uid = FirebaseAuth.getInstance().currentUser?.uid
+            //feedContent.comment = feedContent.text.toString()
+            feedDTO.timestamp = System.currentTimeMillis()
+            //날씨 내용 제목 이미지
+            feedDTO.contents = diaryContent.text.toString()
+            feedDTO.imageUrl = imgView.toString()
+            feedDTO.contents = edtTitle.text.toString()
+
+            FirebaseFirestore.getInstance().collection("feed")
+                .document(FirebaseAuth.getInstance().currentUser!!.uid).set(feedDTO)
         }
     }
 
