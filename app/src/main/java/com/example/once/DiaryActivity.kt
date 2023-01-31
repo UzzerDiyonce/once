@@ -149,34 +149,7 @@ open class DiaryActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListen
         completeBtn.setOnClickListener {
             completeBinding = ActivityDiaryBinding.inflate(layoutInflater)
             setContentView(completeBinding.root)
-//            try{
-//                feedDTO.userId = FirebaseAuth.getInstance().currentUser?.email
-//                feedDTO.uid = FirebaseAuth.getInstance().currentUser?.uid
-//                feedDTO.timestamp = System.currentTimeMillis()
-//                //날씨 내용 제목 이미지
-//                feedDTO.contents = diaryContent.text.toString()
-//                //feedDTO.imageUrl = imgView.toUrl
-//                feedDTO.title = edtTitle.text.toString()
-//                feedDTO.feed_kind = feedKind
-//                if(sunny.isChecked) {
-//                    feedDTO.weather_kind = 0
-//                }
-//                if(cloudy.isChecked) {
-//                    feedDTO.weather_kind = 1
-//                }
-//                if(rainy.isChecked) {
-//                    feedDTO.weather_kind = 2
-//                }
-//                if(snowy.isChecked) {
-//                    feedDTO.weather_kind = 3
-//                }
-//                Toast.makeText(this, "일기 저장에 성공하였습니다.", android.widget.Toast.LENGTH_SHORT).show()
-//            } catch(e: Exception) {
-//                Toast.makeText(this, "일기 저장에 실패하였습니다.", android.widget.Toast.LENGTH_SHORT).show()
-//            }
             uri?.let { it1 -> uploadImageToFirebase(it1!!) }
-//            FirebaseFirestore.getInstance().collection("feed")
-//                .document(FirebaseAuth.getInstance().currentUser!!.uid).set(feedDTO)
 
         }
     }
@@ -275,6 +248,7 @@ open class DiaryActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListen
             }
     }
 
+    //갤러리에서 이미지 선택해오기
     private fun selectGallery(){
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
         startActivityForResult(intent, REQUEST_READ_EXTERNAL_STORAGE)
@@ -283,12 +257,14 @@ open class DiaryActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListen
         }
         true
     }
+
+    //이미지 uri
     private var launcher = registerForActivityResult(ActivityResultContracts.GetContent()){ it ->
         uri = it
-        //binding.itemimageUpload.setImageURI(uri)
         Log.e("text", uri.toString())
     }
 
+    //이미지 데이터베이스 저장
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK && requestCode == REQUEST_READ_EXTERNAL_STORAGE) {
