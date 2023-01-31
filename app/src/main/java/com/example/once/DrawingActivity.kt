@@ -1,110 +1,80 @@
 package com.example.once
 
 import android.Manifest
-import android.app.DatePickerDialog
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.icu.util.Calendar
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Paint
+import android.graphics.Path
 import android.net.Uri
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.Button
-import android.widget.EditText
 import android.widget.ImageButton
-import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.RadioButton
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import java.text.SimpleDateFormat
-import java.util.*
+import com.example.once.CanvasView.Companion.currentColor
 
-class TimeCapsuleActivity : AppCompatActivity() {
+class DrawingActivity : AppCompatActivity() {
+
     //상단 바
     lateinit var backBtn: ImageButton
 
     //본문: 상단
-    lateinit var dateView: Button
-
-    //본문: 이미지 삽입
     lateinit var galleryBtn: Button
-    lateinit var drawingBtn: Button
-    lateinit var imgView: ImageView
+    lateinit var pencilBtn: RadioButton
+    lateinit var eraserBtn: RadioButton
+    lateinit var drawingView: LinearLayout
+
     private var imageUri: Uri? = null
-    //본문: 글
-    lateinit var capsuleContent: EditText
 
-    //하단: 완료 버튼
-    lateinit var completeBtn: Button
+    private lateinit var extraCanvas: Canvas
+    private lateinit var extraBitmap: Bitmap
 
-    //권한
     private var REQUEST_READ_EXTERNAL_STORAGE = 1000
 
-    @Override
+    companion object {
+        var path = Path()
+        var paintBrush = Paint()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_time_capsule)
+        val canvasView = CanvasView(this)
+        setContentView(R.layout.activity_drawing)
 
         backBtn = findViewById(R.id.leftArrowBtn)
-
-        dateView = findViewById(R.id.dateView)
-
         galleryBtn = findViewById(R.id.galleryBtn)
-        drawingBtn = findViewById(R.id.drawing_Btn)
-        imgView = findViewById(R.id.imgView)
+        pencilBtn = findViewById(R.id.pencilBtn)
+        eraserBtn = findViewById(R.id.eraserBtn)
 
-        capsuleContent = findViewById(R.id.capsuleContent)
-        completeBtn = findViewById(R.id.completeBtn)
+        drawingView = findViewById(R.id.drawing_field)
 
-        //날짜 선택
-        val calendar = Calendar.getInstance()
-        val datePick = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-            calendar.set(Calendar.YEAR, year)
-            calendar.set(Calendar.MONTH, month)
-            calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-            updateDate(calendar)
-        }
-
-        //뒤로가기 버튼 눌렀을 때 메인 액티비티로 돌아감
-        backBtn.setOnClickListener{
-            onBackPressed()
-        }
-
-        //날짜 선택 버튼을 눌렀을 때 팝업창 띄움
-        dateView.setOnClickListener{
-            DatePickerDialog(this, datePick, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.DAY_OF_MONTH)).show()
-        }
-
-        //갤러리 버튼을 눌러 사진 첨부
+        //갤러리에서 사진 선택
         galleryBtn.setOnClickListener {
             checkGallAuthority()
             selectGallery()
         }
 
-        //그림 버튼을 눌러 그림 그리러 감
-        drawingBtn.setOnClickListener {
-            val intent = Intent(this, DrawingActivity::class.java);
-            startActivity(intent)
+        //뒤로 가기 버튼
+        backBtn.setOnClickListener {
+            onBackPressed()
         }
-
-        //완료 버튼을 눌러 날짜 선택하러 감
-        completeBtn.setOnClickListener {
-            val intent = Intent(this, SetTimeCapsuleOpenDate::class.java);
-            intent.putExtra("date", dateView.text.toString())
-            intent.type = ("image/*")
-            //intent.putExtra("imgView", imgView)
-            intent.putExtra("content", capsuleContent.text.toString())
-
-            startActivity(intent)
+        //그리기 버튼
+        pencilBtn.setOnClickListener {
+            Toast.makeText(this, "그리기", Toast.LENGTH_SHORT).show()
+            usingBrush(paintBrush.color)
         }
-    }
-
-    //날짜 출력
-    private fun updateDate(calendar: Calendar){
-        val myFormat = "YYYY년 MM월 DD일 E요일"
-        val simpleDateFormat = SimpleDateFormat(myFormat, Locale.KOREA)
-        dateView.setText((simpleDateFormat.format(calendar.time)))
+        //지우기 버튼
+        eraserBtn.setOnClickListener {
+            Toast.makeText(this, "지우기", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun checkGallAuthority() {
@@ -148,7 +118,11 @@ class TimeCapsuleActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK && requestCode == REQUEST_READ_EXTERNAL_STORAGE) {
             imageUri = data?.data
-            imgView.setImageURI(imageUri)
         }
+    }
+
+    private fun usingBrush(color: Int){
+        currentColor = color
+        path = Path()
     }
 }
