@@ -136,16 +136,19 @@ open class DiaryActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListen
                 calendar.get(Calendar.DAY_OF_MONTH)).show()
         }
 
+        //갤러리 버튼
         galleryBtn.setOnClickListener {
             checkGallAuthority()
             selectGallery()
         }
 
+        //그림 그리기 버튼
         drawingBtn.setOnClickListener {
             val intent = Intent(this, DrawingActivity::class.java);
             startActivity(intent)
         }
 
+        //완료 버튼(데베 연동)
         completeBtn.setOnClickListener {
             completeBinding = ActivityDiaryBinding.inflate(layoutInflater)
             setContentView(completeBinding.root)
