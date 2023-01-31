@@ -1,21 +1,17 @@
 package com.example.once
 
-import android.Manifest
 import android.app.Activity
 import android.content.Intent
-import android.content.Context
 import android.content.pm.PackageManager
 import android.net.Uri
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.*
+import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AlertDialog
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.FragmentManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -24,14 +20,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
-import com.google.firebase.firestore.ktx.toObject
-import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 import de.hdodenhof.circleimageview.CircleImageView
-import kotlinx.android.synthetic.main.item_feed.view.*
 
 class SettingActivity : AppCompatActivity() {
     private var firestore: FirebaseFirestore? = null
@@ -39,6 +30,9 @@ class SettingActivity : AppCompatActivity() {
     var googleSignInClient : GoogleSignInClient?= null
     private var fireAuth : FirebaseAuth? = null
     private lateinit var dbRef : DatabaseReference
+    var fireStg : FirebaseStorage? = null
+
+    var profUri: Uri? = null
 
     lateinit var backBtn: ImageButton
     lateinit var alarmBtn: ImageButton
@@ -60,6 +54,7 @@ class SettingActivity : AppCompatActivity() {
         //파이어스토어 초기화
         firestore = FirebaseFirestore.getInstance()
         fireAuth = FirebaseAuth.getInstance()
+        fireStg = FirebaseStorage.getInstance()
 
         //데이터베이스 참조
         dbRef = FirebaseDatabase.getInstance().reference
@@ -92,24 +87,54 @@ class SettingActivity : AppCompatActivity() {
                 {
                     editInfo.setText(myDTO?.profInfo.toString())
                 }
-                //피드 프로필 이미지 가져와서 할당
-                FirebaseFirestore.getInstance().collection("users").document(myDTO!!.uid!!)
+                
+                // 프로필 이미지
+                if(profUri != null)
+                {
+                    //profImg.setImageURI(profUri)
+                    FirebaseFirestore.getInstance().collection("users").document(myDTO!!.uid!!)
+                        .get().addOnCompleteListener { task ->
+                            if(task.isSuccessful) {
+                                val url = task.result!!["profileImageUrl"]
+                                Glide.with(this)
+                                    .load(url)
+                                    .apply(RequestOptions().circleCrop())
+                                    .into(profImg)
+                            }
+                        }
+                }
+                else
+                {
+                    profImg.setImageResource(R.drawable.defaultprofimg)
+                }
+                //프로필 이미지 가져와서 할당
+                /*FirebaseFirestore.getInstance().collection("users").document(myDTO!!.uid!!)
                     .get().addOnCompleteListener { task ->
                         if(task.isSuccessful) {
-                            val url = myDTO.profileImageUrl
+                            val url = myDTO?.profileImageUrl
                             Glide.with(this)
                                 .load(url)
                                 .apply(RequestOptions().circleCrop())
                                 .into(profImg)
                         }
-                    }
+                    }*/
             }
         }
 
         //이전 화면으로 돌아가기 버튼
         backBtn = findViewById(R.id.mypageSettingBackBtn)
         backBtn.setOnClickListener {
-            onBackPressed()
+            val fragmentManager = supportFragmentManager
+            val fragmentTransaction = fragmentManager.beginTransaction()
+            val firstFragment = MyPage()
+            //fragmentTransaction.add(R.id.mypage_layout, firstFragment)
+            //fragmentTransaction.addToBackStack(null)
+            //fragmentTransaction.commit()
+            //MyPage().refreshFragment(firstFragment, firstFragment.childFragmentManager)
+            //onBackPressed()
+            finish()
+            startActivity(Intent(this, MainActivity::class.java))
+            //MainActivity().loadFragment(MyPage())
         }
 
         // 알림 버튼 누르면 알림 이미지 및 텍스트 바꾸기
@@ -185,8 +210,14 @@ class SettingActivity : AppCompatActivity() {
             myDTO.uid = FirebaseAuth.getInstance().currentUser?.uid
             myDTO.userId = FirebaseAuth.getInstance().currentUser?.email
             myDTO.alarmSet = isAlarmOn
-            myDTO.profileImageUrl = profImg.toString()
+            //myDTO.profileImageUrl = profImg.toString()
+            myDTO.profileImageUrl = profUri.toString()
             myDTO.profInfo = editInfo.text.toString()
+
+            val mypage = MyPage()
+            var bundle = Bundle()
+            bundle.putString("userInfo", editInfo.text.toString())
+            mypage.arguments = bundle
 
             // 데이터 저장
             //firestore?.collection("users")?.document(fireAuth!!.currentUser!!.uid)?.set(myDTO!!)
@@ -288,9 +319,9 @@ class SettingActivity : AppCompatActivity() {
         when (requestCode) {
             // 2000: 이미지 컨텐츠를 가져오는 액티비티를 수행한 후 실행되는 Activity 일 때만 수행하기 위해서
             2000 -> {
-                val selectedImageUri: Uri? = data?.data
-                if (selectedImageUri != null) {
-                    profImg.setImageURI(selectedImageUri)
+                profUri = data?.data
+                if (profUri != null) {
+                    profImg.setImageURI(profUri)
                 } else {
                     Toast.makeText(this, "사진을 가져오지 못했습니다.", Toast.LENGTH_SHORT).show()
                 }

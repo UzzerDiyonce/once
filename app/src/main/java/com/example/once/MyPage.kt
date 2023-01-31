@@ -3,6 +3,7 @@ package com.example.once
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.Context
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -10,16 +11,16 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.mypage_diary.*
 import androidx.appcompat.widget.Toolbar
-import androidx.core.view.children
-import com.example.once.databinding.MypageDiaryBinding
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import com.google.firebase.storage.FirebaseStorage
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.feed.view.*
 import kotlinx.android.synthetic.main.mypage_diary.view.*
@@ -32,8 +33,9 @@ class MyPage : Fragment() {
     private var firestore: FirebaseFirestore? = null
     private lateinit var dbRef : DatabaseReference
     private var fireAuth : FirebaseAuth? = null
+    var fireStg : FirebaseStorage? = null
 
-    private lateinit var bind : MypageDiaryBinding
+    var profUri: Uri? = null
 
     lateinit var profInfo : TextView
     lateinit var emailTxt : TextView
@@ -56,6 +58,10 @@ class MyPage : Fragment() {
         //파이어스토어 초기화
         firestore = FirebaseFirestore.getInstance()
         fireAuth = FirebaseAuth.getInstance()
+        fireStg = FirebaseStorage.getInstance()
+
+        val userInfo = arguments?.getString("userInfo")
+//        Log.d("한줄소개 가져오기", userInfo.toString())
 
         dbRef = FirebaseDatabase.getInstance().reference
 
@@ -73,19 +79,43 @@ class MyPage : Fragment() {
         var documentRef = firestore?.collection("users")?.document(fireAuth!!.currentUser!!.uid)
         firestore?.runTransaction { transaction ->
             var myDTO = transaction.get(documentRef!!).toObject(FeedDTO::class.java)
+
+            Log.d("데이터 가져오기", userInfo.toString())
             // 한줄소개
-            if(myDTO?.profInfo == null)
+            /*if(myDTO?.profInfo.toString() == null)
             {
                 profInfo.text = null
-                Log.d("초기설정", profInfo.text.toString())
             }
             else
             {
-                profInfo.text = myDTO?.profInfo.toString()
-                FirebaseFirestore.getInstance().collection("users")
-                    .document(FirebaseAuth.getInstance().currentUser!!.uid).set(profInfo.text.toString())
-                Log.d("초기설정", profInfo.text.toString())
-            }
+                // 한줄소개
+                firestore?.collection("users")?.document(uid.toString())
+                    ?.get()?.addOnCompleteListener { task ->
+                        if(task.isSuccessful) {
+                            val info = task.result!!["profInfo"]
+                            profInfo.text = info.toString()
+                        }
+                    }
+            }*/
+
+            // 한줄소개
+            firestore?.collection("users")?.document(uid.toString())
+                ?.get()?.addOnCompleteListener { task ->
+                    if(task.isSuccessful) {
+                        val info = task.result!!["profInfo"]
+                        if(info.toString() == null)
+                        {
+                            profInfo.text = null
+                        }
+                        else
+                        {
+                            profInfo.text = info.toString()
+                        }
+                    }
+                }
+
+
+
             // 프로필 이미지 가져와서 할당
             firestore?.collection("users")?.document(uid.toString())
                 ?.get()?.addOnCompleteListener { task ->
@@ -98,25 +128,27 @@ class MyPage : Fragment() {
                 }
         }
 
-        dbRef.addValueEventListener(object : ValueEventListener{
+        /*dbRef.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 var myDTO = FeedDTO()
                 // 한줄소개
-                if(myDTO.profInfo == null)
+                if(myDTO?.profInfo.toString() == null)
                 {
-                    profInfo.text = null
+                    profInfo.text = " "
                 }
                 else
                 {
                     profInfo.text = myDTO?.profInfo.toString()
                     Log.d("들어왔니", profInfo.text.toString())
-                    FirebaseFirestore.getInstance().collection("users")
-                        .document(FirebaseAuth.getInstance().currentUser!!.uid).set(profInfo.text.toString())
+//                    FirebaseFirestore.getInstance().collection("users")
+//                        .document(FirebaseAuth.getInstance().currentUser!!.uid).set(profInfo.text.toString())
                 }
 
                 firestore?.collection("users")?.document(uid.toString())
                     ?.get()?.addOnCompleteListener { task ->
                         if(task.isSuccessful) {
+                            val info = task.result!!["profInfo"]
+                            profInfo.text = info.toString()
                             val url = task.result!!["profileImageUrl"]
                             Glide.with(view.context)
                                 .load(url)
@@ -129,7 +161,7 @@ class MyPage : Fragment() {
 
             }
 
-        })
+        })*/
 
         //recycler뷰 관련 설정
         view.mypageListView.layoutManager = LinearLayoutManager(activity)
@@ -173,6 +205,14 @@ class MyPage : Fragment() {
         return view
     }
 
+    fun refresh(){
+        (activity as MainActivity).loadFragment(MyPage())
+    }
+
+    fun refreshFragment(fragment: Fragment, fragmentManager: FragmentManager) {
+        var ft: FragmentTransaction = fragmentManager.beginTransaction()
+        ft.detach(fragment).attach(fragment).commit()
+    }
 
     //리사이클러뷰 어댑터
     @SuppressLint("NotifyDataSetChanged")
