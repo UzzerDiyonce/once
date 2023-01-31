@@ -12,7 +12,8 @@ data class FeedDTO (
     var contents: String? = null, //작성내용
     var imageUrl: String? = null, //업로드이미지
     var likeCount: Int = 0, //좋아요(도장)
-    var likers: MutableMap<String, Boolean> = HashMap(),
+    var likers: MutableMap<String, Boolean> = HashMap(), //좋아요 누른사람
+    var friends: ArrayList<String> = arrayListOf(), //함께한 친구
     //세부내용 날씨 종류
     var weather_kind: Int? = null, //날씨종류 0: 맑음 | 1: 흐림 | 2: 비 | 3: 눈
     //피드 종류

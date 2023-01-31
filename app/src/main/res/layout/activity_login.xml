@@ -13,7 +13,7 @@
         android:layout_width="208dp"
         android:layout_height="208dp"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="85dp"
+        android:layout_marginTop="55dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/loginment" />
@@ -35,23 +35,88 @@
         android:id="@+id/imageView9"
         android:layout_width="172dp"
         android:layout_height="172dp"
+        android:layout_marginTop="175dp"
         android:layout_marginEnd="55dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/moriforsignup" />
 
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="65dp"
+        android:layout_marginBottom="6dp"
+        android:fontFamily="@font/font_lee"
+        android:text="구글 계정으로 로그인"
+        android:textColor="#2A1D17"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_googleSignIn"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <com.google.android.gms.common.SignInButton
         android:id="@+id/btn_googleSignIn"
-        android:layout_width="match_parent"
+        android:layout_width="277dp"
         android:layout_height="53dp"
-        android:layout_marginStart="65dp"
-        android:layout_marginEnd="65dp"
-        android:layout_marginBottom="178dp"
-        android:background="@drawable/button_rectangle"
+        android:layout_marginBottom="235dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"></com.google.android.gms.common.SignInButton>
+        app:layout_constraintHorizontal_bias="0.485"
+        app:layout_constraintStart_toStartOf="parent">
+
+    </com.google.android.gms.common.SignInButton>
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="65dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/font_lee"
+        android:text="이메일로 로그인"
+        android:textColor="#2A1D17"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_googleSignIn" />
+
+    <EditText
+        android:id="@+id/emailEdt"
+        android:layout_width="280dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="65dp"
+        android:layout_marginTop="6dp"
+        android:fontFamily="@font/font_lee"
+        android:hint="이메일"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+    <EditText
+        android:id="@+id/pwdEdt"
+        android:layout_width="280dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="65dp"
+        android:ems="10"
+        android:fontFamily="@font/font_lee"
+        android:hint="비밀번호"
+        android:inputType="textPassword"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/emailEdt" />
+
+    <Button
+        android:id="@+id/logBtn"
+        android:layout_width="277dp"
+        android:layout_height="49dp"
+        android:layout_marginBottom="62dp"
+        android:background="@drawable/comment_rect"
+        android:fontFamily="@font/font_lee"
+        android:text="로그인"
+        android:textColor="#2A1D17"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
