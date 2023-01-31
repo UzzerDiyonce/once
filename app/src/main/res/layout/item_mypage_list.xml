@@ -7,6 +7,7 @@
     android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mypageListBox"
         android:layout_width="match_parent"
         android:layout_height="110dp"
         android:layout_marginTop="2dp"
@@ -15,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/mypageDiaryImageView"
+            android:id="@+id/mypageListImageView"
             android:layout_width="75dp"
             android:layout_height="75dp"
             android:layout_marginStart="30dp"
@@ -26,7 +27,7 @@
             app:srcCompat="@drawable/ic_launcher_background"/>
 
         <TextView
-            android:id="@+id/mypageDiaryItemTitle"
+            android:id="@+id/mypageListItemTitle"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="120dp"
@@ -36,11 +37,11 @@
             android:textColor="#2A1D17"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/mypageDiaryImageView"
+            app:layout_constraintStart_toEndOf="@+id/mypageListImageView"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/mypageDiaryItemContent"
+            android:id="@+id/mypageListItemContent"
             android:layout_width="235dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="120dp"
@@ -52,11 +53,11 @@
             android:maxLines="1"
             android:ellipsize="end"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/mypageDiaryImageView"
-            app:layout_constraintTop_toBottomOf="@+id/mypageDiaryItemTitle" />
+            app:layout_constraintStart_toEndOf="@+id/mypageListImageView"
+            app:layout_constraintTop_toBottomOf="@+id/mypageListItemTitle" />
 
         <TextView
-            android:id="@+id/mypageDiaryItemDate"
+            android:id="@+id/mypageListItemDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="120dp"
@@ -66,8 +67,8 @@
             android:textColor="#2A1D17"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/mypageDiaryItemContent"
-            app:layout_constraintTop_toBottomOf="@+id/mypageDiaryItemContent" />
+            app:layout_constraintStart_toEndOf="@+id/mypageListItemContent"
+            app:layout_constraintTop_toBottomOf="@+id/mypageListItemContent" />
 
         <ImageView
             android:id="@+id/mypageDiaryItemLine"
@@ -79,7 +80,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.42"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mypageDiaryImageView"
+            app:layout_constraintTop_toBottomOf="@+id/mypageListImageView"
             app:srcCompat="@drawable/line" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

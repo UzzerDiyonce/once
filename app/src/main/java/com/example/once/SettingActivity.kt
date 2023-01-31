@@ -1,31 +1,27 @@
 package com.example.once
 
-import android.Manifest
 import android.app.Activity
 import android.content.Intent
-import android.content.Context
 import android.content.pm.PackageManager
 import android.net.Uri
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.ImageButton
-import android.widget.Toast
+import android.widget.*
+import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AlertDialog
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.FragmentManager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 import de.hdodenhof.circleimageview.CircleImageView
 
 class SettingActivity : AppCompatActivity() {
@@ -33,6 +29,10 @@ class SettingActivity : AppCompatActivity() {
     var uid = FirebaseAuth.getInstance().currentUser?.uid
     var googleSignInClient : GoogleSignInClient?= null
     private var fireAuth : FirebaseAuth? = null
+    private lateinit var dbRef : DatabaseReference
+    var fireStg : FirebaseStorage? = null
+
+    var profUri: Uri? = null
 
     lateinit var backBtn: ImageButton
     lateinit var alarmBtn: ImageButton
@@ -44,6 +44,8 @@ class SettingActivity : AppCompatActivity() {
     lateinit var editInfo : EditText
     lateinit var logoutBtn: Button
     lateinit var deleteMemBtn: Button
+    lateinit var saveBtn: Button
+    lateinit var emailTxt: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,23 +53,88 @@ class SettingActivity : AppCompatActivity() {
 
         //파이어스토어 초기화
         firestore = FirebaseFirestore.getInstance()
+        fireAuth = FirebaseAuth.getInstance()
+        fireStg = FirebaseStorage.getInstance()
+
+        //데이터베이스 참조
+        dbRef = FirebaseDatabase.getInstance().reference
 
         //변수 초기화
+        var user = FirebaseAuth.getInstance().currentUser
         uid = FirebaseAuth.getInstance().currentUser?.uid
+        var userid = FirebaseAuth.getInstance().currentUser?.email
 
-        // 구글 로그아웃을 위해 로그인 세션 가져오기
-        var gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
-            .requestEmail()
-            .build()
-        googleSignInClient = GoogleSignIn.getClient(this, gso)
+        var documentRef = firestore?.collection("users")?.document(FirebaseAuth.getInstance().currentUser!!.uid)
 
-        fireAuth = FirebaseAuth.getInstance()
+        if(user != null){
+            firestore?.runTransaction{ transaction ->
+                var myDTO = transaction.get(documentRef!!).toObject(FeedDTO::class.java)
+
+                if(myDTO?.alarmSet == null)
+                {
+                    isAlarmOn = true
+                }
+                else
+                {
+                    isAlarmOn = myDTO?.alarmSet!!
+                }
+                // 한줄소개 비어있으면 비어있는 채로, 비어있지 않으면 기존 한줄소개 내용을 불러오기
+                if(myDTO?.profInfo == null)
+                {
+                    editInfo.setText(null)
+                }
+                else
+                {
+                    editInfo.setText(myDTO?.profInfo.toString())
+                }
+                
+                // 프로필 이미지
+                if(profUri != null)
+                {
+                    //profImg.setImageURI(profUri)
+                    FirebaseFirestore.getInstance().collection("users").document(myDTO!!.uid!!)
+                        .get().addOnCompleteListener { task ->
+                            if(task.isSuccessful) {
+                                val url = task.result!!["profileImageUrl"]
+                                Glide.with(this)
+                                    .load(url)
+                                    .apply(RequestOptions().circleCrop())
+                                    .into(profImg)
+                            }
+                        }
+                }
+                else
+                {
+                    profImg.setImageResource(R.drawable.defaultprofimg)
+                }
+                //프로필 이미지 가져와서 할당
+                /*FirebaseFirestore.getInstance().collection("users").document(myDTO!!.uid!!)
+                    .get().addOnCompleteListener { task ->
+                        if(task.isSuccessful) {
+                            val url = myDTO?.profileImageUrl
+                            Glide.with(this)
+                                .load(url)
+                                .apply(RequestOptions().circleCrop())
+                                .into(profImg)
+                        }
+                    }*/
+            }
+        }
 
         //이전 화면으로 돌아가기 버튼
         backBtn = findViewById(R.id.mypageSettingBackBtn)
         backBtn.setOnClickListener {
-            onBackPressed()
+            val fragmentManager = supportFragmentManager
+            val fragmentTransaction = fragmentManager.beginTransaction()
+            val firstFragment = MyPage()
+            //fragmentTransaction.add(R.id.mypage_layout, firstFragment)
+            //fragmentTransaction.addToBackStack(null)
+            //fragmentTransaction.commit()
+            //MyPage().refreshFragment(firstFragment, firstFragment.childFragmentManager)
+            //onBackPressed()
+            finish()
+            startActivity(Intent(this, MainActivity::class.java))
+            //MainActivity().loadFragment(MyPage())
         }
 
         // 알림 버튼 누르면 알림 이미지 및 텍스트 바꾸기
@@ -86,16 +153,9 @@ class SettingActivity : AppCompatActivity() {
             }
         }
 
-        profImg = findViewById(R.id.setting_profImage)
-        profImgBtn = findViewById(R.id.settingCamerBtn)
-        // 카메라 버튼 누르면 갤러리를 불러와 프로필 사진 변경
-        profImgBtn.setOnClickListener{
-            initImageViewProfile()
-        }
-
+        // 한줄소개 글자 수 카운트
         infoTxt = findViewById(R.id.settingInfoCnt)
         editInfo = findViewById(R.id.settingInfo)
-
         editInfo.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
@@ -111,16 +171,65 @@ class SettingActivity : AppCompatActivity() {
             }
         })
 
+        // 연결된 이메일 계정 불러오기
+        emailTxt = findViewById(R.id.settingEmail)
+        emailTxt.text = userid.toString()
+
+        // 프로필 이미지 변경
+        profImg = findViewById(R.id.setting_profImage)
+        profImgBtn = findViewById(R.id.settingCamerBtn)
+        // 카메라 버튼 누르면 갤러리를 불러와 프로필 사진 변경
+        profImgBtn.setOnClickListener{
+            initImageViewProfile()
+        }
+
+        // 구글 로그아웃을 위해 로그인 세션 가져오기
+        var gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+        googleSignInClient = GoogleSignIn.getClient(this, gso)
+
+        // 로그아웃
         logoutBtn = findViewById(R.id.logoutBtn)
         logoutBtn.setOnClickListener {
             logout()
         }
 
+        // 회원탈퇴
         deleteMemBtn = findViewById(R.id.memLeaveBtn)
         deleteMemBtn.setOnClickListener{
             deleteMem()
         }
+
+        // 데이터 저장
+        saveBtn = findViewById(R.id.settingSaveBtn)
+        saveBtn.setOnClickListener {
+            var myDTO = FeedDTO()
+
+            myDTO.uid = FirebaseAuth.getInstance().currentUser?.uid
+            myDTO.userId = FirebaseAuth.getInstance().currentUser?.email
+            myDTO.alarmSet = isAlarmOn
+            //myDTO.profileImageUrl = profImg.toString()
+            myDTO.profileImageUrl = profUri.toString()
+            myDTO.profInfo = editInfo.text.toString()
+
+            val mypage = MyPage()
+            var bundle = Bundle()
+            bundle.putString("userInfo", editInfo.text.toString())
+            mypage.arguments = bundle
+
+            // 데이터 저장
+            //firestore?.collection("users")?.document(fireAuth!!.currentUser!!.uid)?.set(myDTO!!)
+            firestore?.collection("users")?.document(uid.toString())?.set(myDTO!!)
+//            val db = firestore?.collection("users")?.document(uid.toString())
+//            db?.update("alarmSet", isAlarmOn)
+//            db?.update("profInfo", editInfo)
+//            db?.update("profileImageUrl", profImg)
+            Toast.makeText(this, "수정되었습니다.",Toast.LENGTH_SHORT).show()
+        }
     }
+
 
     // 뒤로 가기
     override fun onBackPressed() {
@@ -140,6 +249,10 @@ class SettingActivity : AppCompatActivity() {
     // 회원탈퇴
     private fun deleteMem(){
         fireAuth?.currentUser?.delete()
+
+        val docRef = firestore?.collection("users")?.document(uid.toString())
+        googleSignInClient?.revokeAccess()?.addOnCompleteListener(this) {
+        }
         logout()
     }
 
@@ -206,9 +319,9 @@ class SettingActivity : AppCompatActivity() {
         when (requestCode) {
             // 2000: 이미지 컨텐츠를 가져오는 액티비티를 수행한 후 실행되는 Activity 일 때만 수행하기 위해서
             2000 -> {
-                val selectedImageUri: Uri? = data?.data
-                if (selectedImageUri != null) {
-                    profImg.setImageURI(selectedImageUri)
+                profUri = data?.data
+                if (profUri != null) {
+                    profImg.setImageURI(profUri)
                 } else {
                     Toast.makeText(this, "사진을 가져오지 못했습니다.", Toast.LENGTH_SHORT).show()
                 }

@@ -19,13 +19,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="55dp"
-            android:layout_marginTop="16dp"
             android:fontFamily="@font/font_lee"
             android:text="제목"
             android:textColor="#2A1D17"
             android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/feedItemProfile" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView8" />
 
         <ImageView
             android:id="@+id/feedItemProfile"
