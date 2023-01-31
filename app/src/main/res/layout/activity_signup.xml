@@ -4,6 +4,88 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/loadback"
     tools:context=".SignupActivity">
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="185dp"
+        android:fontFamily="@font/font_lee"
+        android:text="회원가입"
+        android:textColor="#2A1D17"
+        android:textSize="36sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/sign_nick"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="45dp"
+        android:background="#00000000"
+        android:fontFamily="@font/font_lee"
+        android:hint="닉네임"
+        android:textColor="#2A1D17"
+        android:textColorHint="#595757"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginBottom="133dp"
+        app:layout_constraintBottom_toTopOf="@+id/sign_next"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/line" />
+
+    <Button
+        android:id="@+id/sign_next"
+        android:layout_width="104dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="440dp"
+        android:background="@drawable/button_rectangle"
+        android:fontFamily="@font/font_lee"
+        android:text="다음 ->"
+        android:textColor="#2A1D17"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/moriforsignup" />
+
+    <TextView
+        android:id="@+id/sign_ment"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="35dp"
+        android:fontFamily="@font/font_lee"
+        android:textColor="#4C6701"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

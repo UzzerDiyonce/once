@@ -8,14 +8,14 @@
     tools:context=".SettingActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/mp_toolbar"
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="?attr/actionBarSize"
         app:contentInsetStart="0dp" >
 
         <ImageButton
-            android:id="@+id/alarmBackBtn"
+            android:id="@+id/mypageSettingBackBtn"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:layout_gravity="center_vertical"
@@ -43,14 +43,192 @@
         android:id="@+id/mypage_scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/mp_toolbar">
+        android:layout_below="@+id/toolbar">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="390dp"
+                android:layout_height="520dp"
+                android:scaleType="centerCrop"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/setting_back"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/logoutBtn"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/button_rectangle"
+                    android:textSize="22sp"
+                    android:fontFamily="@font/font_lee"
+                    android:text="로그아웃"/>
+
+                <Button
+                    android:id="@+id/memLeaveBtn"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/button_rectangle"
+                    android:textSize="22sp"
+                    android:fontFamily="@font/font_lee"
+                    android:text="회원탈퇴"/>
+            </LinearLayout>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/setting_profImage"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:background="@android:color/transparent"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="-550dp"
+                android:src="@drawable/mypage_profile_img"
+                app:civ_border_color="#000000"
+                app:civ_border_overlay="true"
+                app:civ_border_width="1dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-150dp"
+                android:layout_marginLeft="295dp"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/settingAlarmBtn"
+                    android:layout_width="35dp"
+                    android:layout_height="40dp"
+                    android:scaleType="centerCrop"
+                    android:background="#00000000"
+                    android:src="@drawable/alaram_icon" />
+
+                <TextView
+                    android:id="@+id/settingAlarmBtnText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginRight="2dp"
+                    android:layout_marginTop="-6dp"
+                    android:textSize="17sp"
+                    android:textColor="#4C6701"
+                    android:fontFamily="@font/font_lee"
+                    android:text="켜짐"/>
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/settingCamerBtn"
+                android:layout_width="45dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="242dp"
+                android:layout_marginTop="45dp"
+                android:scaleType="centerCrop"
+                android:background="#00000000"
+                android:src="@drawable/camera_icon"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="17dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="7dp"
+                    android:textSize="15sp"
+                    android:textColor="#8A7267"
+                    android:fontFamily="@font/font_lee"
+                    android:text="계정"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/settingEmail"
+                    android:layout_width="246dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginTop="2dp"
+                    android:textSize="18sp"
+                    android:textColor="#4C6701"
+                    android:fontFamily="@font/font_lee"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:text="onceuzdm23@naver.com"/>
+
+                <ImageView
+                    android:layout_width="260dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-3dp"
+                    android:layout_gravity="center_vertical"
+                    app:srcCompat="@drawable/line" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="7dp"
+                    android:textSize="15sp"
+                    android:textColor="#8A7267"
+                    android:fontFamily="@font/font_lee"
+                    android:text="한 줄 소개"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/settingInfo"
+                    android:layout_width="246dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginTop="2dp"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/font_lee"
+                    android:maxLength="30"
+                    android:maxLines="3"
+                    android:background="@null"
+                    android:hint="당신을 소개해보세요."/>
+
+                <ImageView
+                    android:layout_width="260dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-3dp"
+                    android:layout_gravity="center_horizontal"
+                    app:srcCompat="@drawable/line" />
+
+                <TextView
+                    android:id="@+id/settingInfoCnt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="3dp"
+                    android:layout_marginTop="-11dp"
+                    android:textSize="16sp"
+                    android:textColor="#8A7267"
+                    android:fontFamily="@font/font_lee"
+                    android:text="0/30" />
+            </LinearLayout>
+            <Button
+                android:layout_width="110dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/button_rectangle"
+                android:textSize="22sp"
+                android:fontFamily="@font/font_lee"
+                android:text="저장"/>
         </LinearLayout>
     </ScrollView>
-
 </RelativeLayout>

@@ -8,6 +8,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -32,26 +34,52 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     //private const val TAG = "GoogleActivity"
     private val RC_SIGN_IN = 99
     private lateinit var btn_googleSignIn: SignInButton
+    private lateinit var emailEditText: EditText
+    private lateinit var pwdEditText: EditText
+    private lateinit var loginBtn: Button
     private lateinit var login_layout: View
-    private lateinit var logout: Button
     private var REQUEST_READ_EXTERNAL_STORAGE = 1000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        //초기화
         login_layout = findViewById(R.id.login_layout)
         btn_googleSignIn = findViewById(R.id.btn_googleSignIn)
-        logout = findViewById(R.id.logoutButton)
+        emailEditText = findViewById(R.id.emailEdt)
+        pwdEditText = findViewById(R.id.pwdEdt)
+        loginBtn = findViewById(R.id.logBtn)
 
-        logout.setOnClickListener { signOut() } //로그아웃
-        //btn_googleSignIn.setOnClickListener (this) // 구글 로그인 버튼
+        //로그인 버튼 누르면
+        loginBtn.setOnClickListener {
+            var email = emailEditText.text.toString()
+            var password = pwdEditText.text.toString()
+            FirebaseAuth.getInstance().createUserWithEmailAndPassword(email,password) // 회원 가입
+                .addOnCompleteListener {
+                        result ->
+                    if(result.isSuccessful){
+                        Toast.makeText(this,"회원가입이 완료되었습니다.",Toast.LENGTH_SHORT).show()
+                        if(FirebaseAuth.getInstance().currentUser!=null){
+                            var intent = Intent(this, MainActivity::class.java)
+                            startActivity(intent)
+                        }
+                    }
+                    else if(result.exception?.message.isNullOrEmpty()){
+                        Toast.makeText(this,"오류가 발생했습니다.",Toast.LENGTH_SHORT).show()
+                    }
+                    else{
+                        login(email,password)
+                    }
+                }
+        }
+
+        //logout.setOnClickListener { signOut() } //로그아웃
+        //구글로그인
         btn_googleSignIn.setOnClickListener {signIn()}
         //Google 로그인 옵션 구성. requestIdToken 및 Email 요청
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
-            //'R.string.default_web_client_id' 에는 본인의 클라이언트 아이디를 넣어주시면 됩니다.
-            //저는 스트링을 따로 빼서 저렇게 사용했지만 스트링을 통째로 넣으셔도 됩니다.
             .requestEmail()
             .build()
 
@@ -104,12 +132,34 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             }
     }
 
+    fun login(email:String,password:String){
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(email,password) // 로그인
+            .addOnCompleteListener {
+                    result->
+                if(result.isSuccessful){
+                    var intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                }
+            }
+    }
+
     // onStart. 유저가 앱에 이미 구글 로그인을 했는지 확인
     public override fun onStart() {
         super.onStart()
-        val account = GoogleSignIn.getLastSignedInAccount(this)
-        if(account!==null){ // 이미 로그인 되어있을시 바로 메인 액티비티로 이동
-            toMainActivity(firebaseAuth.currentUser)
+        val account = GoogleSignIn.getLastSignedInAccount(this) //구글 계정 변수
+        //var feedDTO = FeedDTO()
+
+        //계정이 등록되어있으면
+        if(account != null) {
+            toMainActivity(firebaseAuth.currentUser) //메인으로
+//            //닉네임이 등록되어있으면
+//            if(feedDTO.nickname != null) {
+//                Log.d("닉네임", feedDTO.nickname.toString())
+//                toMainActivity(firebaseAuth.currentUser) //메인으로
+//            }
+//            else {
+//                toSignUpActivity(firebaseAuth.currentUser) //회원가입으로
+//            }
         }
     } //onStart End
 
@@ -150,15 +200,34 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             }
     }// firebaseAuthWithGoogle END
 
-
-    // toMainActivity
+    //회원가입 액티비티로 이동
+    fun toSignUpActivity(user: FirebaseUser?) {
+        if(user != null) {
+            var intent = Intent(this, SignupActivity::class.java)
+            //startActivity(Intent(this, SignupActivity::class.java))
+            //register()
+            var feedDTO = FeedDTO()
+            val uid = firebaseAuth.currentUser?.uid //uid 저장
+            val userId = firebaseAuth.currentUser?.email //이메일 저장
+            val profileImageUrl = firebaseAuth.currentUser?.photoUrl.toString() //프로필 저장
+            //cloud firestore users
+            //FirebaseFirestore.getInstance().collection("users")?.document(firebaseAuth!!.currentUser!!.uid)?.set(feedDTO)
+            //Log.d("Save Firestore: ", "파이어스토어 저장 성공")
+            //피드에 데이터 전달
+            intent.putExtra("uid", uid)
+            intent.putExtra("userId", userId)
+            intent.putExtra("profileImageUrl", profileImageUrl)
+            finish()
+        }
+    }
+    //메인 액티비티로 이동
     fun toMainActivity(user: FirebaseUser?) {
-        if(user !=null) { // MainActivity 로 이동
+        if(user != null) { // MainActivity 로 이동
             startActivity(Intent(this, MainActivity::class.java))
             register()
             finish()
         }
-    } // toMainActivity End
+    }
 
     // signIn
     private fun signIn() {
@@ -185,12 +254,11 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         // Firebase sign out
         firebaseAuth.signOut()
         googleSignInClient.revokeAccess().addOnCompleteListener(this) {
-
         }
     }
 
     //사용자 데이터 등록
-    private fun register() {
+    fun register() {
         var feedDTO = FeedDTO()
 
         feedDTO.uid = firebaseAuth.currentUser?.uid //uid 저장

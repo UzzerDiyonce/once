@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/loadback"
+    tools:context=".MyPage">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        app:contentInsetStart="0dp" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/slackey_regular"
+            android:text=":once"
+            android:textColor="#2A1D17"
+            android:textSize="32dp" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <LinearLayout
+        android:id="@+id/mypage_diaryContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/toolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/mypage_nametag"
+            android:orientation="vertical">
+            <!--나중에 이미지 DB 연결해서 수정-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center_vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="93dp"
+                    android:orientation="horizontal">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/mypage_profImage"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginRight="15dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/mypage_profile_img"
+                        app:civ_border_color="#000000"
+                        app:civ_border_overlay="true"
+                        app:civ_border_width="1dp" />
+
+                    <TextView
+                        android:id="@+id/mypage_profNickname"
+                        android:layout_width="175dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="-5dp"
+                        android:layout_gravity="center_vertical"
+                        android:fontFamily="@font/font_lee"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:text="onceuzdm23@naver.com"
+                        android:textColor="#4C6701"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="235dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="85dp"
+                    android:src="@drawable/division_line"/>
+
+                <TextView
+                    android:id="@+id/mypage_profIntro"
+                    android:layout_width="220dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-4dp"
+                    android:layout_marginLeft="94dp"
+                    android:text="안녕하세요. 비욘셉니다. 제 소개는 딱 삼십글자입니다."
+                    android:fontFamily="@font/font_lee"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="333dp"
+                    android:layout_marginTop="-75dp"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/mypageSettingBtn"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@android:color/transparent"
+                        android:padding="0sp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/setting" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="22dp"
+                        android:layout_marginLeft="6dp"
+                        android:text="편집"
+                        android:fontFamily="@font/font_lee"
+                        android:textColor="#8A7267"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/mypage_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/mypage_btnList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="28dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="left"
+                    android:layout_marginRight="35dp"
+                    android:background="#00ff0000"
+                    android:text="그림일기"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/font_lee"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/mypage_capsuleButton"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="right"
+                    android:background="#00ff0000"
+                    android:text="타임캡슐"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/font_lee"
+                    android:textSize="25sp"
+                    android:textColor="#8A7267"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="700dp"
+                android:layout_marginTop="-78dp"
+                android:src="@drawable/mypage_box_outline"
+                android:scaleType="centerCrop"></ImageView>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="550dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="-600dp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/mypageDiaryListView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_mypage_list"/>
+            </ScrollView>
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

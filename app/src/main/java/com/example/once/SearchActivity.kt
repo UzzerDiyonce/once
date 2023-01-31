@@ -34,7 +34,7 @@ class SearchActivity : AppCompatActivity() {
         searchEditText = findViewById(R.id.searchEditTxt)
         var searchWord = searchEditText.text.toString()
 
-        //recycler뷰 관련 설정
+//        //recycler뷰 관련 설정
         searchListView = findViewById(R.id.SearchListView)
         searchListView.adapter = RecyclerViewAdapter()
         searchListView.layoutManager = LinearLayoutManager(this)
@@ -57,6 +57,7 @@ class SearchActivity : AppCompatActivity() {
     inner class RecyclerViewAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         var searchDTO: ArrayList<SearchDTO> = arrayListOf()
 
+        //피드 데이터 가져오기
         init {
             firestore?.collection("feed")?.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
                 searchDTO.clear()
@@ -83,6 +84,8 @@ class SearchActivity : AppCompatActivity() {
             view.feedItemTitle.text = searchDTO!![position].title //제목
             view.feedContenetView.text = searchDTO!![position].contents //내용
             view.feedItemName.text = searchDTO!![position].userId //이메일
+            view.feedImageView.setImageResource(0)
+            view.feedDateView.text = ""
         }
 
         //recycler뷰 총 아이템 개수 반환

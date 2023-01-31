@@ -40,20 +40,6 @@
             app:layout_constraintStart_toEndOf="@+id/alarm_profile"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/alarm_lastTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="15dp"
-            android:layout_weight="1"
-            android:fontFamily="@font/font_lee"
-            android:text="n분 전"
-            android:textColor="#8A7267"
-            android:textSize="16sp"
-            app:layout_constraintStart_toEndOf="@+id/alarm_comment"
-            app:layout_constraintTop_toTopOf="parent" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView

@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/loadback"
+    android:id="@+id/detail_layout"
     tools:context=".DetailFeedActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -41,33 +42,147 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="545dp"
-        android:background="@drawable/diarylayout">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/detailContentView"
-            android:layout_width="361dp"
-            android:layout_height="229dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="296dp"
-            android:fontFamily="@font/font_lee"
-            android:text="TextView"
-            android:textColor="#2A1D17"
-            android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="55dp"
+            android:background="@drawable/changediaryframe"
+            app:layout_constraintBottom_toBottomOf="parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp">
+            <TextView
+                android:id="@+id/detailDateView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="6dp"
+                android:fontFamily="@font/font_lee"
+                android:text="20XX 년 XX 월 XX 일 월요일"
+                android:textAlignment="center"
+                android:textColor="#2A1D17"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout3"
+                android:layout_width="390dp"
+                android:layout_height="34dp"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="18dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/detailDateView">
+
+                <ImageView
+                    android:id="@+id/detailSun"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
+                    android:layout_marginStart="90dp"
+                    android:layout_marginEnd="5dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/detailCloud"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/sunny" />
+
+                <ImageView
+                    android:id="@+id/detailCloud"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/detailRain"
+                    app:layout_constraintStart_toEndOf="@+id/detailSun"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/cloudy" />
+
+                <ImageView
+                    android:id="@+id/detailRain"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/detailSnow"
+                    app:layout_constraintStart_toEndOf="@+id/detailCloud"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/rain" />
+
+                <ImageView
+                    android:id="@+id/detailSnow"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="93dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/detailRain"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/snow" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ImageView
+                android:id="@+id/detailImageView"
+                android:layout_width="375dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/detailContentView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
+
+            <ImageView
+                android:id="@+id/detailFriendIcon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginBottom="12dp"
+                app:layout_constraintBottom_toTopOf="@+id/detailContentView"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <Button
+                android:id="@+id/detailFriend"
+                android:layout_width="120dp"
+                android:layout_height="25dp"
+                android:layout_marginBottom="15dp"
+                android:background="#00000000"
+                android:fontFamily="@font/font_lee"
+                android:textAlignment="textStart"
+                android:textColor="#2A1D17"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toTopOf="@+id/detailContentView"
+                app:layout_constraintStart_toEndOf="@+id/detailFriendIcon"
+                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+            <TextView
+                android:id="@+id/detailContentView"
+                android:layout_width="375dp"
+                android:layout_height="245dp"
+                android:layout_marginBottom="20dp"
+                android:fontFamily="@font/font_lee"
+                android:lineSpacingExtra="12dp"
+                android:text="TextView"
+                android:textColor="#2A1D17"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Button
             android:id="@+id/detailLikeBtn"
             android:layout_width="104dp"
             android:layout_height="52dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginBottom="7dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="10dp"
             android:background="@drawable/button_rectangle"
             android:fontFamily="@font/font_lee"
             android:text="도장 꾹"
@@ -80,8 +195,8 @@
             android:id="@+id/detailCommentBtn"
             android:layout_width="104dp"
             android:layout_height="52dp"
-            android:layout_marginStart="11dp"
-            android:layout_marginBottom="7dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="10dp"
             android:background="@drawable/button_rectangle"
             android:fontFamily="@font/font_lee"
             android:text="댓글 쓱"
@@ -90,5 +205,15 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/detailLikeBtn" />
 
+        <ImageView
+            android:id="@+id/detailStamp"
+            android:layout_width="167dp"
+            android:layout_height="167dp"
+            android:layout_marginEnd="-7dp"
+            android:layout_marginBottom="-3dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </LinearLayout>
